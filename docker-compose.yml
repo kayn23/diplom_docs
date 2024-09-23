@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  diplom_mysql:
+    image: mysql
+    container_name: diplom_mysql_container
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: delivery
+      MYSQL_USER: develop
+      MYSQL_PASSWORD: 232111
+    ports:
+      - "3306:3306"
+
+  diplom_adminer:
+    container_name: diplom_adminer_container
+    image: adminer
+    restart: always
+    ports:
+      - 6080:8080
