@@ -4,12 +4,13 @@ import { useTheme } from "./theme/useTheme";
 import { MainPageAsync } from "./pages/MainPage/MainPageAsync";
 import { AboutPageAsync } from "./pages/AboutPage/AboutPageAsync";
 import { Suspense } from "react";
+import { classNames } from "./helpers/classNames";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
   return (
     <>
-      <div className={`app ${theme}`}>
+      <div className={classNames("app", { additional: [theme] })}>
         <button onClick={toggleTheme}>Toggle theme</button>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
