@@ -5,15 +5,12 @@ type ClassNamesOptions = {
   additional?: string[];
 };
 
-export function classNames(
-  cls: string,
-  options: ClassNamesOptions = {}
-): string {
+export function classNames(cls: string, options: ClassNamesOptions = {}): string {
   return [
     cls,
     Object.entries(options.mods || [])
       .filter(([, value]) => !!value)
       .map(([key]) => key),
     ...(options.additional || []),
-  ].join(" ");
+  ].join(' ');
 }

@@ -1,0 +1,12 @@
+Dockerfile
+*.conf
+*.lock
+*.nix
+*.yml
+*.md
+public/
+coverage/
+dist/
+.vscode/
+node_modules/
+src/assets/
