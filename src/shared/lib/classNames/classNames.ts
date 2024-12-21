@@ -2,7 +2,7 @@ type Mods = Record<string, boolean | string>;
 
 type ClassNamesOptions = {
   mods?: Mods;
-  additional?: string[];
+  additional?: (string | undefined)[];
 };
 
 export function classNames(cls: string, options: ClassNamesOptions = {}): string {
@@ -11,6 +11,6 @@ export function classNames(cls: string, options: ClassNamesOptions = {}): string
     Object.entries(options.mods || [])
       .filter(([, value]) => !!value)
       .map(([key]) => key),
-    ...(options.additional || []),
+    ...(options.additional || []).filter(Boolean),
   ].join(' ');
 }

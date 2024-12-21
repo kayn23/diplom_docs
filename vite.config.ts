@@ -16,4 +16,10 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  css: {
+    modules: {
+      scopeBehaviour: 'local', // Локальные классы по умолчанию
+      localsConvention: 'camelCase', // Преобразует классы в camelCase
+    },
+  },
 });
