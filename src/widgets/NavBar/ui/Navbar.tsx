@@ -18,6 +18,9 @@ export const Navbar: FC<NavbarProps> = ({ className }) => {
         <BaseLink className={cls.link} to="/">
           Home
         </BaseLink>
+        <BaseLink className={cls.link} to="/about">
+          About
+        </BaseLink>
       </nav>
     </div>
   );

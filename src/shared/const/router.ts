@@ -1,9 +1,7 @@
 export enum AppRoutes {
   MAIN = 'main',
+  ABOUT = 'about',
 }
 
 export const getRouteMain = () => '/';
-
-export const AppRouteByPathPattern: Record<string, AppRoutes> = {
-  [getRouteMain()]: AppRoutes.MAIN,
-};
+export const getRouteAbout = () => '/about';
