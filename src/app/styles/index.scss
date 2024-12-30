@@ -1,0 +1,16 @@
+@import './reset.sass';
+@import './variables/nord.css';
+@import './variables/globals.sass';
+@import './theme/light.sass';
+@import './theme/dark.sass';
+
+.app {
+  font: var(--font-m);
+  background: var(--bg-main);
+  color: var(--primary-color);
+  min-height: 100vh;
+}
+
+* {
+  transition: all 0.3s;
+}
