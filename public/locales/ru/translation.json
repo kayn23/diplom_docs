@@ -2,5 +2,9 @@
   "test": "test word",
   "pages": {
     "mainPage": "Главная страница"
+  },
+  "navbar": {
+    "home": "Главная",
+    "about": "А нас"
   }
 }
