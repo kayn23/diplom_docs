@@ -2,7 +2,7 @@ import { useTheme } from 'shared/config/theme/useTheme';
 import { classNames } from 'shared/lib/classNames/classNames';
 
 import { AppRouter } from './providers';
-import './styles/index.sass';
+import './styles/index.scss';
 import { Navbar } from 'widgets/Navbar';
 
 import './config/i18n.ts';

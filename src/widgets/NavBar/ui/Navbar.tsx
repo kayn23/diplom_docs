@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './Navbar.module.sass';
+import cls from './Navbar.module.scss';
 import { BaseLink } from 'shared/ui/BaseLink/BaseLink';
 import { ThemeSelector } from 'widgets/ThemeSelector';
 import { LangSelector } from 'widgets/LangSelector';

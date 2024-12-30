@@ -1,8 +1,8 @@
-@import './reset.sass';
+@import './reset';
 @import './variables/nord.css';
-@import './variables/globals.sass';
-@import './theme/light.sass';
-@import './theme/dark.sass';
+@import './variables/globals';
+@import './theme/light';
+@import './theme/dark';
 
 .app {
   font: var(--font-m);

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './BaseLink.module.sass';
+import cls from './BaseLink.module.scss';
 import { Link, LinkProps } from 'react-router';
 
 interface BaseLinkProps extends LinkProps {

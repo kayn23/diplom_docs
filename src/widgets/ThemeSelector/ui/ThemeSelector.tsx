@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './ThemeSelector.module.sass';
+import cls from './ThemeSelector.module.scss';
 import { useTheme } from 'shared/config/theme/useTheme';
 import LightIcon from 'shared/assets/icons/light-icon.svg?react';
 import MoonIcon from 'shared/assets/icons/moon-icon.svg?react';
