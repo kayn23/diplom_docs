@@ -1,7 +1,8 @@
 {
   "test": "test word",
   "pages": {
-    "mainPage": "Главная страница"
+    "mainPage": "Главная страница",
+    "notFoundPage": "Страница не найдена"
   },
   "navbar": {
     "home": "Главная",

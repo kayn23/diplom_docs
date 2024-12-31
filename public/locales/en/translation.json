@@ -1,5 +1,6 @@
 {
   "pages": {
-    "mainPage": "Main page"
+    "mainPage": "Main page",
+    "notFoundPage": "Page not found"
   }
 }
