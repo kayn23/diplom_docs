@@ -2,5 +2,9 @@
   "pages": {
     "mainPage": "Main page",
     "notFoundPage": "Page not found"
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About Us"
   }
 }

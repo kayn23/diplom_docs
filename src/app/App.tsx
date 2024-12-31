@@ -6,18 +6,15 @@ import './styles/index.scss';
 import { Navbar } from 'widgets/Navbar';
 
 import './config/i18n.ts';
-import { Suspense } from 'react';
 
 function App() {
   const { theme } = useTheme();
   return (
     <>
-      <Suspense>
-        <div className={classNames('app', { additional: [theme] })}>
-          <Navbar />
-          <AppRouter />
-        </div>
-      </Suspense>
+      <div className={classNames('app', { additional: [theme] })}>
+        <Navbar />
+        <AppRouter />
+      </div>
     </>
   );
 }
