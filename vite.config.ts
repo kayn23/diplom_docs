@@ -24,4 +24,8 @@ export default defineConfig({
       localsConvention: 'camelCase', // Преобразует классы в camelCase
     },
   },
+  test: {
+    global: true,
+    environment: 'jsdom',
+  },
 });
