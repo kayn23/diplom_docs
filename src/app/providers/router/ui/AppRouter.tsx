@@ -2,12 +2,16 @@ import { memo, Suspense, useCallback, type FC } from 'react';
 import { Route, Routes } from 'react-router';
 import { AppRoutesProps } from 'shared/types/router';
 import { routerConfig } from '../config/routerConfig';
-import { PageLoading } from 'widgets/PageLoading';
+import { PageLoader } from 'widgets/PageLoader';
 
 export const AppRouter: FC = memo(() => {
   const renderWithWrapper = useCallback((router: AppRoutesProps) => {
     // TODO need fallback element
-    const element = <Suspense fallback={<PageLoading />}>{router.element}</Suspense>;
+    const element = (
+      <Suspense key={router.path} fallback={<PageLoader />}>
+        {router.element}
+      </Suspense>
+    );
 
     return <Route key={router.path} path={router.path} element={element} />;
   }, []);
