@@ -18,7 +18,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "vite": ["node_modules/vite"],
+      "vitest": ["node_modules/vitest"]
+    },
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["vite.config.ts"]
 }

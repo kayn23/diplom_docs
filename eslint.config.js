@@ -23,5 +23,13 @@ export default tseslint.config(
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-empty-object-type': ['error', { allowWithName: 'Props$' }],
     },
+    overrides: [
+      {
+        files: ['**/*.test.{ts,tsx}'],
+        rules: {
+          'i18next/no-literal-string': 'off',
+        },
+      },
+    ],
   }
 );
