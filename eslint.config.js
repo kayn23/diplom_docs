@@ -5,10 +5,14 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import i18next from 'eslint-plugin-i18next';
 
-export default tseslint.config(
-  { ignores: ['dist'] },
+export default [
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended, i18next.configs['flat/recommended']],
+    ignores: ['dist', 'node_modules'],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  i18next.configs['flat/recommended'],
+  {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -23,13 +27,11 @@ export default tseslint.config(
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-empty-object-type': ['error', { allowWithName: 'Props$' }],
     },
-    overrides: [
-      {
-        files: ['**/*.test.{ts,tsx}'],
-        rules: {
-          'i18next/no-literal-string': 'off',
-        },
-      },
-    ],
-  }
-);
+  },
+  {
+    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    rules: {
+      'i18next/no-literal-string': 'off',
+    },
+  },
+];
