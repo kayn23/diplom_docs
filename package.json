@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prettier": "prettier --write .",
-    "test": "vitest --root src/"
+    "test": "vitest --root src/",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "i18next": "^24.2.0",
@@ -21,7 +23,16 @@
     "react-router": "^7.0.2"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.3",
     "@eslint/js": "^9.15.0",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-onboarding": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/builder-vite": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@storybook/test": "^8.4.7",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@types/node": "^22.10.3",
@@ -32,10 +43,12 @@
     "eslint-plugin-i18next": "^6.1.1",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
+    "eslint-plugin-storybook": "^0.11.2",
     "globals": "^15.12.0",
     "jsdom": "^25.0.1",
     "prettier": "^3.4.2",
     "sass-embedded": "^1.82.0",
+    "storybook": "^8.4.7",
     "stylelint": "^16.12.0",
     "stylelint-config-standard-scss": "^14.0.0",
     "typescript": "~5.6.2",
@@ -44,5 +57,10 @@
     "vite-plugin-stylelint": "^6.0.0",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^2.1.8"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
   }
 }

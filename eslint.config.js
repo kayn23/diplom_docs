@@ -7,7 +7,7 @@ import i18next from 'eslint-plugin-i18next';
 
 export default [
   {
-    ignores: ['dist', 'node_modules'],
+    ignores: ['dist', 'node_modules', 'src/stories'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -29,7 +29,7 @@ export default [
     },
   },
   {
-    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', '**/*.stories.{ts,tsx}'],
     rules: {
       'i18next/no-literal-string': 'off',
     },
