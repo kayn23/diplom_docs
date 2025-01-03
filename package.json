@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prettier": "prettier --write .",
-    "test": "vitest --root src/",
+    "test": "vitest run --root src/",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
