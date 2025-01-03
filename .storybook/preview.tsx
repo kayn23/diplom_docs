@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router';
 import { ThemeProvider } from '../src/app/providers/ThemeProvider';
 import './storybook.scss';
 import '../src/app/styles/index.scss';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../src/app/config/i18n';
+import { useTheme } from '../src/shared/config/theme/useTheme';
 
 const preview: Preview = {
   parameters: {
@@ -40,27 +43,33 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const currentTheme = context.globals.theme || 'light';
-      // const backgroundColor = currentTheme === 'light' ? 'var(--nord6)' : 'var(--nord0)';
+      const { theme } = useTheme();
 
       return (
-        <ThemeProvider>
-          <BrowserRouter>
-            <div
-              className={`app ${currentTheme}`}
-              style={{
-                padding: '1rem',
-                minWidth: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: context.viewMode === 'docs' ? 'auto' : '100vh',
-              }}
-            >
+        <div
+          className={`app ${theme} ${context.globals.theme}`}
+          style={{
+            padding: '1rem',
+            minWidth: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: context.viewMode === 'docs' ? 'auto' : '100vh',
+          }}
+        >
+          <Story />
+        </div>
+      );
+    },
+    (Story) => {
+      return (
+        <I18nextProvider i18n={i18n}>
+          <ThemeProvider>
+            <BrowserRouter>
               <Story />
-            </div>
-          </BrowserRouter>
-        </ThemeProvider>
+            </BrowserRouter>
+          </ThemeProvider>
+        </I18nextProvider>
       );
     },
   ],

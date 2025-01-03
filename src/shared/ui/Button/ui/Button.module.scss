@@ -1,6 +1,17 @@
 .button {
   cursor: pointer;
   color: var(--primary-color);
+  font: var(--font-m);
+  outline: none;
+  border: none;
+
+  &:hover {
+   transform: scale(1.03);
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
 }
 
 .clear {
@@ -9,4 +20,11 @@
   outline: none;
   background: none;
   border: none;
+}
+
+.primary {
+  background-color: var(--nord8);
+  color: var(--nord1);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 }

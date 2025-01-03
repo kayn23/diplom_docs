@@ -14,7 +14,12 @@ interface ThemeSelectorProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const ThemeSelector: FC<ThemeSelectorProps> = ({ className, ...props }) => {
   const { theme, toggleTheme } = useTheme();
   return (
-    <Button className={classNames(cls.ThemeSelector, { additional: [className] })} onClick={toggleTheme} {...props}>
+    <Button
+      className={classNames(cls.ThemeSelector, { additional: [className] })}
+      theme="clear"
+      onClick={() => toggleTheme()}
+      {...props}
+    >
       {theme === Theme.LIGHT && <LightIcon className={cls.icon} />}
       {theme === Theme.DARK && <MoonIcon className={cls.icon} />}
     </Button>
