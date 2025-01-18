@@ -42,6 +42,17 @@ const preview: Preview = {
     theme: 'light',
   },
   decorators: [
+    (Story) => {
+      return (
+        <I18nextProvider i18n={i18n}>
+          <ThemeProvider>
+            <BrowserRouter>
+              <Story />
+            </BrowserRouter>
+          </ThemeProvider>
+        </I18nextProvider>
+      );
+    },
     (Story, context) => {
       const { theme } = useTheme();
 
@@ -59,17 +70,6 @@ const preview: Preview = {
         >
           <Story />
         </div>
-      );
-    },
-    (Story) => {
-      return (
-        <I18nextProvider i18n={i18n}>
-          <ThemeProvider>
-            <BrowserRouter>
-              <Story />
-            </BrowserRouter>
-          </ThemeProvider>
-        </I18nextProvider>
       );
     },
   ],

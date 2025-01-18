@@ -1,0 +1,40 @@
+.Modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: var(--bg-overlay); // Используем RGBA цвет
+}
+
+.container {
+  border-radius: 3px;
+  background: var(--bg-accent);
+  padding: 40px;
+  min-width: 50%;
+  position: relative;
+  box-shadow: 2px 1px 3px var(--color-shadow);
+}
+
+.opened {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.closeButton {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  padding: 5px 10px;
+  transform: scaleX(1.3);
+}
