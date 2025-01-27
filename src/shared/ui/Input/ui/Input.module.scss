@@ -1,0 +1,17 @@
+.Input {
+  border: none;
+  outline: none;
+  background: var(--bg-secondary);
+  color: var(--color-primary);
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.2rem;
+
+  &:focus {
+    background: var(--bg-active-element);
+  }
+}
+
+.outline {
+  background: none;
+  border-bottom: 2px solid var(--color-underline);
+}
