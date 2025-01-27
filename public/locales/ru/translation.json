@@ -9,8 +9,15 @@
     "about": "О нас"
   },
   "errors": {
-  "fallbackTitle": "Возникла непредвиденная ошибка"
-}, "buttons": {
+    "fallbackTitle": "Возникла непредвиденная ошибка"
+  },
+  "buttons": {
     "reload": "Перезагрузить"
+  },
+  "entities": {
+    "counter": {
+      "increment": "Прибавить",
+      "decrement": "Убавить"
+    }
   }
 }

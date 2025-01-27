@@ -14,12 +14,14 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
     "i18next": "^24.2.0",
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-http-backend": "^3.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.2.0",
+    "react-redux": "^9.2.0",
     "react-router": "^7.0.2"
   },
   "devDependencies": {
@@ -62,5 +64,6 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
-  }
+  },
+  "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }
