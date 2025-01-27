@@ -1,11 +1,16 @@
 .dark-theme,
 [data-theme='dark-theme'] {
+  // background
   --bg-main: var(--nord0);
   --bg-secondary: var(--nord1);
   --bg-accent: var(--nord2);
-  --primary-color: var(--nord4);
-  --secondary-color: var(--nord5);
-  --active-color: var(--nord2);
   --bg-overlay: rgba(59 66 82 / 50%);
+  --bg-active-element: var(--nord3);
+
+  // color
+  --color-primary: var(--nord4);
+  --color-secondary: var(--nord5);
+  --color-active: var(--nord2);
   --color-shadow: none;
+  --color-underline: var(--nord1);
 }

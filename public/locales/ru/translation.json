@@ -19,5 +19,14 @@
       "increment": "Прибавить",
       "decrement": "Убавить"
     }
+  },
+  "features": {
+    "LoginModal": {
+      "header": "Войти",
+      "button": "Войти"
+    },
+    "AuthButton": {
+      "button": "Войти"
+    }
   }
 }

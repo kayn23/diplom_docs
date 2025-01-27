@@ -20,10 +20,16 @@
 .container {
   border-radius: 3px;
   background: var(--bg-accent);
-  padding: 40px;
-  min-width: 50%;
+  padding: 1rem;
+  min-width: 300px;
   position: relative;
   box-shadow: 2px 1px 3px var(--color-shadow);
+}
+
+.header {
+  padding: 0 1rem;
+  margin: 0 -1rem;
+  border-bottom: 2px solid var(--color-underline);
 }
 
 .opened {

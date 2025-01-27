@@ -6,11 +6,12 @@ import { createPortal } from 'react-dom';
 
 interface ModalProps {
   children: ReactNode;
+  header?: ReactNode;
   isOpen: boolean;
   onClose?: () => void;
 }
 
-export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
+export const Modal: FC<ModalProps> = ({ header, isOpen, onClose, children }) => {
   const mods: Mods = {
     [cls.opened]: isOpen,
   };
@@ -47,6 +48,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
         <div className={classNames(cls.Modal, { mods })}>
           <div className={classNames(cls.overlay)} onClick={onCloseHandle}>
             <div className={classNames(cls.container)} onClick={onConteinerClick}>
+              {header ? <div className={cls.header}>{header}</div> : <div style={{ marginBottom: '2rem' }}></div>}
               <Button theme="clear" className={cls.closeButton} onClick={onCloseHandle}>
                 X
               </Button>

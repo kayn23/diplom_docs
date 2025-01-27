@@ -1,16 +1,20 @@
 .button {
   cursor: pointer;
-  color: var(--primary-color);
+  color: var(--color-primary);
   font: var(--font-m);
   outline: none;
   border: none;
 
   &:hover {
-   transform: scale(1.03);
+    transform: scale(1.03);
   }
 
   &:active {
     transform: scale(0.99);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bg-active-element);
   }
 }
 
@@ -25,6 +29,6 @@
 .primary {
   background-color: var(--nord8);
   color: var(--nord1);
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem;
   border-radius: 0.5rem;
 }
