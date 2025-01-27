@@ -4,13 +4,16 @@
 @use './theme/light';
 @use './theme/dark';
 
-.app {
+body {
   font: var(--font-m);
   background: var(--bg-main);
   color: var(--primary-color);
+}
+
+.app {
   min-height: 100vh;
 }
 
-* {
-  transition: all 0.3s;
+.transition-15 {
+  transition: all 0.15s;
 }
