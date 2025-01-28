@@ -4,10 +4,10 @@ import cls from './LoginForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Input } from 'shared/ui/Input';
 import { Button } from 'shared/ui/Button/ui/Button';
-import { loginUserAsync } from 'entities/User';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { useSelector } from 'react-redux';
-import { getLoginError } from 'entities/User/model/selectors/getLoginError';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+import { loginUserAsync } from '../model/services/loginUserAsync/loginUserAsync';
+import { getLoginError } from '../model/selectors/getLoginError';
 
 interface LoginFormProps {
   className?: string;

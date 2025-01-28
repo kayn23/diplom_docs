@@ -1,7 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { UserSchema } from '../types/user';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IAuthData, UserSchema } from '../types/user';
 import { USER_AUTH_DATA } from 'shared/const/localstorage';
-import { loginUserAsync } from './loginUserAsync';
 
 const initialState: UserSchema = {
   user: undefined,
@@ -20,24 +19,14 @@ export const userSlice = createSlice({
         state.authData = JSON.parse(authData);
       }
     },
+    setAuthData: (state, action: PayloadAction<IAuthData>) => {
+      state.authData = action.payload;
+      localStorage.setItem(USER_AUTH_DATA, JSON.stringify(action.payload));
+    },
     logout: (state) => {
       state.authData = undefined;
       localStorage.removeItem(USER_AUTH_DATA);
     },
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(loginUserAsync.pending, (state) => {
-        state.isLoginProcess = true;
-        state.loginError = undefined;
-      })
-      .addCase(loginUserAsync.fulfilled, (state, action) => {
-        state.authData = action.payload;
-        localStorage.setItem(USER_AUTH_DATA, JSON.stringify(action.payload));
-      })
-      .addCase(loginUserAsync.rejected, (state, action) => {
-        state.loginError = action.payload;
-      });
   },
 });
 
