@@ -5,7 +5,7 @@ import { IAuthData } from '../../../../../entities/User/model/types/user';
 import { HttpErrorHandler } from 'shared/lib/HttpErrorHandler';
 import { userActions } from 'entities/User';
 
-interface loginPayload {
+export interface loginPayload {
   email: string;
   password: string;
 }
@@ -18,16 +18,16 @@ export const loginUserAsync = createAsyncThunk<IAuthData, loginPayload, { reject
       thunkApi.dispatch(userActions.setAuthData(res));
       return res;
     } catch (e: unknown) {
-      if (e instanceof FetchError && e.statusCode) {
+      if (e instanceof FetchError) {
         return thunkApi.rejectWithValue(
-          HttpErrorHandler(e, {
+          HttpErrorHandler(e as FetchError, {
             401: 'features.LoginModal.errors.401',
             400: 'features.LoginModal.errors.400',
             404: 'features.LoginModal.errors.400',
           })
         );
       }
-      return thunkApi.rejectWithValue('unknown error');
+      return thunkApi.rejectWithValue('httpCodeMessage.unknown');
     }
   }
 );
