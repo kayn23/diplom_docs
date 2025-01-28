@@ -27,3 +27,13 @@ body {
     font: var(--font-l);
   }
 }
+
+button,
+a {
+  outline: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: solid var(--bg-active-element);
+}
