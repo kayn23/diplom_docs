@@ -5,6 +5,7 @@ import { BaseLink } from 'shared/ui/BaseLink/BaseLink';
 import { ThemeSelector } from 'widgets/ThemeSelector';
 import { LangSelector } from 'widgets/LangSelector';
 import { useTranslation } from 'react-i18next';
+import { AuthButton } from './AuthButton';
 
 interface NavbarProps {
   className?: string;
@@ -23,6 +24,7 @@ export const Navbar: FC<NavbarProps> = ({ className }) => {
         <BaseLink className={cls.link} to="/about">
           {t('navbar.about')}
         </BaseLink>
+        <AuthButton />
       </nav>
     </div>
   );
