@@ -3,6 +3,17 @@ export interface IUser {
   email: string;
 }
 
+export interface IAuthData {
+  id: number;
+  email: string;
+  roleId: number;
+  role: string;
+  token: string;
+}
+
 export interface UserSchema {
   user?: IUser;
+  authData?: IAuthData;
+  isLoginProcess: boolean;
+  loginError?: string;
 }
