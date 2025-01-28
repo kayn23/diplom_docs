@@ -13,3 +13,7 @@ export function createReduxStore(initialState?: StateSchema) {
     preloadedState: initialState,
   });
 }
+
+// Определите типы для dispatch и состояния
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];
+export type RootState = ReturnType<ReturnType<typeof createReduxStore>['getState']>;
