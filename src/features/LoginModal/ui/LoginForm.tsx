@@ -1,13 +1,12 @@
-import { FormEvent, memo, useCallback, useState, type FC } from 'react';
+import { ChangeEvent, FormEvent, memo, useCallback, useState, type FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './LoginForm.module.scss';
 import { useTranslation } from 'react-i18next';
-import { Input } from 'shared/ui/Input';
-import { Button } from 'shared/ui/Button/ui/Button';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { loginUserAsync } from '../model/services/loginUserAsync/loginUserAsync';
 import { getLoginError } from '../model/selectors/getLoginError';
+import { Button, Input, Typography } from '@mui/joy';
 
 interface LoginFormProps {
   className?: string;
@@ -36,37 +35,31 @@ export const LoginForm: FC<LoginFormProps> = memo((props) => {
   );
 
   const onChangeEmail = useCallback(
-    (value: string) => {
-      setEmail(value);
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setEmail(e.target.value);
     },
     [setEmail]
   );
 
   const onChangePassword = useCallback(
-    (value: string) => {
-      setPassword(value);
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
     },
     [setPassword]
   );
 
   return (
     <form onSubmit={onSubmit} className={classNames(cls.LoginForm, { additional: [className] })}>
-      <p>{error}</p>
-      <Input
-        value={email}
-        onChange={onChangeEmail}
-        placeholder={t('features.LoginModal.form.email')}
-        theme="outline"
-        autofocus
-      />
+      {error && <Typography color="danger">{error}</Typography>}
+      <Input value={email} onChange={onChangeEmail} placeholder={t('features.LoginModal.form.email')} variant="soft" />
       <Input
         value={password}
         onChange={onChangePassword}
         type="password"
         placeholder={t('features.LoginModal.form.password')}
-        theme="outline"
+        variant="soft"
       />
-      <Button theme="clear" type="submit">
+      <Button type="submit" variant="plain">
         {t('features.LoginModal.button')}
       </Button>
     </form>

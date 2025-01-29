@@ -10,7 +10,12 @@ const initialState: AuthSchema = {
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    clearState: (state) => {
+      state.loginError = undefined;
+      state.isLoginProcess = false;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(loginUserAsync.pending, (state) => {
