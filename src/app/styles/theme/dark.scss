@@ -1,7 +1,8 @@
 .dark-theme,
 [data-theme='dark-theme'] {
   // background
-  --bg-main: var(--nord0);
+  // --bg-main: var(--nord0);
+  --bg-main: var(--joy-palette-common-black);
   --bg-secondary: var(--nord1);
   --bg-accent: var(--nord2);
   --bg-overlay: rgba(59 66 82 / 50%);
