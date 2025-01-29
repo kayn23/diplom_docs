@@ -44,7 +44,8 @@ export const AuthButton: FC<AuthButtonProps> = memo((props) => {
           >
             {t('features.AuthButton.button')}
           </Button>
-          <LoginModal isOpen={isOpen} onClose={onCloseLoginModal} />
+          <LoginModal isOpen={isOpen}
+onClose={onCloseLoginModal} />
         </>
       )}
 

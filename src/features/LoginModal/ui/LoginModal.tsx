@@ -21,7 +21,8 @@ export const LoginModal: FC<LoginModalProps> = memo((props) => {
   };
 
   return (
-    <Modal open={isOpen} onClose={onCloseEvent}>
+    <Modal open={isOpen}
+onClose={onCloseEvent}>
       <ModalDialog variant="plain">
         <ModalClose />
         <Typography>{t('features.LoginModal.header')}</Typography>

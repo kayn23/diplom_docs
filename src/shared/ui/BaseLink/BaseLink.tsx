@@ -9,7 +9,8 @@ interface BaseLinkProps extends LinkProps {
 
 export const BaseLink: FC<BaseLinkProps> = ({ className, children, ...props }) => {
   return (
-    <Link className={classNames(cls.BaseLink, { additional: [className] })} {...props}>
+    <Link className={classNames(cls.BaseLink, { additional: [className] })}
+{...props}>
       {children}
     </Link>
   );

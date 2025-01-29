@@ -18,10 +18,12 @@ export const Navbar: FC<NavbarProps> = ({ className }) => {
       <nav className={classNames(cls.navigation)}>
         <LangSelector />
         <ThemeSelector />
-        <BaseLink className={cls.link} to="/">
+        <BaseLink className={cls.link}
+to="/">
           {t('navbar.home')}
         </BaseLink>
-        <BaseLink className={cls.link} to="/about">
+        <BaseLink className={cls.link}
+to="/about">
           {t('navbar.about')}
         </BaseLink>
         <AuthButton />

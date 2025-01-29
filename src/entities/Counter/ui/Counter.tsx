@@ -24,10 +24,16 @@ export const Counter: FC<CounterProps> = () => {
   return (
     <div>
       <h1 data-testid="value-title">{counterValue}</h1>
-      <Button onClick={increment} data-testid="increment-button">
+      <Button
+        onClick={increment}
+        data-testid="increment-button"
+      >
         {t('entities.counter.increment')}
       </Button>
-      <Button onClick={decrement} data-testid="decrement-button">
+      <Button
+        onClick={decrement}
+        data-testid="decrement-button"
+      >
         {t('entities.counter.decrement')}
       </Button>
     </div>

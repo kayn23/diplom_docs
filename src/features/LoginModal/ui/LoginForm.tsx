@@ -49,9 +49,17 @@ export const LoginForm: FC<LoginFormProps> = memo((props) => {
   );
 
   return (
-    <form onSubmit={onSubmit} className={classNames(cls.LoginForm, { additional: [className] })}>
+    <form
+      onSubmit={onSubmit}
+      className={classNames(cls.LoginForm, { additional: [className] })}
+    >
       {error && <Typography color="danger">{error}</Typography>}
-      <Input value={email} onChange={onChangeEmail} placeholder={t('features.LoginModal.form.email')} variant="soft" />
+      <Input
+        value={email}
+        onChange={onChangeEmail}
+        placeholder={t('features.LoginModal.form.email')}
+        variant="soft"
+      />
       <Input
         value={password}
         onChange={onChangePassword}
@@ -59,7 +67,10 @@ export const LoginForm: FC<LoginFormProps> = memo((props) => {
         placeholder={t('features.LoginModal.form.password')}
         variant="soft"
       />
-      <Button type="submit" variant="plain">
+      <Button
+        type="submit"
+        variant="plain"
+      >
         {t('features.LoginModal.button')}
       </Button>
     </form>

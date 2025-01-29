@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
+import eslintPluginReact from 'eslint-plugin-react';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import i18next from 'eslint-plugin-i18next';
@@ -19,6 +20,7 @@ export default [
       globals: globals.browser,
     },
     plugins: {
+      react: eslintPluginReact,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
@@ -28,6 +30,7 @@ export default [
       '@typescript-eslint/no-empty-object-type': ['error', { allowWithName: 'Props$' }],
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'error',
+      'react/jsx-max-props-per-line': [1, { when: 'always' }],
     },
   },
   {

@@ -12,7 +12,9 @@ export const LangSelector: FC<LangSelectorProps> = ({ ...props }) => {
   };
 
   return (
-    <Button theme="clear" onClick={toggle} {...props}>
+    <Button theme="clear"
+onClick={toggle}
+{...props}>
       {i18n.language}
     </Button>
   );

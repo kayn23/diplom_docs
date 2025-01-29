@@ -8,12 +8,21 @@ export const AppRouter: FC = memo(() => {
   const renderWithWrapper = useCallback((router: AppRoutesProps) => {
     // TODO need fallback element
     const element = (
-      <Suspense key={router.path} fallback={<PageLoader />}>
+      <Suspense
+        key={router.path}
+        fallback={<PageLoader />}
+      >
         {router.element}
       </Suspense>
     );
 
-    return <Route key={router.path} path={router.path} element={element} />;
+    return (
+      <Route
+        key={router.path}
+        path={router.path}
+        element={element}
+      />
+    );
   }, []);
   return <Routes>{Object.values(routerConfig).map((route) => renderWithWrapper(route))}</Routes>;
 });

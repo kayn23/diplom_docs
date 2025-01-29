@@ -46,10 +46,14 @@ export const Modal: FC<ModalProps> = ({ header, isOpen, onClose, children }) => 
     <>
       {createPortal(
         <div className={classNames(cls.Modal, { mods })}>
-          <div className={classNames(cls.overlay)} onClick={onCloseHandle}>
-            <div className={classNames(cls.container)} onClick={onConteinerClick}>
+          <div className={classNames(cls.overlay)}
+onClick={onCloseHandle}>
+            <div className={classNames(cls.container)}
+onClick={onConteinerClick}>
               {header ? <div className={cls.header}>{header}</div> : <div style={{ marginBottom: '2rem' }}></div>}
-              <Button theme="clear" className={cls.closeButton} onClick={onCloseHandle}>
+              <Button theme="clear"
+className={cls.closeButton}
+onClick={onCloseHandle}>
                 X
               </Button>
               {children}
