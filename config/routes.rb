@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :warehouses
   resources :cities
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -13,5 +14,6 @@ Rails.application.routes.draw do
       end
     end
     resources :cities, only: %i[index create destroy]
+    resources :warehouses
   end
 end

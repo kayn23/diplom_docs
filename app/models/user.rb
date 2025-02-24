@@ -33,4 +33,8 @@ class User < ApplicationRecord
   def isCourier?
     roles.exists?(name: %w[courier])
   end
+
+  def auth_token
+    JsonWebToken.encode(user_id: id)
+  end
 end

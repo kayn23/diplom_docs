@@ -2,8 +2,12 @@
 
 one:
   name: MyString
-  region: Region
+  address: MyString
+  city: one
+  active: false
 
 two:
-  name: MyString2
-  region: Region2
+  name: MyString
+  address: MyString
+  city: two
+  active: false
