@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   scope 'api' do
     post 'login', to: 'authentication#login'
-    resources :users, only: %i[show update] do
+    resources :users, only: %i[show update index] do
       member do
         post :add_roles # Создаем маршрут /api/users/:id/add_role
         post :remove_roles
