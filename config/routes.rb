@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :cities
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -11,5 +12,6 @@ Rails.application.routes.draw do
         post :remove_roles
       end
     end
+    resources :cities, only: %i[index create destroy]
   end
 end

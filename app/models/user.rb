@@ -17,4 +17,20 @@ class User < ApplicationRecord
     roles = self.roles.where(name: role_names)
     self.roles.delete(roles)
   end
+
+  def isAdmin?
+    roles.exists?(name: %w[admin])
+  end
+
+  def isManager?
+    roles.exists?(name: %w[manager])
+  end
+
+  def isHightRule?
+    roles.exists?(name: %w[manager admin])
+  end
+
+  def isCourier?
+    roles.exists?(name: %w[courier])
+  end
 end

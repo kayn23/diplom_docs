@@ -14,3 +14,5 @@ end
 
 u = User.create(email: 'admin@gmail.com', password: '232111')
 u.add_roles(%w[client manager courier admin])
+
+load Rails.root.join('db/seeds/cities.rb')
