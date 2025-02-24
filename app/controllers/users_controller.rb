@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include AuthorizeRequest
   skip_before_action :authorize_request, only: [:index]
   before_action :find_user, except: [:index]
 
@@ -8,9 +7,12 @@ class UsersController < ApplicationController
   end
 
   def show
+    authorize @user
+    render 'show'
   end
 
   def update
+    authorize @user
     if @user.update(user_update_params)
       render 'show'
     else

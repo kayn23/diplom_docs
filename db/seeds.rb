@@ -12,4 +12,5 @@ roles.each do |role_name|
   Role.find_or_create_by(name: role_name)
 end
 
-User.create(email: 'admin@gmail.com', password: '232111')
+u = User.create(email: 'admin@gmail.com', password: '232111')
+u.add_roles(%w[client manager courier admin])
