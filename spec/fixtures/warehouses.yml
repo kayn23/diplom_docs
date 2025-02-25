@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  address: MyString
+  name: РЦ
+  address: Заводская
   city: one
-  active: false
+  active: true
 
 two:
-  name: MyString
+  name: PVZ
   address: MyString
   city: two
   active: false

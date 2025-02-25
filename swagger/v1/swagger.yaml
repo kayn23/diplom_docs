@@ -8,12 +8,12 @@ paths:
     post:
       summary: return token and user info
       tags:
-        - login
+      - login
       parameters: []
       responses:
-        "200":
+        '200':
           description: return tokens
-        "401":
+        '401':
           description: bad password
       requestBody:
         content:
@@ -26,10 +26,18 @@ paths:
                 password:
                   type: string
               required:
-                - email
-                - password
+              - email
+              - password
+  "/api/warehouses":
+    get:
+      summary: return correct list
+      tags:
+      - Список складов
+      responses:
+        '200':
+          description: correct response
 servers:
-  - url: http://{defaultHost}
-    variables:
-      defaultHost:
-        default: localhost:3000
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000

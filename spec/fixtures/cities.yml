@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  region: Region
+  name: Vladimir
+  region: Vladimirskaya
 
 two:
-  name: MyString2
-  region: Region2
+  name: Murom
+  region: Vladimirskaya
+
+other_region:
+  name: Naginsk
+  region: Moscovskaya

@@ -6,13 +6,15 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+load Rails.root.join('db/seeds/cities.rb')
+load Rails.root.join('db/seeds/warehouses.rb')
+
 roles = %w[client manager courier admin]
 
 roles.each do |role_name|
   Role.find_or_create_by(name: role_name)
 end
 
-u = User.create(email: 'admin@gmail.com', password: '232111')
-u.add_roles(%w[client manager courier admin])
-
-load Rails.root.join('db/seeds/cities.rb')
+User.find_or_create_by(email: 'admin@gmail.com') do |u|
+  u.password = '232111'
+end
