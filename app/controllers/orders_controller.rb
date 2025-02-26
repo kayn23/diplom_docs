@@ -9,6 +9,16 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @order = Order.new(create_params)
+    @order.sender = current_user if current_user.low_rule?
+    @order.receiver = nil if current_user.low_rule?
+    authorize @order
+    if @order.save
+      # TODO: здесь должен будет вызваться колбэк на постановку таймера на 72 часа
+      render :show, status: :created
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -21,5 +31,9 @@ class OrdersController < ApplicationController
 
   def set_order
     @order = Order.find(params[:id])
+  end
+
+  def create_params
+    params.permit(:start_warehouse_id, :end_warehouse_id, :sender_id, :receiver_id)
   end
 end

@@ -7,9 +7,14 @@ FactoryBot.define do
     lastname { Faker::Name.last_name }
     document_number { Faker::Number.number(digits: 10) }
 
-    factory :user_admin do
+    trait :admin do
       email { 'admin@gmail.com' }
       password { '232111' }
+
+      after(:create) do |user|
+        admin_role = create(:role, :admin) # Создаём роль admin
+        user.roles << admin_role # Привязываем роль к пользователю
+      end
     end
   end
 end

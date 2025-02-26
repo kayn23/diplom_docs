@@ -28,11 +28,19 @@ paths:
               required:
               - email
               - password
+  "/api/cities":
+    get:
+      summary: list cities
+      tags:
+      - cities
+      responses:
+        '200':
+          description: correct response
   "/api/orders":
     get:
-      summary: return correct list
+      summary: list orders
       tags:
-      - Список заказов
+      - orders
       security:
       - Bearer: {}
       responses:
@@ -40,6 +48,33 @@ paths:
           description: empty list
         '401':
           description: not authorization
+    post:
+      summary: create order
+      tags:
+      - orders
+      security:
+      - Bearer: {}
+      parameters: []
+      responses:
+        '201':
+          description: create hight rule user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sender_id:
+                  type: number
+                receiver_id:
+                  type: number
+                start_warehouse_id:
+                  type: number
+                end_warehouse_id:
+                  type: number
+              required:
+              - start_warehouse_id,
+              - end_warehouse_id
   "/api/warehouses":
     get:
       summary: return correct list

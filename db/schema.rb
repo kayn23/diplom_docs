@@ -24,10 +24,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_212637) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "sender_id", null: false
-    t.bigint "receiver_id", null: false
+    t.bigint "receiver_id"
     t.bigint "start_warehouse_id", null: false
     t.bigint "end_warehouse_id", null: false
-    t.string "status", default: "new", null: false
+    t.string "status", default: "created"
     t.decimal "price", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,7 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_212637) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

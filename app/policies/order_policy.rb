@@ -19,6 +19,12 @@ class OrderPolicy < ApplicationPolicy
     true
   end
 
+  def create?
+    return record.sender_id == user.id if user.low_rule?
+
+    true
+  end
+
   def update?
     show?
   end

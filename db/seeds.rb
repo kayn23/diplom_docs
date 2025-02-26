@@ -9,12 +9,12 @@
 load Rails.root.join('db/seeds/cities.rb')
 load Rails.root.join('db/seeds/warehouses.rb')
 
-roles = %w[client manager courier admin]
-
-roles.each do |role_name|
-  Role.find_or_create_by(name: role_name)
-end
-
+# roles = %w[client manager courier admin]
+#
+# roles.each do |role_name|
+#   Role.find_or_create_by(name: role_name)
+# end
+#
 User.find_or_create_by(email: 'admin@gmail.com') do |u|
   u.password = '232111'
 end

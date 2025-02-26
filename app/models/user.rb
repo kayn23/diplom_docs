@@ -8,6 +8,8 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :document_number, uniqueness: true
 
+  after_create :assign_client_role
+
   def add_roles(role_names)
     roles = Role.where(name: role_names)
     rn = roles.reject { |role| self.roles.include?(role) }
@@ -42,5 +44,12 @@ class User < ApplicationRecord
 
   def auth_token
     JsonWebToken.encode(user_id: id)
+  end
+
+  private
+
+  def assign_client_role
+    client_role = Role.find_or_create_by(name: 'client')
+    roles << client_role
   end
 end
