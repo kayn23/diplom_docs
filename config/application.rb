@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -23,5 +23,12 @@ module SmallDeliveryRails
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.generators do |g|
+      g.helper false          # Не генерировать хелперы
+      g.assets false          # Не генерировать ассеты
+      g.view_specs false      # Не генерировать тесты для вьюх
+      g.test_framework :rspec
+      g.fixture_replacement :factory_bot
+    end
   end
 end

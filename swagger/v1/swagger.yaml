@@ -28,6 +28,18 @@ paths:
               required:
               - email
               - password
+  "/api/orders":
+    get:
+      summary: return correct list
+      tags:
+      - Список заказов
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: empty list
+        '401':
+          description: not authorization
   "/api/warehouses":
     get:
       summary: return correct list
@@ -41,3 +53,9 @@ servers:
   variables:
     defaultHost:
       default: localhost:3000
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      in: header
+      name: Authorization

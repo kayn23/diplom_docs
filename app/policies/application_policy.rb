@@ -37,9 +37,9 @@ class ApplicationPolicy
   end
 
   class Scope
-    def initialize(user, record)
+    def initialize(user, scope)
       @user = user || User.new
-      @record = record
+      @scope = scope
     end
 
     def resolve

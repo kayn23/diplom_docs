@@ -4,14 +4,14 @@ class WarehousPolicy < ApplicationPolicy
   end
 
   def creare?
-    user.isAdmin?
+    user.admin?
   end
 
   def update?
-    user.isAdmin?
+    create?
   end
 
   def destroy?
-    user.isAdmin?
+    create?
   end
 end

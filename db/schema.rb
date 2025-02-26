@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_24_144116) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_25_212637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,21 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_24_144116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "region"], name: "index_cities_on_name_and_region", unique: true
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "receiver_id", null: false
+    t.bigint "start_warehouse_id", null: false
+    t.bigint "end_warehouse_id", null: false
+    t.string "status", default: "new", null: false
+    t.decimal "price", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["end_warehouse_id"], name: "index_orders_on_end_warehouse_id"
+    t.index ["receiver_id"], name: "index_orders_on_receiver_id"
+    t.index ["sender_id"], name: "index_orders_on_sender_id"
+    t.index ["start_warehouse_id"], name: "index_orders_on_start_warehouse_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -59,5 +74,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_24_144116) do
     t.index ["name", "address", "city_id"], name: "index_warehouses_on_name_and_address_and_city_id", unique: true
   end
 
+  add_foreign_key "orders", "users", column: "receiver_id"
+  add_foreign_key "orders", "users", column: "sender_id"
+  add_foreign_key "orders", "warehouses", column: "end_warehouse_id"
+  add_foreign_key "orders", "warehouses", column: "start_warehouse_id"
   add_foreign_key "warehouses", "cities"
 end

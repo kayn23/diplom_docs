@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       end
     end
     resources :cities, only: %i[index create destroy]
-    resources :warehouses
+    resources :warehouses, except: :destroy
+    resources :orders
   end
 end

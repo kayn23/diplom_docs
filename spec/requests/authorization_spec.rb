@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 RSpec.describe 'authorization' do
   let(:password) { '232111' }
-  let!(:user) { users(:admin) }
+  let!(:user) { create(:user) }
 
   path '/api/login' do
     post 'return token and user info' do

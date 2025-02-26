@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
   has_and_belongs_to_many :roles
+  has_many :sent_orders, class_name: 'Order', foreign_key: 'sender_id'
+  has_many :received_orders, class_name: 'Order', foreign_key: 'receiver_id'
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create
@@ -18,19 +20,23 @@ class User < ApplicationRecord
     self.roles.delete(roles)
   end
 
-  def isAdmin?
+  def admin?
     roles.exists?(name: %w[admin])
   end
 
-  def isManager?
+  def manager?
     roles.exists?(name: %w[manager])
   end
 
-  def isHightRule?
+  def hight_rule?
     roles.exists?(name: %w[manager admin])
   end
 
-  def isCourier?
+  def low_rule?
+    !hight_rule?
+  end
+
+  def courier?
     roles.exists?(name: %w[courier])
   end
 

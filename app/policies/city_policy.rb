@@ -4,10 +4,10 @@ class CityPolicy < ApplicationPolicy
   end
 
   def create?
-    user.isAdmin?
+    user.admin?
   end
 
   def destroy?
-    user.isHightRule?
+    user.admin?
   end
 end
