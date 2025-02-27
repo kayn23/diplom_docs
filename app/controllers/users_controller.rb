@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :find_user, except: [:index]
 
   def index
-    @users = User.includes(:roles).ransack(params[:q]).result
+    @users = User.includes(:roles).ransack(params[:q]).result.page(params[:page])
   end
 
   def show

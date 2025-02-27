@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   def index
     @orders = policy_scope(Order)
-    @orders = @orders.ransack(params[:q]).result
+    @orders = @orders.ransack(params[:q]).result.page(params[:page])
   end
 
   def show; end

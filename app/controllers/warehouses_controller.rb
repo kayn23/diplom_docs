@@ -5,7 +5,7 @@ class WarehousesController < ApplicationController
   # GET /warehouses
   # GET /warehouses.json
   def index
-    @warehouses = Warehouse.all
+    @warehouses = Warehouse.ransack(params[:q]).result.page(params[:page])
   end
 
   # POST /warehouses

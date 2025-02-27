@@ -4,7 +4,7 @@ class OrderPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.hight_rule?
-        scope.where('')
+        scope.all
       else
         scope.where('sender_id = ? OR receiver_id = ?', user.id, user.id)
       end
