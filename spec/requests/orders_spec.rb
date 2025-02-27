@@ -13,8 +13,15 @@ RSpec.describe 'Orders' do
       produces 'application/json'
       consumes 'application/json'
       security [Bearer: {}]
+      parameter name: :q, in: :query, type: :object, schema: {
+        type: :object,
+        properties: {
+          'q[status_eq]': { type: :string, description: 'Пример Статус заказа' }
+        }
+      }, description: 'Параметры поиска с использованием Ransack'
 
       response 200, 'correct response' do
+        let(:q) { {} }
         let(:Authorization) { "Bearer #{token}" }
         run_test! do |response|
           data = JSON.parse(response.body)
@@ -22,7 +29,28 @@ RSpec.describe 'Orders' do
         end
       end
 
+      response 200, 'correct filter' do
+        let(:Authorization) { "Bearer #{token}" }
+        let(:q) { { 'q[status_eq]': 'canceled' } }
+        run_test! do |response|
+          data = JSON.parse(response.body)
+          expect(data.count).to eq(0)
+        end
+      end
+
+      response 200, 'correct filter' do
+        let!(:canceled_order) { create(:order, status: 'canceled', sender: sender) }
+        let(:Authorization) { "Bearer #{token}" }
+        let(:q) { { 'q[status_eq]': 'canceled' } }
+        run_test! do |response|
+          data = JSON.parse(response.body)
+          expect(data.count).to eq(1)
+          expect(data[0]['status']).to eq('canceled')
+        end
+      end
+
       response 200, 'empty list' do
+        let(:q) { {} }
         let(:Authorization) { "Beared #{create(:user).auth_token}" }
         run_test! do |response|
           data = JSON.parse(response.body)
@@ -31,6 +59,7 @@ RSpec.describe 'Orders' do
       end
 
       response 401, 'not authorization' do
+        let(:q) { {} }
         let(:Authorization) { '' }
         run_test!
       end
@@ -50,7 +79,7 @@ RSpec.describe 'Orders' do
                             start_warehouse_id: { type: :number },
                             end_warehouse_id: { type: :number }
                           },
-                          required: %w[start_warehouse_id, end_warehouse_id] }
+                          required: %w[start_warehouse_id end_warehouse_id] }
 
       response 201, 'created low rule users' do
         let(:sender) { create(:user) }

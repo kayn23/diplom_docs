@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create
-  validates :document_number, uniqueness: true
+  validates :document_number, uniqueness: true, allow_blank: true
 
   after_create :assign_client_role
 
@@ -44,6 +44,14 @@ class User < ApplicationRecord
 
   def auth_token
     JsonWebToken.encode(user_id: id)
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[email firstname surname lastname document_number] + _ransackers.keys
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    authorizable_ransackable_associations + ['roles']
   end
 
   private

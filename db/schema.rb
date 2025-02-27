@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_212637) do
     t.string "document_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["document_number"], name: "index_users_on_document_number", unique: true
+    t.index ["document_number"], name: "index_users_on_document_number", unique: true, where: "(document_number IS NOT NULL)"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

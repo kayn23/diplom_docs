@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize_request, only: [:index]
   before_action :find_user, except: [:index]
 
   def index
-    @users = User.all
+    @users = User.includes(:roles).ransack(params[:q]).result
   end
 
   def show

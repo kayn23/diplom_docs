@@ -7,7 +7,7 @@ class CheckOrderStatusJob
 
     return unless order.may_cancel?
 
-    order.cancel!
+    order.destroy!
 
     # Do something later
   end

@@ -43,6 +43,17 @@ paths:
       - orders
       security:
       - Bearer: {}
+      parameters:
+      - name: q
+        in: query
+        type: object
+        schema:
+          type: object
+          properties:
+            q[status_eq]:
+              type: string
+              description: Пример Статус заказа
+        description: Параметры поиска с использованием Ransack
       responses:
         '200':
           description: empty list
@@ -58,6 +69,8 @@ paths:
       responses:
         '201':
           description: create hight rule user
+        '401':
+          description: now authorization
       requestBody:
         content:
           application/json:
@@ -73,8 +86,29 @@ paths:
                 end_warehouse_id:
                   type: number
               required:
-              - start_warehouse_id,
+              - start_warehouse_id
               - end_warehouse_id
+  "/api/users":
+    get:
+      summary: list orders
+      tags:
+      - users
+      security:
+      - Bearer: {}
+      parameters:
+      - name: q
+        in: query
+        type: object
+        schema:
+          type: object
+          properties:
+            q[roles_name_eq]:
+              type: string
+              description: Пример роль
+        description: Параметры поиска с использованием Ransack
+      responses:
+        '200':
+          description: correct filered response
   "/api/warehouses":
     get:
       summary: return correct list

@@ -17,4 +17,5 @@ load Rails.root.join('db/seeds/warehouses.rb')
 #
 User.find_or_create_by(email: 'admin@gmail.com') do |u|
   u.password = '232111'
+  u.add_roles(['admin'])
 end

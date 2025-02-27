@@ -46,6 +46,11 @@ class Order < ApplicationRecord
     end
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at end_warehouse_id id price receiver_id sender_id start_warehouse_id status
+       updated_at] + _ransackers.keys
+  end
+
   private
 
   def not_paid?

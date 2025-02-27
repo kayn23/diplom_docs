@@ -3,10 +3,10 @@ class OrdersController < ApplicationController
 
   def index
     @orders = policy_scope(Order)
+    @orders = @orders.ransack(params[:q]).result
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @order = Order.new(create_params)
@@ -21,11 +21,9 @@ class OrdersController < ApplicationController
     end
   end
 
-  def update
-  end
+  def update; end
 
-  def destroy
-  end
+  def destroy; end
 
   private
 

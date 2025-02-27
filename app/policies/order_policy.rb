@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class OrderPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.hight_rule?
-        scope.all
+        scope.where('')
       else
         scope.where('sender_id = ? OR receiver_id = ?', user.id, user.id)
       end
