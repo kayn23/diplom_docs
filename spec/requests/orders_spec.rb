@@ -70,10 +70,18 @@ RSpec.describe 'Orders' do
                                      headers: { Authorization: "Bearer #{sender.auth_token}" }
           end.to change(Order, :count).by(1)
 
+          expect do
+            post '/api/orders.json', params: create_order_params,
+                                     headers: { Authorization: "Bearer #{sender.auth_token}" }
+          end.to change(CheckOrderStatusJob.jobs, :size).by(1)
+
           data = JSON.parse(response.body)
           expect(data['sender_id']).to eq(sender.id)
           expect(data['receiver_id']).to be_nil
           expect(data['status']).to eq('created')
+
+          job = CheckOrderStatusJob.jobs.last
+          expect(job['at']).to be_within(1.second).of(72.hours.from_now.to_f)
         end
       end
 

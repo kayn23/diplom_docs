@@ -8,6 +8,8 @@ class Order < ApplicationRecord
 
   # validates :price, numericality: { greater_than_or_equal_to: 0 }, on:
 
+  after_create :schedule_status_check
+
   aasm column: 'status' do
     state :created, initial: true
     state :wait_payment
@@ -40,11 +42,17 @@ class Order < ApplicationRecord
     end
 
     event :cancel, guards: [:not_paid?] do
-      transitions from: %i[created wait_payment], to: :canceled
+      transitions from: %i[created], to: :canceled
     end
   end
 
+  private
+
   def not_paid?
     %w[created wait_payment].include?(status)
+  end
+
+  def schedule_status_check
+    CheckOrderStatusJob.perform_in(72.hours, id)
   end
 end

@@ -15,7 +15,6 @@ class OrdersController < ApplicationController
     authorize @order
 
     if @order.save
-      # TODO: здесь должен будет вызваться колбэк на постановку таймера на 72 часа
       render :show, status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
