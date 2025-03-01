@@ -1,0 +1,34 @@
+class Route < ApplicationRecord
+  belongs_to :start_warehouse, class_name: 'Warehouse', foreign_key: 'start_warehouse_id'
+  belongs_to :end_warehouse, class_name: 'Warehouse', foreign_key: 'end_warehouse_id'
+  belongs_to :user, optional: true
+
+  validates :start_warehouse_id, presence: true
+  validates :end_warehouse_id, presence: true
+
+  validate :start_and_end_warehouses_must_be_different
+  validates :delivery_days, presence: true
+  validate :delivery_days_must_be_valid
+
+  def nearest_delivery_date(from_date = Date.today)
+    (from_date..from_date + 6).find { |date| delivery_days.include?(date.wday) }
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    authorizable_ransackable_associations + ['warehouse']
+  end
+
+  private
+
+  def start_and_end_warehouses_must_be_different
+    return unless start_warehouse_id == end_warehouse_id
+
+    errors.add(:end_warehouse, 'must be different from start warehouse')
+  end
+
+  def delivery_days_must_be_valid
+    return unless delivery_days.any? { |day| !day.between?(1, 7) }
+
+    errors.add(:delivery_days, 'must contain numbers between 1 and 7')
+  end
+end
