@@ -7,7 +7,6 @@ class Route < ApplicationRecord
   validates :end_warehouse_id, presence: true
 
   validate :start_and_end_warehouses_must_be_different
-  validates :delivery_days, presence: true
   validate :delivery_days_must_be_valid
 
   def nearest_delivery_date(from_date = Date.today)

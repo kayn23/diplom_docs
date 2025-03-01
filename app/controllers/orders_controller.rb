@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[show update destroy]
+  before_action :set_order, only: %i[show update destroy payment]
 
   def index
     @orders = policy_scope(Order)
@@ -19,6 +19,11 @@ class OrdersController < ApplicationController
     else
       render json: @order.errors, status: :unprocessable_entity
     end
+  end
+
+  def payment
+    render json: { errors: 'Payment not available' }, status: :unprocessable_entity unless @order.may_pay?
+    # TODO
   end
 
   def update; end
