@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   belongs_to :receiver, class_name: 'User', optional: true
   belongs_to :start_warehouse, class_name: 'Warehouse'
   belongs_to :end_warehouse, class_name: 'Warehouse'
-  has_many :cargo
+  has_many :cargos
 
   # validates :price, numericality: { greater_than_or_equal_to: 0 }, on:
 

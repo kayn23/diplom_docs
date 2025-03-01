@@ -28,6 +28,56 @@ paths:
               required:
               - email
               - password
+  "/api/orders/{order_id}/cargos":
+    get:
+      summary: get cargos
+      tags:
+      - cargos
+      security:
+      - Bearer: {}
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ok
+    post:
+      summary: create
+      tags:
+      - cargos
+      security:
+      - Bearer: {}
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                size:
+                  type: number
+                dimensions:
+                  type: number
+                description:
+                  type: string
+              required:
+              - size
+              - dimensions
   "/api/cities":
     get:
       summary: list cities
@@ -117,6 +167,32 @@ paths:
       responses:
         '200':
           description: correct response
+    post:
+      summary: create
+      tags:
+      - Список складов
+      security:
+      - Bearer: {}
+      parameters: []
+      responses:
+        '201':
+          description: created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                city_id:
+                  type: number
+              required:
+              - name
+              - address
+              - city_id
 servers:
 - url: http://{defaultHost}
   variables:

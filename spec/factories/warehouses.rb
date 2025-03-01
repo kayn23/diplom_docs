@@ -4,7 +4,7 @@ FactoryBot.define do
     address { Faker::Address.street_address }
     association :city
 
-    trait :warehouse_rc do
+    trait :rc do
       name { 'РЦ' }
     end
   end

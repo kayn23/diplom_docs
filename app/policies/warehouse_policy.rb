@@ -1,9 +1,9 @@
-class WarehousPolicy < ApplicationPolicy
+class WarehousePolicy < ApplicationPolicy
   def index?
     true
   end
 
-  def creare?
+  def create?
     user.admin?
   end
 

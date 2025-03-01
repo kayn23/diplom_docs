@@ -12,8 +12,10 @@ class WarehousesController < ApplicationController
   # POST /warehouses.json
   def create
     @warehouse = Warehouse.new(warehouse_params)
+    authorize @warehouse
 
     if @warehouse.save
+      @warehouse.link_warehouse_to_distribution_center
       render :show, status: :created, location: @warehouse
     else
       render json: @warehouse.errors, status: :unprocessable_entity

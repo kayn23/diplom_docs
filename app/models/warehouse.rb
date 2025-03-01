@@ -5,8 +5,6 @@ class Warehouse < ApplicationRecord
   has_many :from_routes, class_name: 'Route', foreign_key: 'start_warehouse_id', dependent: :destroy
   has_many :to_routes, class_name: 'Route', foreign_key: 'end_warehouse_id', dependent: :destroy
 
-  after_create :link_warehouse_to_distribution_center
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[name address active] + _ransackers.keys
   end
@@ -14,8 +12,6 @@ class Warehouse < ApplicationRecord
   def self.ransackable_associations(_auth_object = nil)
     authorizable_ransackable_associations + ['city']
   end
-
-  private
 
   def link_warehouse_to_distribution_center
     # исключение функционала для единтвенного склада

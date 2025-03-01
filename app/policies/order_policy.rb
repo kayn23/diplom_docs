@@ -12,7 +12,7 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    show?
   end
 
   def show?
