@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     resources :orders do
       resources :cargos
     end
+
+    resources :routes, only: %i[update]
   end
 end

@@ -1,7 +1,15 @@
 FactoryBot.define do
   factory :route do
-    start_warehouse { nil }
-    end_warehouse { nil }
-    user { nil }
+    association :start_warehouse, factory: :warehouse
+    association :end_warehouse, factory: :warehouse
+    association :user, factory: :user
+
+    trait :start_rc do
+      association :start_warehouse, factory: :warehouse, name: 'РЦ'
+    end
+
+    trait :end_rc do
+      association :end_warehouse, factory: :warehouse, name: 'РЦ'
+    end
   end
 end

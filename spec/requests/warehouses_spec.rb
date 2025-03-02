@@ -55,6 +55,63 @@ RSpec.describe '/api/warehouses' do
           expect(to_route.end_warehouse).to eq(warehouse)
         end
       end
+
+      response 401, 'unauthorized' do
+        schema Swagger::Schemas::Errors::ERROR_SCHEMA
+        let(:Authorization) { '' }
+        let(:create_warehouse_params) { { name: 'hello' } }
+        run_test!
+      end
+
+      response 422, 'bad params' do
+        schema Swagger::Schemas::Errors::ERROR_SCHEMA
+        let(:Authorization) { "Bearer #{user.auth_token}" }
+        let(:create_warehouse_params) { { name: 'hello' } }
+        run_test!
+      end
+    end
+  end
+
+  path '/api/warehouses/{id}' do
+    put 'update' do
+      let!(:warehouse) { create(:warehouse) }
+
+      tags 'Список складов'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+      parameter name: :update_warehouse_params,
+                in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    name: { type: :string },
+                    address: { type: :string }
+                  },
+                  required: %w[name address city_id]
+                }
+
+      response 200, 'updated' do
+        let(:Authorization) { "Bearer #{user.auth_token}" }
+        let(:update_warehouse_params) do
+          {
+            name: Faker::Name.first_name,
+            address: Faker::Address.street_address
+          }
+        end
+
+        let(:id) { warehouse.id }
+        run_test!
+      end
+
+      response 401, 'unauthorized' do
+        schema Swagger::Schemas::Errors::ERROR_SCHEMA
+        let(:Authorization) { '' }
+        let(:id) { warehouse.id }
+        let(:update_warehouse_params) { { name: 'hello' } }
+        run_test!
+      end
     end
   end
 end

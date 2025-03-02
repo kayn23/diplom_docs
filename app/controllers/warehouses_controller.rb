@@ -18,7 +18,7 @@ class WarehousesController < ApplicationController
       @warehouse.link_warehouse_to_distribution_center
       render :show, status: :created, location: @warehouse
     else
-      render json: @warehouse.errors, status: :unprocessable_entity
+      render json: { errors: @warehouse.errors }, status: :unprocessable_entity
     end
   end
 
@@ -28,14 +28,8 @@ class WarehousesController < ApplicationController
     if @warehouse.update(update_warehouse_params)
       render :show, status: :ok, location: @warehouse
     else
-      render json: @warehouse.errors, status: :unprocessable_entity
+      render json: { errors: @warehouse.errors }, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /warehouses/1
-  # DELETE /warehouses/1.json
-  def destroy
-    @warehouse.destroy!
   end
 
   private

@@ -138,6 +138,68 @@ paths:
               required:
               - start_warehouse_id
               - end_warehouse_id
+  "/api/routes/{id}":
+    put:
+      summary: update route
+      tags:
+      - routes
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: change assignee user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  start_warehouse_id:
+                    type: number
+                  end_warehouse_id:
+                    type: number
+                  user_id:
+                    type: number
+                required:
+                - id
+                - start_warehouse_id
+                - end_warehouse_id
+                - user_id
+        '403':
+          description: user don't have rule for update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: number
+                  description: ответственный
+              required:
+              - user_id
   "/api/users":
     get:
       summary: list orders
@@ -177,6 +239,44 @@ paths:
       responses:
         '201':
           description: created
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+        '422':
+          description: bad params
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
       requestBody:
         content:
           application/json:
@@ -189,6 +289,53 @@ paths:
                   type: string
                 city_id:
                   type: number
+              required:
+              - name
+              - address
+              - city_id
+  "/api/warehouses/{id}":
+    put:
+      summary: update
+      tags:
+      - Список складов
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: updated
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
               required:
               - name
               - address

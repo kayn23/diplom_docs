@@ -7,6 +7,6 @@ class ApplicationController < ActionController::API
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def user_not_authorized
-    render json: { error: 'You are not authorized to perform this action' }, status: :forbidden
+    render json: { errors: 'You are not authorized to perform this action' }, status: :forbidden
   end
 end
