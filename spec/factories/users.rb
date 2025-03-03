@@ -23,5 +23,12 @@ FactoryBot.define do
         user.roles << manager_role # Привязываем роль к пользователю
       end
     end
+
+    trait :courier do
+      after(:create) do |user|
+        courier_role = create(:role, :courier) # Создаём роль admin
+        user.roles << courier_role # Привязываем роль к пользователю
+      end
+    end
   end
 end

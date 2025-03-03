@@ -9,9 +9,10 @@ Rails.application.routes.draw do
     post 'login', to: 'authentication#login'
     resources :users, only: %i[show update index] do
       member do
-        post :add_roles # Создаем маршрут /api/users/:id/add_role
+        post :add_roles
         post :remove_roles
       end
+      resources :cars
     end
     resources :cities, only: %i[index create destroy]
     resources :warehouses, except: :destroy

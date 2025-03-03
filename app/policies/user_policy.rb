@@ -1,5 +1,11 @@
 class UserPolicy < ApplicationPolicy
+  def index?
+    show?
+  end
+
   def show?
+    return user.id == record.id if user.low_rule?
+
     user.roles.exists?(name: %w[admin manager]) || user == record
   end
 

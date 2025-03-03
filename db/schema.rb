@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_01_231058) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_02_084825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_01_231058) do
     t.datetime "updated_at", null: false
     t.string "qrcode"
     t.index ["order_id"], name: "index_cargos_on_order_id"
+  end
+
+  create_table "cars", force: :cascade do |t|
+    t.float "capacity"
+    t.float "load_capacity"
+    t.string "name"
+    t.boolean "active", default: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_cars_on_user_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -120,6 +131,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_01_231058) do
   add_foreign_key "cargo_in_shippings", "cargos"
   add_foreign_key "cargo_in_shippings", "shippings"
   add_foreign_key "cargos", "orders"
+  add_foreign_key "cars", "users"
   add_foreign_key "orders", "users", column: "receiver_id"
   add_foreign_key "orders", "users", column: "sender_id"
   add_foreign_key "orders", "warehouses", column: "end_warehouse_id"

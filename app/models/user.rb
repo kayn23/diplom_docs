@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :roles
   has_many :sent_orders, class_name: 'Order', foreign_key: 'sender_id'
   has_many :received_orders, class_name: 'Order', foreign_key: 'receiver_id'
+  has_many :cars
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create

@@ -78,6 +78,140 @@ paths:
               required:
               - size
               - dimensions
+  "/api/users/{user_id}/cars":
+    get:
+      summary: get car list
+      tags:
+      - user cars
+      security:
+      - Bearer: {}
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok, admin
+        '403':
+          description: low_right user call info for other user
+    post:
+      summary: create car
+      tags:
+      - user cars
+      security:
+      - Bearer: {}
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+      responses:
+        '201':
+          description: created by admin
+        '403':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                capacity:
+                  type: float
+                load_capacity:
+                  type: float
+                name:
+                  type: string
+              require:
+              - capacity
+              - load_capacity
+  "/api/users/{user_id}/cars/{id}":
+    put:
+      summary: update car
+      tags:
+      - user cars
+      security:
+      - Bearer: {}
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: updated by admin
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                capacity:
+                  type: float
+                load_capacity:
+                  type: float
+                name:
+                  type: string
+                active:
+                  type: boolean
+              require:
+              - capacity
+              - load_capacity
+    delete:
+      summary: delete car
+      tags:
+      - user cars
+      security:
+      - Bearer: {}
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+      - name: id
+        in: path
+        required: true
+      responses:
+        '204':
+          description: deleted
+        '422':
+          description: one active car
   "/api/cities":
     get:
       summary: list cities
@@ -197,7 +331,6 @@ paths:
               properties:
                 user_id:
                   type: number
-                  description: ответственный
               required:
               - user_id
   "/api/users":

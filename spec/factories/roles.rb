@@ -9,5 +9,9 @@ FactoryBot.define do
     trait :manager do
       name { 'manager' }
     end
+
+    trait :courier do
+      name { 'courier' }
+    end
   end
 end
