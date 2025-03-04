@@ -27,6 +27,10 @@ class OrderPolicy < ApplicationPolicy
     true
   end
 
+  def cargo_accepted?
+    user.hight_rule?
+  end
+
   def update?
     show?
   end

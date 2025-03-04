@@ -303,6 +303,8 @@ paths:
                     type: number
                   status:
                     type: string
+                  price:
+                    type: string
                   created_at:
                     type: string
                   updated_at:

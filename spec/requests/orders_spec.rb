@@ -6,6 +6,28 @@ RSpec.describe 'Orders' do
     create(:order, sender: sender)
   end
   let!(:token) { sender.auth_token }
+  let!(:admin) { create(:user, :admin) }
+
+  order_show_schema = {
+    type: :object,
+    properties: {
+      id: { type: :number },
+      sender_id: { type: :number },
+      receiver_id: { type: :number },
+      start_warehouse_id: { type: :number },
+      end_warehouse_id: { type: :number },
+      status: { type: :string },
+      price: { type: :string, nullable: true },
+      created_at: { type: :string },
+      updated_at: { type: :string },
+      sender: Swagger::Schemas::Models::USER_SCHEMA,
+      receiver: Swagger::Schemas::Models::USER_SCHEMA,
+      start_warehouse: Swagger::Schemas::Models::WAREHOUSE,
+      end_warehouse: Swagger::Schemas::Models::WAREHOUSE
+    },
+    required: %w[id sender_id receiver_id start_warehouse_id end_warehouse_id status created_at
+                 updated_at sender receiver start_warehouse end_warehouse]
+  }
 
   path '/api/orders' do
     get 'list orders' do
@@ -138,7 +160,6 @@ RSpec.describe 'Orders' do
       end
 
       response 201, 'create hight rule user' do
-        let(:user) { create(:user, :admin) }
         let(:sender) { create(:user) }
         let(:receiver) { create(:user) }
         let(:start_warehouse) { create(:warehouse) }
@@ -151,7 +172,7 @@ RSpec.describe 'Orders' do
             end_warehouse_id: end_warehouse.id
           }
         end
-        let(:Authorization) { "Bearer #{user.auth_token}" }
+        let(:Authorization) { "Bearer #{admin.auth_token}" }
 
         run_test! do |response|
           data = JSON.parse(response.body)
@@ -188,24 +209,64 @@ RSpec.describe 'Orders' do
         let(:id) { order.id }
         let(:Authorization) { "Bearer #{sender.auth_token}" }
 
-        schema type: :object,
-               properties: {
-                 id: { type: :number },
-                 sender_id: { type: :number },
-                 receiver_id: { type: :number },
-                 start_warehouse_id: { type: :number },
-                 end_warehouse_id: { type: :number },
-                 status: { type: :string },
-                 created_at: { type: :string },
-                 updated_at: { type: :string },
-                 sender: Swagger::Schemas::Models::USER_SCHEMA,
-                 receiver: Swagger::Schemas::Models::USER_SCHEMA,
-                 start_warehouse: Swagger::Schemas::Models::WAREHOUSE,
-                 end_warehouse: Swagger::Schemas::Models::WAREHOUSE
-               },
-               required: %w[id sender_id receiver_id start_warehouse_id end_warehouse_id status created_at
-                            updated_at sender receiver start_warehouse end_warehouse]
+        schema order_show_schema
         run_test!
+      end
+    end
+  end
+
+  path '/api/orders/{id}/cargo_accepted' do
+    post 'accept cargo, calc price' do
+      tags 'orders'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+      parameter name: :calc_price_params,
+                in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    price: { type: :float }
+                  }
+                }
+
+      context 'when high_rule user update price' do
+        response 200, 'ok' do
+          let(:id) { order.id }
+          let(:calc_price_params) { { price: 200 } }
+          let(:Authorization) { "Bearer #{admin.auth_token}" }
+          schema order_show_schema
+
+          run_test! do |response|
+            data = JSON.parse(response.body)
+            expect(data['status']).to eq('wait_payment')
+            expect(data['price']).to eq('200.0')
+          end
+        end
+      end
+
+      context "when carge can't corge_accepted" do
+        response 422, 'unprocessable_entity' do
+          let(:order) { create(:order, status: 'paid') }
+          let(:id) { order.id }
+          let(:calc_price_params) { { price: 200 } }
+          let(:Authorization) { "Bearer #{admin.auth_token}" }
+
+          schema Swagger::Schemas::Errors::ERROR_SCHEMA
+          run_test!
+        end
+      end
+
+      context 'when call api not high_rule user' do
+        response 403, 'forbidden' do
+          let(:id) { order.id }
+          let(:calc_price_params) { { price: 200 } }
+          let(:Authorization) { "Bearer #{sender.auth_token}" }
+
+          schema Swagger::Schemas::Errors::ERROR_SCHEMA
+          run_test!
+        end
       end
     end
   end

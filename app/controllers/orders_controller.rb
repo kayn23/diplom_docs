@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[show update destroy payment]
+  before_action :set_order, except: %i[index create]
 
   def index
     @orders = policy_scope(Order)
@@ -21,8 +21,25 @@ class OrdersController < ApplicationController
     end
   end
 
+  def cargo_accepted
+    authorize @order
+    unless @order.may_cargo_accepted?
+      return render json: { errors: 'order not corge_accepted' },
+                    status: :unprocessable_entity
+    end
+
+    @order.cargo_accepted
+    if @order.update(calc_price_params)
+      # TODO: тут должно улетать уведомление в соккет об ожидании оплаты
+      # возможно стоит убрать вообще все изменения статусов в коллбэки AASM
+      render :show, status: :ok
+    else
+      render json: { errors: @order.errors }, status: :unprocessable_entity
+    end
+  end
+
   def payment
-    render json: { errors: 'Payment not available' }, status: :unprocessable_entity unless @order.may_pay?
+    render render json: { errors: 'Payment not available' }, status: :unprocessable_entity unless @order.may_pay?
     # TODO
   end
 
@@ -38,5 +55,9 @@ class OrdersController < ApplicationController
 
   def create_params
     params.permit(:start_warehouse_id, :end_warehouse_id, :sender_id, :receiver_id)
+  end
+
+  def calc_price_params
+    params.permit(:price)
   end
 end
