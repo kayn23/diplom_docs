@@ -3,10 +3,13 @@ class RoutesController < ApplicationController
 
   def update
     authorize @route
+    user = User.includes(:roles).find(update_params['user_id'])
+    return render json: { errors: "user don't have courier role" }, status: :unprocessable_entity unless user.courier?
+
     if @route.update(update_params)
       render :show, status: :ok
     else
-      render json: { errors: @route.errors }, status: :unprocessable_entiry
+      render json: { errors: @route.errors }, status: :unprocessable_entity
     end
   end
 

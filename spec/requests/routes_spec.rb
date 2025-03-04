@@ -23,30 +23,49 @@ RSpec.describe 'Routes', type: :request do
                   required: %w[user_id]
                 }
 
-      response 200, 'change assignee user' do
-        let(:route) { create(:route, :start_rc) }
-        let(:user) { create(:user) }
-        let(:Authorization) { "Bearer #{admin_user.auth_token}" }
-        let(:update_route_params) do
-          {
-            user_id: user.id
-          }
+      context 'assignee courier' do
+        response 200, 'ok' do
+          let(:route) { create(:route, :start_rc) }
+          let(:user) { create(:user, :courier) }
+          let(:Authorization) { "Bearer #{admin_user.auth_token}" }
+          let(:update_route_params) do
+            {
+              user_id: user.id
+            }
+          end
+          let(:id) { route.id }
+
+          schema type: :object,
+                 properties: {
+                   id: { type: :number },
+                   start_warehouse_id: { type: :number },
+                   end_warehouse_id: { type: :number },
+                   user_id: { type: :number }
+                 },
+                 required: %w[id start_warehouse_id end_warehouse_id user_id]
+
+          run_test!
         end
-        let(:id) { route.id }
-
-        schema type: :object,
-               properties: {
-                 id: { type: :number },
-                 start_warehouse_id: { type: :number },
-                 end_warehouse_id: { type: :number },
-                 user_id: { type: :number }
-               },
-               required: %w[id start_warehouse_id end_warehouse_id user_id]
-
-        run_test!
       end
 
-      response 403, "user don't have rule for update" do
+      context 'user not courier' do
+        response 422, 'unprocessable_entity' do
+          let(:route) { create(:route, :start_rc) }
+          let(:user) { create(:user) }
+          let(:Authorization) { "Bearer #{admin_user.auth_token}" }
+          let(:update_route_params) do
+            {
+              user_id: user.id
+            }
+          end
+          let(:id) { route.id }
+
+          schema Swagger::Schemas::Errors::ERROR_SCHEMA
+          run_test!
+        end
+      end
+
+      response 403, 'forbidden' do
         let(:route) { create(:route, :start_rc) }
         let(:user) { create(:user) }
         let(:Authorization) { "Bearer #{user.auth_token}" }

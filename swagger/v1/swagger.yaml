@@ -93,7 +93,7 @@ paths:
         '200':
           description: ok, admin
         '403':
-          description: low_right user call info for other user
+          description: forbidden
     post:
       summary: create car
       tags:
@@ -285,7 +285,7 @@ paths:
         required: true
       responses:
         '200':
-          description: change assignee user
+          description: ok
           content:
             application/json:
               schema:
@@ -304,8 +304,27 @@ paths:
                 - start_warehouse_id
                 - end_warehouse_id
                 - user_id
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
         '403':
-          description: user don't have rule for update
+          description: forbidden
           content:
             application/json:
               schema:
