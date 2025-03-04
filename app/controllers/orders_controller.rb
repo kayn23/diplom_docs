@@ -39,13 +39,22 @@ class OrdersController < ApplicationController
   end
 
   def payment
-    render render json: { errors: 'Payment not available' }, status: :unprocessable_entity unless @order.may_pay?
-    # TODO
+    authorize @order
+    render json: { errors: 'Payment not available' }, status: :unprocessable_entity unless @order.may_pay?
+    @order.pay
+
+    # TODO: тут надо добавить логуку, которая будет вызывать распределение грузов по машинам
+
+    if @order.save
+
+      # TODO: тут должно улетать уведомление в соккет об ожидании оплаты
+      # возможно стоит убрать вообще все изменения статусов в коллбэки AASM
+
+      render :show, status: :ok
+    else
+      render json: { errors: @order.errors }, status: :unprocessable_entity
+    end
   end
-
-  def update; end
-
-  def destroy; end
 
   private
 

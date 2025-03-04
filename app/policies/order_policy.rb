@@ -31,6 +31,10 @@ class OrderPolicy < ApplicationPolicy
     user.hight_rule?
   end
 
+  def payment?
+    cargo_accepted?
+  end
+
   def update?
     show?
   end

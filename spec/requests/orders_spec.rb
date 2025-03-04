@@ -270,4 +270,39 @@ RSpec.describe 'Orders' do
       end
     end
   end
+
+  path '/api/orders/{id}/payment' do
+    post 'peyment order' do
+      tags 'orders'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+
+      context 'when high_rule user update payment' do
+        response 200, 'ok' do
+          let(:order) { create(:order, status: 'wait_payment') }
+          let(:id) { order.id }
+          let(:Authorization) { "Bearer #{admin.auth_token}" }
+          schema order_show_schema
+
+          run_test! do |response|
+            data = JSON.parse(response.body)
+            expect(data['status']).to eq('paid')
+          end
+        end
+      end
+
+      context 'when call api not high_rule user' do
+        response 403, 'forbidden' do
+          let(:id) { order.id }
+          let(:calc_price_params) { { price: 200 } }
+          let(:Authorization) { "Bearer #{sender.auth_token}" }
+
+          schema Swagger::Schemas::Errors::ERROR_SCHEMA
+          run_test!
+        end
+      end
+    end
+  end
 end

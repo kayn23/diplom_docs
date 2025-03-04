@@ -305,6 +305,7 @@ paths:
                     type: string
                   price:
                     type: string
+                    nullable: true
                   created_at:
                     type: string
                   updated_at:
@@ -398,6 +399,325 @@ paths:
                 - receiver
                 - start_warehouse
                 - end_warehouse
+  "/api/orders/{id}/cargo_accepted":
+    post:
+      summary: accept cargo, calc price
+      tags:
+      - orders
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  sender_id:
+                    type: number
+                  receiver_id:
+                    type: number
+                  start_warehouse_id:
+                    type: number
+                  end_warehouse_id:
+                    type: number
+                  status:
+                    type: string
+                  price:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                  sender:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  receiver:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  start_warehouse:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      address:
+                        type: string
+                      city_id:
+                        type: number
+                      active:
+                        type: boolean
+                    required:
+                    - id
+                    - name
+                    - address
+                    - city_id
+                    - active
+                  end_warehouse:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      address:
+                        type: string
+                      city_id:
+                        type: number
+                      active:
+                        type: boolean
+                    required:
+                    - id
+                    - name
+                    - address
+                    - city_id
+                    - active
+                required:
+                - id
+                - sender_id
+                - receiver_id
+                - start_warehouse_id
+                - end_warehouse_id
+                - status
+                - created_at
+                - updated_at
+                - sender
+                - receiver
+                - start_warehouse
+                - end_warehouse
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                price:
+                  type: float
+  "/api/orders/{id}/payment":
+    post:
+      summary: peyment order
+      tags:
+      - orders
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  sender_id:
+                    type: number
+                  receiver_id:
+                    type: number
+                  start_warehouse_id:
+                    type: number
+                  end_warehouse_id:
+                    type: number
+                  status:
+                    type: string
+                  price:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                  sender:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  receiver:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  start_warehouse:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      address:
+                        type: string
+                      city_id:
+                        type: number
+                      active:
+                        type: boolean
+                    required:
+                    - id
+                    - name
+                    - address
+                    - city_id
+                    - active
+                  end_warehouse:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      address:
+                        type: string
+                      city_id:
+                        type: number
+                      active:
+                        type: boolean
+                    required:
+                    - id
+                    - name
+                    - address
+                    - city_id
+                    - active
+                required:
+                - id
+                - sender_id
+                - receiver_id
+                - start_warehouse_id
+                - end_warehouse_id
+                - status
+                - created_at
+                - updated_at
+                - sender
+                - receiver
+                - start_warehouse
+                - end_warehouse
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
   "/api/routes/{id}":
     put:
       summary: update route
