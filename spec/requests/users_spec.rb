@@ -20,7 +20,7 @@ RSpec.describe 'Users' do
       response 200, 'correct response' do
         let(:q) { {} }
         let(:Authorization) { admin_token }
-        run_test!
+        schema type: :array, items: { type: Swagger::Schemas::Models::USER_SCHEMA }
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data.count).to eq(1)
@@ -31,7 +31,7 @@ RSpec.describe 'Users' do
         let(:q) { { 'q[roles_name_eq]': 'admin' } }
         let!(:user) { create(:user) }
         let(:Authorization) { admin_token }
-        run_test!
+        schema type: :array, items: { type: Swagger::Schemas::Models::USER_SCHEMA }
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data.count).to eq(1)

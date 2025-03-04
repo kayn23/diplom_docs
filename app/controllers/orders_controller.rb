@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
     authorize @order
 
     if @order.save
-      render :show, status: :created
+      render :create, status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    @order = Order.find(params[:id])
+    @order = Order.eager_load(:sender, :receiver, :start_warehouse, :end_warehouse).find(params[:id])
   end
 
   def create_params

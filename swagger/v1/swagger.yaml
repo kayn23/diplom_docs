@@ -272,6 +272,130 @@ paths:
               required:
               - start_warehouse_id
               - end_warehouse_id
+  "/api/orders/{id}":
+    get:
+      summary: get order info
+      tags:
+      - orders
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  sender_id:
+                    type: number
+                  receiver_id:
+                    type: number
+                  start_warehouse_id:
+                    type: number
+                  end_warehouse_id:
+                    type: number
+                  status:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                  sender:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  receiver:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  start_warehouse:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      address:
+                        type: string
+                      city_id:
+                        type: number
+                      active:
+                        type: boolean
+                    required:
+                    - id
+                    - name
+                    - address
+                    - city_id
+                    - active
+                  end_warehouse:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      address:
+                        type: string
+                      city_id:
+                        type: number
+                      active:
+                        type: boolean
+                    required:
+                    - id
+                    - name
+                    - address
+                    - city_id
+                    - active
+                required:
+                - id
+                - sender_id
+                - receiver_id
+                - start_warehouse_id
+                - end_warehouse_id
+                - status
+                - created_at
+                - updated_at
+                - sender
+                - receiver
+                - start_warehouse
+                - end_warehouse
   "/api/routes/{id}":
     put:
       summary: update route
@@ -373,6 +497,30 @@ paths:
       responses:
         '200':
           description: correct filered response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
   "/api/warehouses":
     get:
       summary: return correct list

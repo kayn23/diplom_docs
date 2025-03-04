@@ -175,4 +175,38 @@ RSpec.describe 'Orders' do
       end
     end
   end
+
+  path '/api/orders/{id}' do
+    get 'get order info' do
+      tags 'orders'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+
+      response 200, 'ok' do
+        let(:id) { order.id }
+        let(:Authorization) { "Bearer #{sender.auth_token}" }
+
+        schema type: :object,
+               properties: {
+                 id: { type: :number },
+                 sender_id: { type: :number },
+                 receiver_id: { type: :number },
+                 start_warehouse_id: { type: :number },
+                 end_warehouse_id: { type: :number },
+                 status: { type: :string },
+                 created_at: { type: :string },
+                 updated_at: { type: :string },
+                 sender: Swagger::Schemas::Models::USER_SCHEMA,
+                 receiver: Swagger::Schemas::Models::USER_SCHEMA,
+                 start_warehouse: Swagger::Schemas::Models::WAREHOUSE,
+                 end_warehouse: Swagger::Schemas::Models::WAREHOUSE
+               },
+               required: %w[id sender_id receiver_id start_warehouse_id end_warehouse_id status created_at
+                            updated_at sender receiver start_warehouse end_warehouse]
+        run_test!
+      end
+    end
+  end
 end

@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require_relative '../swagger/schemas/error_schemas'
+require_relative '../swagger/schemas/model_schemas'
 
 RSpec.configure do |config|
   config.include Swagger::Schemas
