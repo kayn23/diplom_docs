@@ -1,6 +1,6 @@
 class CargoDistributor
   class CargoTooLargeError < StandardError
-    def initialize(size, capacity)
+    def initialize
       super('active transport vehicle cannot accommodate cargo')
     end
   end
@@ -11,6 +11,12 @@ class CargoDistributor
     end
   end
 
+  class ValidationError < StandardError
+    def initialize
+      super('Loads or routes not provided! Contact administrator!')
+    end
+  end
+
   def initialize(order)
     @order = order
     @cargos = order.cargos
@@ -18,7 +24,7 @@ class CargoDistributor
   end
 
   def distribute
-    false if @cargos.empty? || @start_route.nil? || @end_route.nil?
+    raise ValidationError if @cargos.empty? || @start_route.nil? || @end_route.nil?
 
     @cargos.each do |cargo|
       shipping = distribute_cargo(cargo, @start_route, @order.updated_at + 1.day)
@@ -43,7 +49,7 @@ class CargoDistributor
     created_shippings = route.shippings.created_with_cargos
     car = route.user.cars.find_by(active: true)
     raise NoActiveCarError.new if car.nil?
-    raise CargoTooLargeError.new(size, car.capacity) if size > car.capacity
+    raise CargoTooLargeError if size > car.capacity
 
     shipping = created_shippings.find do |s|
       date_condition = from_date.nil? ? true : s.date > from_date

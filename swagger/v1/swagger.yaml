@@ -709,6 +709,25 @@ paths:
                 - receiver
                 - start_warehouse
                 - end_warehouse
+        '422':
+          description: CargoDistributor::ValidationError
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
         '403':
           description: forbidden
           content:

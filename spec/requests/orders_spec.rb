@@ -301,14 +301,55 @@ RSpec.describe 'Orders' do
 
       context 'when high_rule user update payment' do
         response 200, 'ok' do
+          before do
+            allow(CargoDistributor).to receive(:new).and_return(double(distribute: true))
+          end
+
           let(:order) { create(:order, status: 'wait_payment') }
           let(:id) { order.id }
           let(:Authorization) { "Bearer #{admin.auth_token}" }
           schema order_show_schema
 
           run_test! do |response|
-            data = JSON.parse(response.body)
-            expect(data['status']).to eq('paid')
+            order.reload
+            expect(order.status).to eq('in_delivery')
+            expect(CargoDistributor).to have_received(:new).with(order)
+            expect(CargoDistributor.new(order)).to have_received(:distribute)
+          end
+        end
+
+        context 'CargoDistributor#distribute raised' do
+          let(:order) { create(:order, status: 'wait_payment') }
+          let(:id) { order.id }
+          let(:Authorization) { "Bearer #{admin.auth_token}" }
+
+          [{
+            class_error: CargoDistributor::NoActiveCarError,
+            message: 'there is no active vehicle for the route'
+          },
+           {
+             class_error: CargoDistributor::CargoTooLargeError,
+             message: 'active transport vehicle cannot accommodate cargo'
+           },
+           {
+             class_error: CargoDistributor::ValidationError,
+             message: 'Loads or routes not provided! Contact administrator!'
+           }].each do |test_case|
+            response 422, test_case[:class_error] do
+              before do
+                distributor_double = double('CargoDistributor')
+                allow(distributor_double).to receive(:distribute).and_raise(test_case[:class_error])
+                allow(CargoDistributor).to receive(:new).and_return(distributor_double)
+              end
+
+              schema Swagger::Schemas::Errors::ERROR_SCHEMA
+
+              run_test! do |response|
+                order.reload
+                expect(order.status).to eq('wait_payment')
+                expect(response.body).to include(test_case[:message])
+              end
+            end
           end
         end
       end

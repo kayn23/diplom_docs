@@ -40,19 +40,32 @@ class OrdersController < ApplicationController
 
   def payment
     authorize @order
-    render json: { errors: 'Payment not available' }, status: :unprocessable_entity unless @order.may_pay?
-    @order.pay
+    ActiveRecord::Base.transaction do
+      unless @order.may_pay?
+        render json: { errors: 'Payment not available' }, status: :unprocessable_entity
+        raise ActiveRecord::Rollback
+      end
 
-    # TODO: тут надо добавить логуку, которая будет вызывать распределение грузов по машинам
+      @order.pay
 
-    if @order.save
+      unless @order.save
 
-      # TODO: тут должно улетать уведомление в соккет об ожидании оплаты
+        render json: { errors: @order.errors }, status: :unprocessable_entity
+        raise ActiveRecord::Rollback
+      end
+
+      # TODO: тут должно улетать уведомление в соккет об изменении статуса
       # возможно стоит убрать вообще все изменения статусов в коллбэки AASM
+      begin
+        CargoDistributor.new(@order).distribute
+        @order.accept_for_delivery!
+      rescue CargoDistributor::NoActiveCarError, CargoDistributor::ValidationError,
+             CargoDistributor::CargoTooLargeError => e
+        render json: { errors: e.message }, status: :unprocessable_entity
+        raise ActiveRecord::Rollback
+      end
 
       render :show, status: :ok
-    else
-      render json: { errors: @order.errors }, status: :unprocessable_entity
     end
   end
 

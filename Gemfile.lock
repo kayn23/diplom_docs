@@ -306,6 +306,7 @@ DEPENDENCIES
   rails (~> 7.1.0)
   ransack
   rqrcode
+  rspec-mocks
   rspec-rails (~> 7.0.0)
   rswag (~> 2.16)
   sidekiq
