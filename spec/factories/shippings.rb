@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :shipping do
-    route { nil }
-    assignee { nil }
-    status { "MyString" }
+    association :route, factory: :route
+    association :assignee, factory: :user
+    status { 'created' }
   end
 end

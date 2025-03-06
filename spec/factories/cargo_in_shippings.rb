@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :cargo_in_shipping do
-    cargo { nil }
-    shipping { nil }
-    status { "MyString" }
+    association :cargo, factory: :cargo
+    association :shipping, factory: :shipping
+    status { 'wait' }
   end
 end

@@ -2,6 +2,7 @@ class Route < ApplicationRecord
   belongs_to :start_warehouse, class_name: 'Warehouse', foreign_key: 'start_warehouse_id'
   belongs_to :end_warehouse, class_name: 'Warehouse', foreign_key: 'end_warehouse_id'
   belongs_to :user, optional: true
+  has_many :shippings
 
   validates :start_warehouse_id, presence: true
   validates :end_warehouse_id, presence: true
@@ -10,7 +11,9 @@ class Route < ApplicationRecord
   validate :delivery_days_must_be_valid
 
   def nearest_delivery_date(from_date = Date.today)
-    (from_date..from_date + 6).find { |date| delivery_days.include?(date.wday) }
+    from_date = Date.today if from_date.nil?
+    from_date = from_date.to_date
+    (from_date..from_date + 6.days).find { |date| delivery_days.include?(date.wday) }
   end
 
   def self.ransackable_associations(_auth_object = nil)

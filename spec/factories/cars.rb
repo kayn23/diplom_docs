@@ -1,8 +1,12 @@
 FactoryBot.define do
   factory :car do
-    capacity { 1.5 }
-    load_capacity { 1.5 }
-    name { 'MyString' }
+    capacity { 10 }
+    load_capacity { 10 }
+    name { 'test car' }
     association :user, factory: :user
+
+    trait :active do
+      active { true }
+    end
   end
 end

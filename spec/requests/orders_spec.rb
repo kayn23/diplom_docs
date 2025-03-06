@@ -23,7 +23,8 @@ RSpec.describe 'Orders' do
       sender: Swagger::Schemas::Models::USER_SCHEMA,
       receiver: Swagger::Schemas::Models::USER_SCHEMA,
       start_warehouse: Swagger::Schemas::Models::WAREHOUSE,
-      end_warehouse: Swagger::Schemas::Models::WAREHOUSE
+      end_warehouse: Swagger::Schemas::Models::WAREHOUSE,
+      delivery_date: { type: :string, nullable: true }
     },
     required: %w[id sender_id receiver_id start_warehouse_id end_warehouse_id status created_at
                  updated_at sender receiver start_warehouse end_warehouse]
@@ -211,6 +212,25 @@ RSpec.describe 'Orders' do
 
         schema order_show_schema
         run_test!
+      end
+
+      context 'order paid' do
+        response 200, 'ok' do
+          let(:order) { create(:order, status: 'awaiting_pickup') }
+          let(:id) { order.id }
+          let(:Authorization) { "Bearer #{admin.auth_token}" }
+
+          before do
+            allow(order).to receive(:delivery_date).and_return('2006-01-02')
+          end
+
+          updated_schema = order_show_schema.deep_dup
+          updated_schema[:required] << 'delivery_date'
+
+          schema updated_schema
+
+          run_test!
+        end
       end
     end
   end

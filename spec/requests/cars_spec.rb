@@ -1,7 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'Cars' do
-  let!(:courier) { create(:user, :courier) }
+  let!(:courier) { create(:user, :courier_without_car) }
   let!(:admin) { create(:user, :admin) }
   let!(:other_user) { create(:user) }
   let!(:car) { create(:car, user: courier) }

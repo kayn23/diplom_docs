@@ -11,3 +11,5 @@ end
 json.end_warehouse do
   json.partial! 'warehouses/warehouse', warehouse: @order.end_warehouse
 end
+
+json.delivery_date @order.delivery_date if @order.status_after_or_equal? :awaiting_pickup

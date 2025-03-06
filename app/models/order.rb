@@ -47,9 +47,34 @@ class Order < ApplicationRecord
     end
   end
 
+  STATUS_ORDER = %i[created wait_payment paid in_delivery awaiting_pickup completed canceled]
+
+  def status_after_or_equal?(status)
+    current_status_index = STATUS_ORDER.index(aasm.current_state)
+    paid_index = STATUS_ORDER.index(status)
+    current_status_index >= paid_index
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[created_at end_warehouse_id id price receiver_id sender_id start_warehouse_id status
        updated_at] + _ransackers.keys
+  end
+
+  def routes
+    [start_warehouse.from_route, end_warehouse.to_route]
+  end
+
+  def delivery_date
+    # Находим все cargo_in_shippings, связанные с заказом
+    cargo_in_shippings = CargoInShipping.joins(cargo: :order)
+                                        .where(cargos: { order_id: id })
+
+    # Фильтруем по конечному складу
+    cargo_in_shippings = cargo_in_shippings.joins(shipping: { route: :end_warehouse })
+                                           .where(routes: { end_warehouse_id: end_warehouse_id })
+
+    # Получаем максимальную дату
+    cargo_in_shippings.maximum(:created_at)
   end
 
   private

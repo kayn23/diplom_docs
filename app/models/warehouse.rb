@@ -23,4 +23,12 @@ class Warehouse < ApplicationRecord
     from_routes.create!(start_warehouse: self, end_warehouse: distribution_center)
     # Логика создания маршрута
   end
+
+  def from_route
+    from_routes.last
+  end
+
+  def to_route
+    to_routes.last
+  end
 end
