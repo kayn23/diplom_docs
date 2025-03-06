@@ -386,6 +386,9 @@ paths:
                     - address
                     - city_id
                     - active
+                  delivery_date:
+                    type: string
+                    nullable: true
                 required:
                 - id
                 - sender_id
@@ -399,6 +402,7 @@ paths:
                 - receiver
                 - start_warehouse
                 - end_warehouse
+                - delivery_date
   "/api/orders/{id}/cargo_accepted":
     post:
       summary: accept cargo, calc price
@@ -513,6 +517,9 @@ paths:
                     - address
                     - city_id
                     - active
+                  delivery_date:
+                    type: string
+                    nullable: true
                 required:
                 - id
                 - sender_id
@@ -686,6 +693,9 @@ paths:
                     - address
                     - city_id
                     - active
+                  delivery_date:
+                    type: string
+                    nullable: true
                 required:
                 - id
                 - sender_id
