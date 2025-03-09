@@ -827,6 +827,439 @@ paths:
                   type: number
               required:
               - user_id
+  "/api/shippings":
+    get:
+      summary: get shippings list
+      tags:
+      - shippings
+      security:
+      - Bearer: {}
+      parameters:
+      - name: q
+        in: query
+        type: object
+        schema:
+          type: object
+          properties:
+            q[status_eq]:
+              type: string
+              description: Пример Статус заказа
+        description: Параметры поиска с использованием Ransack
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    route_id:
+                      type: number
+                    assignee_id:
+                      type: number
+                    assignee:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        email:
+                          type: string
+                        firstname:
+                          type: string
+                        surname:
+                          type: string
+                        roles:
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - id
+                      - email
+                      - roles
+                    route:
+                      allOf:
+                      - type: object
+                        properties:
+                          id:
+                            type: number
+                          start_warehouse_id:
+                            type: number
+                          end_warehouse_id:
+                            type: number
+                          user_id:
+                            type: number
+                        required:
+                        - id
+                        - start_warehouse_id
+                        - end_warehouse_id
+                        - user_id
+                      - type: object
+                        properties:
+                          start_warehouse:
+                            type: object
+                            properties:
+                              id:
+                                type: number
+                              name:
+                                type: string
+                              address:
+                                type: string
+                              city_id:
+                                type: number
+                              active:
+                                type: boolean
+                            required:
+                            - id
+                            - name
+                            - address
+                            - city_id
+                            - active
+                          end_warehouse:
+                            type: object
+                            properties:
+                              id:
+                                type: number
+                              name:
+                                type: string
+                              address:
+                                type: string
+                              city_id:
+                                type: number
+                              active:
+                                type: boolean
+                            required:
+                            - id
+                            - name
+                            - address
+                            - city_id
+                            - active
+                        required:
+                        - start_warehouse
+                        - end_warehouse
+                    status:
+                      type: string
+                    date:
+                      type: string
+                  required:
+                  - id
+                  - route_id
+                  - assignee_id
+                  - assignee
+                  - status
+                  - date
+                  - route
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+  "/api/shippings/{id}/start_load":
+    post:
+      summary: start load
+      tags:
+      - shippings
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  route_id:
+                    type: number
+                  assignee_id:
+                    type: number
+                  assignee:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  route:
+                    allOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: number
+                        start_warehouse_id:
+                          type: number
+                        end_warehouse_id:
+                          type: number
+                        user_id:
+                          type: number
+                      required:
+                      - id
+                      - start_warehouse_id
+                      - end_warehouse_id
+                      - user_id
+                    - type: object
+                      properties:
+                        start_warehouse:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                            address:
+                              type: string
+                            city_id:
+                              type: number
+                            active:
+                              type: boolean
+                          required:
+                          - id
+                          - name
+                          - address
+                          - city_id
+                          - active
+                        end_warehouse:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                            address:
+                              type: string
+                            city_id:
+                              type: number
+                            active:
+                              type: boolean
+                          required:
+                          - id
+                          - name
+                          - address
+                          - city_id
+                          - active
+                      required:
+                      - start_warehouse
+                      - end_warehouse
+                  status:
+                    type: string
+                  date:
+                    type: string
+                required:
+                - id
+                - route_id
+                - assignee_id
+                - assignee
+                - status
+                - date
+                - route
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+  "/api/shippings/{id}/start_delivery":
+    post:
+      summary: start load
+      tags:
+      - shippings
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  route_id:
+                    type: number
+                  assignee_id:
+                    type: number
+                  assignee:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  route:
+                    allOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: number
+                        start_warehouse_id:
+                          type: number
+                        end_warehouse_id:
+                          type: number
+                        user_id:
+                          type: number
+                      required:
+                      - id
+                      - start_warehouse_id
+                      - end_warehouse_id
+                      - user_id
+                    - type: object
+                      properties:
+                        start_warehouse:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                            address:
+                              type: string
+                            city_id:
+                              type: number
+                            active:
+                              type: boolean
+                          required:
+                          - id
+                          - name
+                          - address
+                          - city_id
+                          - active
+                        end_warehouse:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                            address:
+                              type: string
+                            city_id:
+                              type: number
+                            active:
+                              type: boolean
+                          required:
+                          - id
+                          - name
+                          - address
+                          - city_id
+                          - active
+                      required:
+                      - start_warehouse
+                      - end_warehouse
+                  status:
+                    type: string
+                  date:
+                    type: string
+                required:
+                - id
+                - route_id
+                - assignee_id
+                - assignee
+                - status
+                - date
+                - route
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
   "/api/users":
     get:
       summary: list orders

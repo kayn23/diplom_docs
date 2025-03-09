@@ -6,15 +6,20 @@ class CargoInShipping < ApplicationRecord
 
   aasm column: 'status' do
     state :wait, initial: true
+    state :loaded_cargo
     state :delivering
     state :delivered
 
+    event :load do
+      transitions from: :waid, to: :loaded_cargo
+    end
+
     event :start_delivery do
-      transitions from: :wait, to: :delivering
+      transitions from: :loaded_cargo, to: :delivering
     end
 
     event :finish_delivery do
-      transitions form: :delivering, to: :delivered
+      transitions from: :delivering, to: :delivered
     end
   end
 end

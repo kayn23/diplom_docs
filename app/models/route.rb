@@ -16,8 +16,12 @@ class Route < ApplicationRecord
     (from_date..from_date + 6.days).find { |date| delivery_days.include?(date.wday) }
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[created_at delivery_days end_warehouse_id id start_warehouse_id updated_at user_id]
+  end
+
   def self.ransackable_associations(_auth_object = nil)
-    authorizable_ransackable_associations + ['warehouse']
+    authorizable_ransackable_associations + %w[start_warehouse end_warehouse user]
   end
 
   private

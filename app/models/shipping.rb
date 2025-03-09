@@ -5,6 +5,11 @@ class Shipping < ApplicationRecord
     end
   end
 
+  class NotAllCargoLoaded < StandardError
+    def initialize
+      super('not all cargo is loaded')
+    end
+  end
   include AASM
 
   belongs_to :route
@@ -26,6 +31,12 @@ class Shipping < ApplicationRecord
 
     event :start_delivery do
       transitions from: :loading, to: :delivering
+      before do
+        raise NotAllCargoLoaded unless all_cargo_loaded?
+      end
+      after do
+        update_cargo_in_shippings_status('delivering')
+      end
     end
 
     event :finish do
@@ -51,5 +62,25 @@ class Shipping < ApplicationRecord
     raise NoActiveCarError.new unless car
 
     car.capacity
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[status date] + _ransackers.keys
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    authorizable_ransackable_associations + %w[route assignee]
+  end
+
+  private
+
+  def all_cargo_loaded?
+    cargo_in_shippings.all? do |cargo|
+      cargo.loaded_cargo?
+    end
+  end
+
+  def update_cargo_in_shippings_status(new_status)
+    cargo_in_shippings.update_all(status: new_status)
   end
 end
