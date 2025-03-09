@@ -1,5 +1,5 @@
 class CargoPolicy < ApplicationPolicy
   def create?
-    user.hight_rule?
+    user.high_rule?
   end
 end

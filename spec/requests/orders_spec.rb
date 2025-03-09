@@ -160,7 +160,7 @@ RSpec.describe 'Orders' do
         end
       end
 
-      response 201, 'create hight rule user' do
+      response 201, 'create high rule user' do
         let(:sender) { create(:user) }
         let(:receiver) { create(:user) }
         let(:start_warehouse) { create(:warehouse) }

@@ -1,7 +1,7 @@
 class CarPolicy < ApplicationPolicy
   def create?
     return user.id == record.user_id if user.courier?
-    return true if user.hight_rule?
+    return true if user.high_rule?
 
     false
   end

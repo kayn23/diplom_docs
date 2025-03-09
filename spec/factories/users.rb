@@ -5,7 +5,7 @@ FactoryBot.define do
     firstname { Faker::Name.first_name }
     surname { Faker::Name.last_name }
     lastname { Faker::Name.last_name }
-    document_number { Faker::Number.number(digits: 10) }
+    document_number { Faker::Number.unique.number(digits: 10) }
 
     trait :admin do
       email { 'admin@gmail.com' }

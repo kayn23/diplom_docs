@@ -3,7 +3,7 @@
 class OrderPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.hight_rule?
+      if user.high_rule?
         scope.all
       else
         scope.where('sender_id = ? OR receiver_id = ?', user.id, user.id)
@@ -28,7 +28,7 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def cargo_accepted?
-    user.hight_rule?
+    user.high_rule?
   end
 
   def payment?

@@ -31,12 +31,12 @@ class User < ApplicationRecord
     roles.exists?(name: %w[manager])
   end
 
-  def hight_rule?
+  def high_rule?
     roles.exists?(name: %w[manager admin])
   end
 
   def low_rule?
-    !hight_rule?
+    !high_rule?
   end
 
   def courier?

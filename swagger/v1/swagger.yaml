@@ -252,7 +252,7 @@ paths:
       parameters: []
       responses:
         '201':
-          description: create hight rule user
+          description: create high rule user
         '401':
           description: now authorization
       requestBody:
@@ -872,6 +872,91 @@ paths:
                     - id
                     - email
                     - roles
+  "/api/users/{id}":
+    get:
+      summary: show user info
+      tags:
+      - users
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  email:
+                    type: string
+                  firstname:
+                    type: string
+                  surname:
+                    type: string
+                  roles:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - id
+                - email
+                - roles
+        '403':
+          description: forbidden
+    put:
+      summary: update user
+      tags:
+      - users
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  email:
+                    type: string
+                  firstname:
+                    type: string
+                  surname:
+                    type: string
+                  roles:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - id
+                - email
+                - roles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                surname:
+                  type: string
+                lastname:
+                  type: string
+                document_number:
+                  type: string
   "/api/warehouses":
     get:
       summary: return correct list

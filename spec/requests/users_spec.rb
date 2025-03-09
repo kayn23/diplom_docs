@@ -39,4 +39,86 @@ RSpec.describe 'Users' do
       end
     end
   end
+
+  path '/api/users/{id}' do
+    get 'show user info' do
+      tags 'users'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+
+      let!(:user) { create(:user) }
+      let!(:other_user) { create(:user) }
+
+      context 'user' do
+        let(:Authorization) { "Bearer #{user.auth_token}" }
+
+        response 200, 'ok' do
+          let(:id) { user.id }
+
+          schema Swagger::Schemas::Models::USER_SCHEMA
+          run_test!
+        end
+
+        response 403, 'forbidden' do
+          let(:id) { other_user.id }
+          run_test!
+        end
+      end
+
+      context 'admin' do
+        let(:admin) { create(:user, :admin) }
+        let(:Authorization) { "Bearer #{admin.auth_token}" }
+
+        response 200, 'ok' do
+          let(:id) { user.id }
+
+          schema Swagger::Schemas::Models::USER_SCHEMA
+          run_test! do |response|
+            data = JSON.parse(response.body)
+            expect(data.keys).to include('document_number')
+          end
+        end
+      end
+    end
+
+    put 'update user' do
+      tags 'users'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+      parameter name: :update_user_param,
+                in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    firstname: { type: :string },
+                    surname: { type: :string },
+                    lastname: { type: :string },
+                    document_number: { type: :string }
+                  }
+                }
+
+      let!(:user) { create(:user) }
+
+      response 200, 'ok' do
+        let(:document_number) { '2321232111' }
+        let(:id) { user.id }
+        let(:Authorization) { "Bearer #{user.auth_token}" }
+        let(:update_user_param) do
+          {
+            document_number: document_number
+          }
+        end
+
+        schema Swagger::Schemas::Models::USER_SCHEMA
+        run_test! do |response|
+          data = JSON.parse(response.body)
+          expect(data['document_number']).to eq(document_number)
+        end
+      end
+    end
+  end
 end
