@@ -34,7 +34,7 @@ module Swagger
           user_id: { type: :number }
         },
         required: %w[id start_warehouse_id end_warehouse_id user_id]
-      }
+      }.freeze
 
       ROUTE_DETAILS = {
         allOf: [
@@ -48,7 +48,7 @@ module Swagger
             required: %w[start_warehouse end_warehouse]
           }
         ]
-      }
+      }.freeze
 
       SHIPPING = {
         type: :object,
@@ -62,6 +62,16 @@ module Swagger
           date: { type: :string }
         },
         required: %w[id route_id assignee_id assignee status date route]
+      }.freeze
+
+      CARGO_IN_SHIPPING = {
+        type: :object,
+        properties: {
+          id: { type: :number },
+          cargo_id: { type: :number },
+          shipping_id: { type: :number }
+        },
+        required: %w[id cargo_id shipping_id]
       }.freeze
     end
   end

@@ -28,6 +28,146 @@ paths:
               required:
               - email
               - password
+  "/api/shippings/{shipping_id}/cargo_in_shippings/{id}/load":
+    post:
+      summary: load
+      tags:
+      - cargo_in_shipping
+      security:
+      - Bearer: {}
+      parameters:
+      - name: shipping_id
+        in: path
+        required: true
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  cargo_id:
+                    type: number
+                  shipping_id:
+                    type: number
+                required:
+                - id
+                - cargo_id
+                - shipping_id
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+  "/api/shippings/{shipping_id}/cargo_in_shippings/{id}/upload":
+    post:
+      summary: upload
+      tags:
+      - cargo_in_shipping
+      security:
+      - Bearer: {}
+      parameters:
+      - name: shipping_id
+        in: path
+        required: true
+      - name: id
+        in: path
+        required: true
+      responses:
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  cargo_id:
+                    type: number
+                  shipping_id:
+                    type: number
+                required:
+                - id
+                - cargo_id
+                - shipping_id
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
   "/api/orders/{order_id}/cargos":
     get:
       summary: get cargos

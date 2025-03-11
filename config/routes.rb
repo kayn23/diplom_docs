@@ -29,6 +29,13 @@ Rails.application.routes.draw do
         post :start_load
         post :start_delivery
       end
+
+      resources :cargo_in_shippings, only: %i[] do
+        member do
+          post :load
+          post :upload
+        end
+      end
     end
 
     resources :routes, only: %i[update]

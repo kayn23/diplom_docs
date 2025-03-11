@@ -11,14 +11,15 @@ class CargoInShipping < ApplicationRecord
     state :delivered
 
     event :load do
-      transitions from: :waid, to: :loaded_cargo
+      transitions from: :wait, to: :loaded_cargo
     end
 
-    event :start_delivery do
-      transitions from: :loaded_cargo, to: :delivering
-    end
+    # данное действие не актуально, ибо изменение статсу на delivering происходит из shipping
+    # event :start_delivery do
+    #   transitions from: :loaded_cargo, to: :delivering
+    # end
 
-    event :finish_delivery do
+    event :upload do
       transitions from: :delivering, to: :delivered
     end
   end
