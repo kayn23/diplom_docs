@@ -34,6 +34,11 @@ class CargoInShippingsController < ApplicationController
     end
 
     if @cargo_in_shipping.upload!
+      # TODO: возможно это надо выкинуть в воркеры,
+      # но в тоже время в воркерах может быть проблема конкурентног доступа
+      ShippingFinisherService.new(@cargo_in_shipping.shipping.id).call
+
+      OrderDeliveryFinisherService.new(@cargo_in_shipping.cargo.order.id).call
       # тут надо запустить систему для проверки связанной доставки
       # если по доставке все грузы доставлены то закрыть достаку
       # Так же надо запускать проверки для заказов, что если в заказах все грузы доставлены,

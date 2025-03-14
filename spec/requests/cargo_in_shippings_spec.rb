@@ -95,11 +95,20 @@ RSpec.describe 'CargoInShippings' do
           let(:shipping_id) { shipping.id }
           let(:id) { cargo_in_shipping.id }
 
+          before do
+            allow(ShippingFinisherService).to receive(:new).and_return(double(call: true))
+            allow(OrderDeliveryFinisherService).to receive(:new).and_return(double(call: true))
+          end
+
           response 200, 'ok' do
             schema Swagger::Schemas::Models::CARGO_IN_SHIPPING
             run_test! do
               cargo_in_shipping.reload
               expect(cargo_in_shipping.status).to eq('delivered')
+              expect(ShippingFinisherService).to have_received(:new).with(shipping.id)
+              expect(ShippingFinisherService.new(shipping.id)).to have_received(:call)
+              expect(OrderDeliveryFinisherService).to have_received(:new).with(cargo.order.id)
+              expect(OrderDeliveryFinisherService.new(1)).to have_received(:call)
             end
           end
         end
