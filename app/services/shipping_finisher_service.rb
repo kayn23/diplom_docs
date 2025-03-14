@@ -19,5 +19,6 @@ class ShippingFinisherService
     end
 
     shipping.finish!
+    # TODO: тут надо довать вызов оповещения
   end
 end
