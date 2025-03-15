@@ -73,6 +73,28 @@ module Swagger
         },
         required: %w[id cargo_id shipping_id]
       }.freeze
+
+      ORDER_DETAILS = {
+        type: :object,
+        properties: {
+          id: { type: :number },
+          sender_id: { type: :number },
+          receiver_id: { type: :number },
+          start_warehouse_id: { type: :number },
+          end_warehouse_id: { type: :number },
+          status: { type: :string },
+          price: { type: :string, nullable: true },
+          created_at: { type: :string },
+          updated_at: { type: :string },
+          sender: Swagger::Schemas::Models::USER_SCHEMA,
+          receiver: Swagger::Schemas::Models::USER_SCHEMA,
+          start_warehouse: Swagger::Schemas::Models::WAREHOUSE,
+          end_warehouse: Swagger::Schemas::Models::WAREHOUSE,
+          delivery_date: { type: :string, nullable: true }
+        },
+        required: %w[id sender_id receiver_id start_warehouse_id end_warehouse_id status created_at
+                     updated_at sender receiver start_warehouse end_warehouse]
+      }.freeze
     end
   end
 end

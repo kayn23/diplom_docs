@@ -1,6 +1,6 @@
 class CargosController < ApplicationController
   before_action :set_order
-  before_action :set_cargo, only: %i[show update destroy]
+  before_action :set_cargo, only: %i[show update destroy hand_over]
 
   def index
     authorize @order
@@ -24,6 +24,18 @@ class CargosController < ApplicationController
     end
   end
 
+  def hand_over
+    authorize @order
+    return render json: { errors: 'cargo cannot hand_over' }, status: :unprocessable_entity unless @cargo.may_hand_over?
+
+    if @cargo.hand_over!
+      OrderFinisherService.new(@order.id).call
+      render :show, status: :ok
+    else
+      render json: { errors: @cargo.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def create_cargo_params
@@ -31,7 +43,7 @@ class CargosController < ApplicationController
   end
 
   def set_cargo
-    @cargo = Cargo.find(params[:id])
+    @cargo = Cargo.eager_load(:order).find(params[:id])
   end
 
   def set_order

@@ -218,6 +218,46 @@ paths:
               required:
               - size
               - dimensions
+  "/api/orders/{order_id}/cargos/{id}/hand_over":
+    post:
+      summary: update status to issued
+      tags:
+      - cargos
+      security:
+      - Bearer: {}
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
+        '403':
+          description: forbidden
   "/api/users/{user_id}/cars":
     get:
       summary: get car list

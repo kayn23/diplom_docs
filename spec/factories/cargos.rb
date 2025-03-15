@@ -5,5 +5,6 @@ FactoryBot.define do
     dimensions { 1.5 }
     association :order, factory: :order
     qrcode { Faker::Internet.base64 }
+    status { 'accepted' }
   end
 end

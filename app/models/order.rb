@@ -38,7 +38,7 @@ class Order < ApplicationRecord
       transitions from: :in_delivery, to: :awaiting_pickup
     end
 
-    event :hand_over do
+    event :complete do
       transitions from: :awaiting_pickup, to: :completed
     end
 

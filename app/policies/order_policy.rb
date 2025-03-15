@@ -36,7 +36,11 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def update?
-    show?
+    cargo_accepted?
+  end
+
+  def hand_over?
+    cargo_accepted?
   end
 
   def destroy?

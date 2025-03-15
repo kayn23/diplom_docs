@@ -21,7 +21,11 @@ Rails.application.routes.draw do
         post :cargo_accepted
         post :payment
       end
-      resources :cargos
+      resources :cargos do
+        member do
+          post :hand_over
+        end
+      end
     end
 
     resources :shippings, only: %i[index] do

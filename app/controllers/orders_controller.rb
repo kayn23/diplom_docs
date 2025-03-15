@@ -69,6 +69,12 @@ class OrdersController < ApplicationController
     end
   end
 
+  def hand_over
+    authorize @order
+
+    render 'show'
+  end
+
   private
 
   def set_order
