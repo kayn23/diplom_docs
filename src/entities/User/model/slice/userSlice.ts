@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAuthData, UserSchema } from '../types/user';
+import { IAuthRequest, UserSchema } from '../types/user';
 import { USER_AUTH_DATA } from 'shared/const/localstorage';
 
 const initialState: UserSchema = {
@@ -16,11 +16,14 @@ export const userSlice = createSlice({
     initAuthData: (state) => {
       const authData = localStorage.getItem(USER_AUTH_DATA);
       if (authData) {
-        state.authData = JSON.parse(authData);
+        const data = JSON.parse(authData);
+        state.authData = data.token;
+        state.user = data.user;
       }
     },
-    setAuthData: (state, action: PayloadAction<IAuthData>) => {
-      state.authData = action.payload;
+    setAuthData: (state, action: PayloadAction<IAuthRequest>) => {
+      state.authData = action.payload.token;
+      state.user = action.payload.user;
       localStorage.setItem(USER_AUTH_DATA, JSON.stringify(action.payload));
     },
     logout: (state) => {

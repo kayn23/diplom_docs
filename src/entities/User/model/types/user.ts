@@ -1,6 +1,10 @@
 export interface IUser {
   id: number;
   email: string;
+  firstname?: string;
+  surname?: string;
+  lastname?: string;
+  roles: string[];
 }
 
 export interface IAuthData {
@@ -11,9 +15,14 @@ export interface IAuthData {
   token: string;
 }
 
+export interface IAuthRequest {
+  user: IUser;
+  token: string;
+}
+
 export interface UserSchema {
   user?: IUser;
-  authData?: IAuthData;
+  authData?: string;
   isLoginProcess: boolean;
   loginError?: string;
 }
