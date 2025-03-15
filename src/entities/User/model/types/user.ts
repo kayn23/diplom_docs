@@ -4,6 +4,7 @@ export interface IUser {
   firstname?: string;
   surname?: string;
   lastname?: string;
+  document_numebr?: string;
   roles: string[];
 }
 

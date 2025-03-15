@@ -1,0 +1,149 @@
+import type { FC } from 'react';
+import { classNames } from 'shared/lib/classNames/classNames';
+import cls from './OrderPage.module.scss';
+import { useParams } from 'react-router';
+import { useOrderInfo } from '../model/service/useOrderInfo';
+import { AccountLayout } from 'app/layouts/AccountLayout';
+import { UserInfoCard } from 'entities/User';
+import { Accordion, AccordionGroup, AccordionSummary, AccordionDetails, Stack, Typography, Box, Link } from '@mui/joy';
+import { CallReceived, CallMade, Person, Inventory2, ArrowBack } from '@mui/icons-material';
+import { WarehouseInfoCard } from 'entities/Worehouse';
+import { useTranslation } from 'react-i18next';
+import { TypoWithLabel } from 'shared/ui/TypoWithLabel/TypoWithLabel';
+import { getRouteOrders } from 'shared/const/router';
+
+interface OrderPageProps {
+  className?: string;
+}
+
+export const OrderPage: FC<OrderPageProps> = (props) => {
+  const { orderId } = useParams();
+  const { className } = props;
+  const { t } = useTranslation(['translatioins', 'orders']);
+
+  const { order } = useOrderInfo(orderId);
+
+  return (
+    <AccountLayout className={classNames(cls.OrderPage, { additional: [className] })}>
+      <Link
+        startDecorator={<ArrowBack />}
+        href={getRouteOrders()}
+      ></Link>
+      {order && (
+        <Box>
+          <Typography level="h1">{t('orders:OrdersPage.titles.order')}</Typography>
+          <Box sx={{ p: '8px' }}>
+            <TypoWithLabel label={t('orders:OrdersPage.titles.ID')}>{order.id}</TypoWithLabel>
+            <TypoWithLabel label={t('orders:OrdersPage.titles.status')}>
+              {t(`orders:OrdersPage.statuses.${order.status}`)}
+            </TypoWithLabel>
+
+            <TypoWithLabel label={t('orders:OrdersPage.titles.price')}>
+              {order.price || t('orders:order.fields.price.null')}
+            </TypoWithLabel>
+
+            <TypoWithLabel label={t('orders:order.fields.delivery_date.title')}>
+              {order.delivery_date || t('orders:order.fields.delivery_date.null')}
+            </TypoWithLabel>
+          </Box>
+
+          <AccordionGroup>
+            <Accordion>
+              <AccordionSummary>
+                <Typography
+                  level="h2"
+                  endDecorator={<Person />}
+                >
+                  {t('orders:OrdersPage.titles.users')}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stack
+                  direction="row"
+                  gap="8px"
+                  sx={{
+                    marginBottom: '8px',
+                    '@media (max-width: 768px)': {
+                      flexDirection: 'column',
+                    },
+                  }}
+                >
+                  <UserInfoCard
+                    title={
+                      <Typography level="h3">
+                        {t('orders:OrdersPage.titles.sender')}
+                        <CallMade />
+                      </Typography>
+                    }
+                    user={order.sender}
+                    showMoreButton
+                    className={classNames(cls.userCard)}
+                  />
+                  {order?.receiver && (
+                    <UserInfoCard
+                      title={
+                        <Typography level="h3">
+                          {t('orders:OrdersPage.titles.receiver')}
+                          <CallReceived />
+                        </Typography>
+                      }
+                      user={order.receiver}
+                      showMoreButton
+                      className={classNames(cls.userCard)}
+                    />
+                  )}
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>
+                <Typography
+                  level="h2"
+                  endDecorator={<Inventory2 />}
+                >
+                  {t('orders:OrdersPage.titles.warehouses')}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stack
+                  direction="row"
+                  gap="8px"
+                  sx={{
+                    '@media (max-width: 768px)': {
+                      flexDirection: 'column',
+                    },
+                  }}
+                >
+                  <WarehouseInfoCard
+                    title={
+                      <Typography level="h3">
+                        {t('orders:OrdersPage.titles.start_warehouse')}
+                        <CallMade />
+                      </Typography>
+                    }
+                    warehouse={order.start_warehouse}
+                    className={classNames(cls.warehouseCard)}
+                    showMoreButton
+                  />
+                  <WarehouseInfoCard
+                    title={
+                      <Typography level="h3">
+                        {t('orders:OrdersPage.titles.end_warehouse')}
+                        <CallReceived />
+                      </Typography>
+                    }
+                    warehouse={order.end_warehouse}
+                    showMoreButton
+                    className={classNames(cls.warehouseCard)}
+                  />
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
+        </Box>
+      )}
+    </AccountLayout>
+  );
+};
+
+export default OrderPage;

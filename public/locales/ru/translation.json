@@ -2,7 +2,8 @@
   "test": "test word",
   "pages": {
     "mainPage": "Главная страница",
-    "notFoundPage": "Страница не найдена"
+    "notFoundPage": "Страница не найдена",
+    "orders": "Заказы"
   },
   "navbar": {
     "home": "Главная",
@@ -12,7 +13,8 @@
     "fallbackTitle": "Возникла непредвиденная ошибка"
   },
   "buttons": {
-    "reload": "Перезагрузить"
+    "reload": "Перезагрузить",
+    "showMore": "Подробнее"
   },
   "entities": {
     "counter": {
@@ -43,5 +45,56 @@
     "403": "У вас нет прав доступа",
     "404": "Ресурс не найден",
     "unknown": "Неизвестная ошибка"
+  },
+  "orders": {
+    "statuses": {
+      "created": "Новый",
+      "wait_payment": "Ожидает оплаты",
+      "paid": "Оплачен",
+      "in_delivery": "Доставляется",
+      "awaiting_pickup": "Ожидает выдачи",
+      "completed": "Завершен"
+    },
+    "previewCard": {
+      "sender": {
+        "title": "Отправитель",
+        "email": "Email"
+      },
+      "receiver": {
+        "title":"Получатель",
+        "not_present": "Получатель не определен",
+        "email": "Email"
+      },
+      "status": {
+        "title": "Статус"
+      },
+      "moreLink": "Подробнее"
+    }
+  },
+  "users": {
+    "previewCard": {
+      "email": {
+        "title": "Email"
+      },
+      "FIO": {
+        "title": "ФИО"
+      }, 
+      "roles": {
+        "title": "Роли"
+      }
+    }
+  },
+  "warehouses": {
+    "previewCard": {
+      "name": {
+        "title": "Название"
+      },
+      "address": {
+        "title": "Адрес"
+      },
+      "city": {
+        "title": "Город"
+      }
+    }
   }
 }

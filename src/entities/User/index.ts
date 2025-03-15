@@ -1,3 +1,7 @@
+export { UserInfoCard } from './ui/UserInfoCard/UserInfoCard.tsx';
+
+export { useFetch } from './utils/useFetch';
+
 export type { IUser, UserSchema } from './model/types/user';
 
 // state

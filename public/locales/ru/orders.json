@@ -1,0 +1,54 @@
+{
+  "order": {
+    "fields": {
+      "id": {
+        "title": "ID"
+      },
+      "price": {
+        "title":"Цена",
+        "null": "Не указана"
+      },
+      "status": {
+        "title": "Статус"
+      },
+      "delivery_date": {
+        "title": "Ожидаемая дата доставки",
+        "null": "Неизвестна"
+      }
+    }
+  },
+  "OrdersPage": {
+    "sidebar": {
+      "filters":{
+        "title": "Фильтры"
+      },
+      "actions": {
+        "title": "Действия"
+      },
+      "search": {
+        "title": "Поиск"
+      }
+    },
+    "titles": {
+      "users": "Пользователи",
+      "sender": "Отправитель",
+      "order": "Информация по заказу",
+      "receiver": "Получатель",
+      "warehouses": "Маршрут",
+      "start_warehouse": "Начальный склад",
+      "end_warehouse": "Конечный склад",
+      "ID": "ID",
+      "status": "Статус",
+      "price":"Цена"
+
+    },
+    "statuses": {
+      "created": "Новый",
+      "wait_payment": "Ожидает оплаты",
+      "paid": "Оплачен",
+      "in_delivery": "Доставляется",
+      "awaiting_pickup": "Ожидает выдачи",
+      "completed": "Завершен"
+    }
+  }
+}

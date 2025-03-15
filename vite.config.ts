@@ -17,6 +17,7 @@ export default defineConfig({
       entities: path.resolve(__dirname, 'src/entities'),
       shared: path.resolve(__dirname, 'src/shared'),
       '@': path.resolve(__dirname, 'src'),
+      '@mui/material': '@mui/joy',
     },
   },
   css: {

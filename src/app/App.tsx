@@ -8,6 +8,8 @@ import { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { userActions } from 'entities/User/index.ts';
 
+import 'react18-json-view/src/style.css';
+
 function App() {
   const dispatch = useDispatch();
 
@@ -20,7 +22,9 @@ function App() {
       <Suspense fallback="">
         <div className={classNames('app')}>
           <Navbar />
-          <AppRouter />
+          <div className="content">
+            <AppRouter />
+          </div>
         </div>
       </Suspense>
     </>

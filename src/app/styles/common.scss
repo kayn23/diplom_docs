@@ -1,0 +1,61 @@
+@use 'sass:list';
+
+@mixin adaptive($class-name, $property, $value) {
+  .#{$class-name} {
+    #{$property}: #{$value};
+  }
+
+  @media (width >= 768px) {
+    .tablet-#{$class-name} {
+      #{$property}: #{$value};
+    }
+  }
+
+  @media (width >= 1368px) {
+    .laptop-#{$class-name} {
+      #{$property}: #{$value};
+    }
+  }
+}
+
+@mixin adaptive-multiple($class-name, $styles...) {
+  .#{$class-name} {
+    @each $style in $styles {
+      $property: list.nth($style, 1);
+      $value: list.nth($style, 2);
+
+      #{$property}: #{$value};
+    }
+  }
+
+  @media (width >= 768px) {
+    .tablet-#{$class-name} {
+      @each $style in $styles {
+        $property: list.nth($style, 1);
+        $value: list.nth($style, 2);
+
+        #{$property}: #{$value};
+      }
+    }
+  }
+
+  @media (width >= 1368px) {
+    .laptop-#{$class-name} {
+      @each $style in $styles {
+        $property: list.nth($style, 1);
+        $value: list.nth($style, 2);
+
+        #{$property}: #{$value};
+      }
+    }
+  }
+}
+
+@for $i from 1 through 200 {
+  @include adaptive('mb#{$i}', 'margin-bottom', #{$i}px);
+  @include adaptive('p#{$i}', 'padding', #{$i}px);
+  @include adaptive('m#{$i}', 'margin', #{$i}px);
+  @include adaptive-multiple((mx#{$i}), ('margin-right', #{$i}px), ('margin-left', #{$i}px));
+  @include adaptive-multiple((px#{$i}), ('padding-right', #{$i}px), ('padding-left', #{$i}px));
+  @include adaptive-multiple((py#{$i}), ('padding-top', #{$i}px), ('padding-bottom', #{$i}px));
+}

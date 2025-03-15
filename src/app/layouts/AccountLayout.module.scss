@@ -1,0 +1,26 @@
+.AccountLayout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.sidebar {
+  max-width: 20%;
+  margin: 8px;
+  padding: 8px;
+  background: var(--bg-secondary);
+}
+
+.show-sidebar {
+  flex-grow: 2;
+}
+
+.sidebarContent {
+  flex-grow: 8;
+}
+
+.content {
+  padding: 8px;
+  flex-grow: 1;
+}
