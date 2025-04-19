@@ -1,7 +1,10 @@
-import { FetchOptions, MappedResponseType, ofetch } from 'ofetch';
+import { FetchError, FetchOptions, MappedResponseType, ofetch } from 'ofetch';
 import { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { BASE_URL } from 'shared/const/api';
-import { USER_AUTH_DATA } from 'shared/const/localstorage';
+import { getUserToken } from '../model/selectors/getUserToken';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+import { userActions } from '../model/slice/userSlice';
 
 type FetchRequest = RequestInfo;
 interface ResponseMap {
@@ -18,15 +21,13 @@ type ofetch<T = never, R extends ResponseType = 'json'> = (
 
 export const useFetch = <E = string>() => {
   const [isLoading, setIsLoading] = useState(false);
+  const token = useSelector(getUserToken);
+  const dispatch = useAppDispatch();
   const [error, setError] = useState<E>();
 
   const request = useCallback(
     async <T = never, R extends ResponseType = 'json'>(request: string, options?: FetchOptions<R>) => {
-      const ls = localStorage.getItem(USER_AUTH_DATA);
-      if (!ls) throw new Error('User authentication data not found');
-
-      const userInfo = JSON.parse(ls);
-      const token = userInfo.token;
+      if (!token) throw new Error('User authentication data not found');
 
       setIsLoading(true);
       return ofetch<T, R>(`${BASE_URL}${request}`, {
@@ -37,6 +38,11 @@ export const useFetch = <E = string>() => {
       })
         .then((res) => res)
         .catch((err) => {
+          if (err instanceof FetchError) {
+            if (err.statusCode === 401) {
+              dispatch(userActions.logout());
+            }
+          }
           setError(err);
           return undefined;
         })
@@ -44,7 +50,7 @@ export const useFetch = <E = string>() => {
           setIsLoading(false);
         });
     },
-    []
+    [token, dispatch]
   );
 
   return {

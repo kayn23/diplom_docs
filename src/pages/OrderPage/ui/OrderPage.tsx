@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './OrderPage.module.scss';
 import { useParams } from 'react-router';
-import { useOrderInfo } from '../model/service/useOrderInfo';
 import { AccountLayout } from 'app/layouts/AccountLayout';
 import { UserInfoCard } from 'entities/User';
 import { Accordion, AccordionGroup, AccordionSummary, AccordionDetails, Stack, Typography, Box, Link } from '@mui/joy';
@@ -11,6 +10,7 @@ import { WarehouseInfoCard } from 'entities/Worehouse';
 import { useTranslation } from 'react-i18next';
 import { TypoWithLabel } from 'shared/ui/TypoWithLabel/TypoWithLabel';
 import { getRouteOrders } from 'shared/const/router';
+import { useOrderInfo } from 'entities/Order';
 
 interface OrderPageProps {
   className?: string;

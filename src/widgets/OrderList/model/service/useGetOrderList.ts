@@ -1,4 +1,4 @@
-import { IOrder } from 'entities/Order/model/types/order';
+import { IOrder } from 'entities/Order/types/order';
 import { useFetch } from 'entities/User';
 import { useCallback, useEffect, useState } from 'react';
 

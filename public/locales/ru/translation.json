@@ -82,6 +82,11 @@
       "roles": {
         "title": "Роли"
       }
+    },
+    "selectAutocomplete": {
+      "placeholder": "Выберите пользователя",
+      "sender": "Выберите отправителя",
+      "receiver": "Выберите получателя"
     }
   },
   "warehouses": {
@@ -95,6 +100,9 @@
       "city": {
         "title": "Город"
       }
+    },
+    "selectAutocomplete": {
+      "placeholder": "Выберите склад"
     }
   }
 }

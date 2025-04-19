@@ -3,6 +3,8 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './OrdersSidebar.module.scss';
 import { Divider, Stack, Typography } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
+import { BaseLink } from 'shared/ui/BaseLink/BaseLink';
+import { getRouteCreateOrder } from 'shared/const/router';
 
 interface OrdersSidebarProps {
   className?: string;
@@ -22,6 +24,7 @@ export const OrdersSidebar: FC<OrdersSidebarProps> = (props) => {
       <Typography level="h3">{t('OrdersPage.sidebar.filters.title')}</Typography>
       <Divider />
       <Typography level="h3">{t('OrdersPage.sidebar.actions.title')}</Typography>
+      <BaseLink to={getRouteCreateOrder()}>{t('OrdersPage.sidebar.actions.create_order.title')}</BaseLink>
     </Stack>
   );
 };

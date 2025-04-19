@@ -15,6 +15,27 @@
         "title": "Ожидаемая дата доставки",
         "null": "Неизвестна"
       }
+    },
+    "form": {
+      "startWarehouse": {
+        "title": "Начальный склад",
+        "placeholder": "Выберите начальный склад"
+      },
+      "endWarehouse": {
+        "title": "Конечный склад",
+        "placeholder": "Выберите конечный склад"
+      },
+      "sender": {
+        "title": "Отправитель",
+        "placeholder": "Выберите отправителя"
+      },
+      "receiver": {
+        "title": "Получатель",
+        "placeholder": "Выберите получателя"
+      },
+      "btn": {
+        "save": "Сохранить"
+      }
     }
   },
   "OrdersPage": {
@@ -23,7 +44,10 @@
         "title": "Фильтры"
       },
       "actions": {
-        "title": "Действия"
+        "title": "Действия",
+        "create_order": {
+          "title": "Создать заказ"
+        }
       },
       "search": {
         "title": "Поиск"
@@ -50,5 +74,11 @@
       "awaiting_pickup": "Ожидает выдачи",
       "completed": "Завершен"
     }
+  },
+  "CreateOrderPage": {
+    "title": "Создать заказ"
+  }, 
+  "EditOrderPage": {
+    "title": "Редактировать заказ {{orderId}}"
   }
 }

@@ -1,6 +1,6 @@
 import { IUser } from 'entities/User';
 import { IWarehouse } from 'entities/Worehouse';
-import { status } from '../config/status';
+import { status } from '../model/config/status';
 
 export interface IOrder {
   id: number;
@@ -17,4 +17,11 @@ export interface IOrder {
   start_warehouse: IWarehouse;
   end_warehouse: IWarehouse;
   delivery_date?: string;
+}
+
+export interface ICreateOrderParams {
+  sender_id: number;
+  receiver_id: number;
+  start_warehouse_id: number;
+  end_warehouse_id: number;
 }

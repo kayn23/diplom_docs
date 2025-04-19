@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './OrderPreviewCard.module.scss';
-import { IOrder } from '../model/types/order';
+import { IOrder } from '../types/order';
 import { Box, Card, Link, Stack, Typography } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { getRouteOrder } from 'shared/const/router';

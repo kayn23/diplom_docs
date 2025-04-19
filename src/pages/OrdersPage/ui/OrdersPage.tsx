@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { Typography } from '@mui/joy';
 import { useGetOrderList } from 'widgets/OrderList/model/service/useGetOrderList';
 import { AccountLayout } from 'app/layouts/AccountLayout';
+import cls from './OrdersPage.module.scss';
 import { useTranslation } from 'react-i18next';
 import { OrderPreviewCard } from 'entities/Order';
 import { ListSkeleton } from './ListSkeleton';
@@ -20,12 +21,15 @@ export const OrdersPage: FC<OrdersPageProps> = () => {
       <Typography level="h1">{t('pages.orders')}</Typography>
       {isLoading && <ListSkeleton />}
 
-      {orders.map((order) => (
-        <OrderPreviewCard
-          key={order.id}
-          order={order}
-        />
-      ))}
+      <div className={cls.ListContainer}>
+        {!isLoading &&
+          orders.map((order) => (
+            <OrderPreviewCard
+              key={order.id}
+              order={order}
+            />
+          ))}
+      </div>
     </AccountLayout>
   );
 };

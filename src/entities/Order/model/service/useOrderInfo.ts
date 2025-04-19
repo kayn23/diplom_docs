@@ -7,9 +7,10 @@ export function useOrderInfo(id: number | string | undefined) {
   const [order, setOrder] = useState<IOrder | undefined>(undefined);
 
   const getOrderInfo = useCallback(
-    (id: string | number) => {
-      request<IOrder>(`/api/orders/${id}`).then((res) => {
+    async (id: string | number) => {
+      return request<IOrder>(`/api/orders/${id}`).then((res) => {
         setOrder(res);
+        return res;
       });
     },
     [request]
@@ -23,5 +24,6 @@ export function useOrderInfo(id: number | string | undefined) {
   return {
     order,
     isLoading,
+    getOrderInfo,
   };
 }
