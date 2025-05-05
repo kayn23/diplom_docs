@@ -2,7 +2,8 @@ class OrdersController < ApplicationController
   before_action :set_order, except: %i[index create]
 
   def index
-    @orders = policy_scope(Order)
+    @orders = policy_scope(Order).eager_load(sender: :roles, receiver: :roles, start_warehouse: :city,
+                                             end_warehouse: :city)
     @orders = @orders.ransack(params[:q]).result.page(params[:page])
   end
 
@@ -15,6 +16,7 @@ class OrdersController < ApplicationController
     authorize @order
 
     if @order.save
+      @order.reload
       render :create, status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
@@ -59,7 +61,9 @@ class OrdersController < ApplicationController
       begin
         CargoDistributor.new(@order).distribute
         @order.accept_for_delivery!
-      rescue CargoDistributor::NoActiveCarError, CargoDistributor::ValidationError,
+      rescue CargoDistributor::NoActiveCarError,
+             CargoDistributor::ValidationError,
+             CargoDistributor::RouteAssigneeNotPresentError,
              CargoDistributor::CargoTooLargeError => e
         render json: { errors: e.message }, status: :unprocessable_entity
         raise ActiveRecord::Rollback

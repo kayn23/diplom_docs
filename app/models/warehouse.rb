@@ -31,4 +31,15 @@ class Warehouse < ApplicationRecord
   def to_route
     to_routes.last
   end
+
+  scope :with_null_routes, lambda {
+    joins('LEFT JOIN routes AS from_routes ON from_routes.start_warehouse_id = warehouses.id')
+      .joins('LEFT JOIN routes AS to_routes ON to_routes.end_warehouse_id = warehouses.id')
+      .where('from_routes.user_id IS NULL OR to_routes.user_id IS NULL')
+      .distinct
+  }
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[with_null_routes]
+  end
 end

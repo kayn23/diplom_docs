@@ -1,4 +1,5 @@
 json.partial! 'orders/order', locals: { order: @order }
+
 json.sender do
   json.partial! 'users/user', user: @order.sender, current_user: @current_user
 end

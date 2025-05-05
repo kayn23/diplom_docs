@@ -9,11 +9,15 @@ class UserPolicy < ApplicationPolicy
     user.roles.exists?(name: %w[admin manager]) || user == record
   end
 
+  def create?
+    user.roles.exists?(name: %w[admin manager]) || user == record
+  end
+
   def update?
     user.roles.exists?(name: %w[admin manager]) || user == record
   end
 
-  def add_roler?
+  def add_roles?
     user.roles.exists?(name: %w[admin])
   end
 

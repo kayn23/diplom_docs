@@ -121,4 +121,68 @@ RSpec.describe 'Users' do
       end
     end
   end
+
+  path '/api/users/{id}/add_roles' do
+    post 'add roles' do
+      tags 'users'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+      parameter name: :role_params, in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    roles: { type: :array, items: { type: :string } }
+                  },
+                  required: %w[roles]
+                }
+
+      let!(:user) { create(:user) }
+      let!(:admin) { create(:user, :admin) }
+
+      response 200, 'ok' do
+        let(:id) { user.id }
+        let(:Authorization) { "Bearer #{admin.auth_token}" }
+        let(:role_params) { { roles: ['courier'] } }
+
+        run_test! do
+          user.reload
+          expect(user.courier?).to be_truthy
+        end
+      end
+    end
+  end
+
+  path '/api/users/{id}/remove_roles' do
+    post 'remove roles' do
+      tags 'users'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+      parameter name: :role_params, in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    roles: { type: :array, items: { type: :string } }
+                  },
+                  required: %w[roles]
+                }
+
+      let!(:user) { create(:user, :courier) }
+      let!(:admin) { create(:user, :admin) }
+
+      response 200, 'ok' do
+        let(:id) { user.id }
+        let(:Authorization) { "Bearer #{admin.auth_token}" }
+        let(:role_params) { { roles: ['courier'] } }
+
+        run_test! do
+          user.reload
+          expect(user.courier?).to be_falsy
+        end
+      end
+    end
+  end
 end

@@ -1,6 +1,6 @@
 class CargosController < ApplicationController
   before_action :set_order
-  before_action :set_cargo, only: %i[show update destroy hand_over]
+  before_action :set_cargo, only: %i[show update destroy hand_over destroy]
 
   def index
     authorize @order
@@ -22,6 +22,11 @@ class CargosController < ApplicationController
     else
       render json: { errors: @cargo.errors }, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    authorize @cargo
+    @cargo.destroy
   end
 
   def hand_over

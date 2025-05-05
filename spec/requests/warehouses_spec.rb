@@ -113,5 +113,35 @@ RSpec.describe '/api/warehouses' do
         run_test!
       end
     end
+
+    get 'show info' do
+      let!(:warehouse) { create(:warehouse, :with_routes) }
+
+      tags 'Список складов'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+
+      response 200, 'ok' do
+        schema Swagger::Schemas::Models::WAREHOUSE_DETAILS
+        let(:Authorization) { "Bearer #{user.auth_token}" }
+        let(:id) { warehouse.id }
+        run_test!
+      end
+
+      response 404, 'not found' do
+        let(:Authorization) { "Bearer #{user.auth_token}" }
+        let(:id) { '99999999999' }
+        run_test!
+      end
+
+      response 401, 'unauthorized' do
+        schema Swagger::Schemas::Errors::ERROR_SCHEMA
+        let(:Authorization) { '' }
+        let(:id) { warehouse.id }
+        run_test!
+      end
+    end
   end
 end

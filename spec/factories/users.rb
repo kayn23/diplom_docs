@@ -8,7 +8,7 @@ FactoryBot.define do
     document_number { Faker::Number.unique.number(digits: 10) }
 
     trait :admin do
-      email { 'admin@gmail.com' }
+      email { 'test_admin@gmail.com' }
       password { '232111' }
 
       after(:create) do |user|

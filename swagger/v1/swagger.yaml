@@ -433,6 +433,129 @@ paths:
       responses:
         '201':
           description: create high rule user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  sender_id:
+                    type: number
+                  receiver_id:
+                    type: number
+                    nullable: true
+                  start_warehouse_id:
+                    type: number
+                  end_warehouse_id:
+                    type: number
+                  status:
+                    type: string
+                  price:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                  sender:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      firstname:
+                        type: string
+                      surname:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - id
+                    - email
+                    - roles
+                  receiver:
+                    oneOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: number
+                        email:
+                          type: string
+                        firstname:
+                          type: string
+                        surname:
+                          type: string
+                        roles:
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - id
+                      - email
+                      - roles
+                    - type: 'null'
+                  start_warehouse:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      address:
+                        type: string
+                      city_id:
+                        type: number
+                      city:
+                        type: string
+                      active:
+                        type: boolean
+                    required:
+                    - id
+                    - name
+                    - address
+                    - city_id
+                    - active
+                  end_warehouse:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      address:
+                        type: string
+                      city_id:
+                        type: number
+                      city:
+                        type: string
+                      active:
+                        type: boolean
+                    required:
+                    - id
+                    - name
+                    - address
+                    - city_id
+                    - active
+                  delivery_date:
+                    type: string
+                    nullable: true
+                required:
+                - id
+                - sender_id
+                - receiver_id
+                - start_warehouse_id
+                - end_warehouse_id
+                - status
+                - created_at
+                - updated_at
+                - sender
+                - receiver
+                - start_warehouse
+                - end_warehouse
         '401':
           description: now authorization
       requestBody:
@@ -539,6 +662,8 @@ paths:
                         type: string
                       city_id:
                         type: number
+                      city:
+                        type: string
                       active:
                         type: boolean
                     required:
@@ -558,6 +683,8 @@ paths:
                         type: string
                       city_id:
                         type: number
+                      city:
+                        type: string
                       active:
                         type: boolean
                     required:
@@ -670,6 +797,8 @@ paths:
                         type: string
                       city_id:
                         type: number
+                      city:
+                        type: string
                       active:
                         type: boolean
                     required:
@@ -689,6 +818,8 @@ paths:
                         type: string
                       city_id:
                         type: number
+                      city:
+                        type: string
                       active:
                         type: boolean
                     required:
@@ -846,6 +977,8 @@ paths:
                         type: string
                       city_id:
                         type: number
+                      city:
+                        type: string
                       active:
                         type: boolean
                     required:
@@ -865,6 +998,8 @@ paths:
                         type: string
                       city_id:
                         type: number
+                      city:
+                        type: string
                       active:
                         type: boolean
                     required:
@@ -1090,6 +1225,8 @@ paths:
                                 type: string
                               city_id:
                                 type: number
+                              city:
+                                type: string
                               active:
                                 type: boolean
                             required:
@@ -1109,6 +1246,8 @@ paths:
                                 type: string
                               city_id:
                                 type: number
+                              city:
+                                type: string
                               active:
                                 type: boolean
                             required:
@@ -1225,6 +1364,8 @@ paths:
                               type: string
                             city_id:
                               type: number
+                            city:
+                              type: string
                             active:
                               type: boolean
                           required:
@@ -1244,6 +1385,8 @@ paths:
                               type: string
                             city_id:
                               type: number
+                            city:
+                              type: string
                             active:
                               type: boolean
                           required:
@@ -1360,6 +1503,8 @@ paths:
                               type: string
                             city_id:
                               type: number
+                            city:
+                              type: string
                             active:
                               type: boolean
                           required:
@@ -1379,6 +1524,8 @@ paths:
                               type: string
                             city_id:
                               type: number
+                            city:
+                              type: string
                             active:
                               type: boolean
                           required:
@@ -1570,6 +1717,58 @@ paths:
                   type: string
                 document_number:
                   type: string
+  "/api/users/{id}/add_roles":
+    post:
+      summary: add roles
+      tags:
+      - users
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    type: string
+              required:
+              - roles
+  "/api/users/{id}/remove_roles":
+    post:
+      summary: remove roles
+      tags:
+      - users
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    type: string
+              required:
+              - roles
   "/api/warehouses":
     get:
       summary: return correct list
@@ -1689,6 +1888,105 @@ paths:
               - name
               - address
               - city_id
+    get:
+      summary: show info
+      tags:
+      - Список складов
+      security:
+      - Bearer: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    city_id:
+                      type: number
+                    city:
+                      type: string
+                    active:
+                      type: boolean
+                  required:
+                  - id
+                  - name
+                  - address
+                  - city_id
+                  - active
+                - type: object
+                  properties:
+                    from_route:
+                      oneOf:
+                      - type: object
+                        properties:
+                          id:
+                            type: number
+                          start_warehouse_id:
+                            type: number
+                          end_warehouse_id:
+                            type: number
+                          user_id:
+                            type: number
+                        required:
+                        - id
+                        - start_warehouse_id
+                        - end_warehouse_id
+                        - user_id
+                      - type: 'null'
+                    to_route:
+                      oneOf:
+                      - type: object
+                        properties:
+                          id:
+                            type: number
+                          start_warehouse_id:
+                            type: number
+                          end_warehouse_id:
+                            type: number
+                          user_id:
+                            type: number
+                        required:
+                        - id
+                        - start_warehouse_id
+                        - end_warehouse_id
+                        - user_id
+                      - type: 'null'
+                  required:
+                  - from_route
+                  - to_route
+        '404':
+          description: not found
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
 servers:
 - url: http://{defaultHost}
   variables:

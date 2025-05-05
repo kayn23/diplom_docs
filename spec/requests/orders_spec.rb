@@ -116,6 +116,8 @@ RSpec.describe 'Orders' do
         end
         let(:Authorization) { "Bearer #{sender.auth_token}" }
 
+        schema Swagger::Schemas::Models::ORDER_DETAILS
+
         run_test! do |response|
           expect do
             post '/api/orders.json', params: create_order_params,

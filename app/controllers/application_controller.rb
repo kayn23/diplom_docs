@@ -11,4 +11,8 @@ class ApplicationController < ActionController::API
                    policy: exception.policy.class.to_s, # Название политики
                    action: exception.query }, status: :forbidden # Действие, которое запрещено
   end
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render json: { error: 'Record not found' }, status: :not_found
+  end
 end

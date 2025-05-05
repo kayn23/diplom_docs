@@ -20,6 +20,7 @@ module Swagger
           name: { type: :string },
           address: { type: :string },
           city_id: { type: :number },
+          city: { type: :string },
           active: { type: :boolean }
         },
         required: %w[id name address city_id active]
@@ -34,6 +35,30 @@ module Swagger
           user_id: { type: :number }
         },
         required: %w[id start_warehouse_id end_warehouse_id user_id]
+      }.freeze
+
+      WAREHOUSE_DETAILS = {
+        allOf: [
+          WAREHOUSE,
+          {
+            type: :object,
+            properties: {
+              from_route: {
+                oneOf: [
+                  ROUTE,
+                  { type: :null }
+                ]
+              },
+              to_route: {
+                oneOf: [
+                  ROUTE,
+                  { type: :null }
+                ]
+              }
+            },
+            required: %w[from_route to_route]
+          }
+        ]
       }.freeze
 
       ROUTE_DETAILS = {
@@ -79,7 +104,7 @@ module Swagger
         properties: {
           id: { type: :number },
           sender_id: { type: :number },
-          receiver_id: { type: :number },
+          receiver_id: { type: :number, nullable: true },
           start_warehouse_id: { type: :number },
           end_warehouse_id: { type: :number },
           status: { type: :string },
@@ -87,7 +112,12 @@ module Swagger
           created_at: { type: :string },
           updated_at: { type: :string },
           sender: Swagger::Schemas::Models::USER_SCHEMA,
-          receiver: Swagger::Schemas::Models::USER_SCHEMA,
+          receiver: {
+            oneOf: [
+              Swagger::Schemas::Models::USER_SCHEMA,
+              { type: :null }
+            ]
+          },
           start_warehouse: Swagger::Schemas::Models::WAREHOUSE,
           end_warehouse: Swagger::Schemas::Models::WAREHOUSE,
           delivery_date: { type: :string, nullable: true }

@@ -47,8 +47,12 @@ class User < ApplicationRecord
     JsonWebToken.encode(user_id: id)
   end
 
+  ransacker :full_name do
+    Arel.sql("CONCAT_WS(' ', firstname, surname, lastname)")
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
-    %w[email firstname surname lastname document_number] + _ransackers.keys
+    %w[email firstname surname lastname document_number full_name] + _ransackers.keys
   end
 
   def self.ransackable_associations(_auth_object = nil)

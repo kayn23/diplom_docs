@@ -8,6 +8,10 @@ class WarehousesController < ApplicationController
     @warehouses = Warehouse.ransack(params[:q]).result.page(params[:page])
   end
 
+  def show
+    authorize @warehouse
+  end
+
   # POST /warehouses
   # POST /warehouses.json
   def create
@@ -16,7 +20,7 @@ class WarehousesController < ApplicationController
 
     if @warehouse.save
       @warehouse.link_warehouse_to_distribution_center
-      render :show, status: :created, location: @warehouse
+      render :create, status: :created
     else
       render json: { errors: @warehouse.errors }, status: :unprocessable_entity
     end

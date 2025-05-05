@@ -1,4 +1,10 @@
 class CargoDistributor
+  class RouteAssigneeNotPresentError < StandardError
+    def initialize
+      super('there is no person responsible for the route')
+    end
+  end
+
   class CargoTooLargeError < StandardError
     def initialize
       super('active transport vehicle cannot accommodate cargo')
@@ -33,6 +39,8 @@ class CargoDistributor
   end
 
   def distribute_cargo(cargo, route, min_date = nil)
+    raise RouteAssigneeNotPresentError if route.user.nil?
+
     shipping = find_or_create_shipping(route, cargo.size, min_date)
     return false unless shipping
 
