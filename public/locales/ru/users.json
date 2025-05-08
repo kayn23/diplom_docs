@@ -1,0 +1,48 @@
+{
+  "create_users": {
+    "title": "Создание пользователя"
+  },
+  "user_form": {
+    "saveBtn": "Сохранить",
+    "email": {
+      "label": "Введите email*",
+      "placeholder": "Email"
+    },
+    "password": {
+      "label": "Введите пароль",
+      "placeholder": "Пароль"
+    },
+    "firstname": {
+      "label": "Введите имя",
+      "placeholder": "Имя"
+    },
+    "surname": {
+      "label": "Введите отчество",
+      "placeholder": "Отчество"
+    },
+    "lastname": {
+      "label": "Ввделите фамилию",
+      "placeholder": "Фамилия"
+    },
+    "document_number": {
+      "label": "Введите паспортные данные",
+      "placeholder": "Серия номер документа"
+    }
+  },
+  "showPage": {
+    "title": "Информация о пользователе id: {{userId}}"
+  },
+  "UserAddRole": {
+    "button": "Добавить роль",
+    "modal": {
+      "title": "Добавить пользователю роль",
+      "saveBtn": "Сохранить"
+    }
+  },
+  "roles":{
+    "client": "Клиент",
+    "admin": "Админ",
+    "courier": "Курьер",
+    "manager": "Менеджер"
+  }
+}

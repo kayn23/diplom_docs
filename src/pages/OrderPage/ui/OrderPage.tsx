@@ -1,16 +1,21 @@
-import type { FC } from 'react';
+import { useCallback, type FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './OrderPage.module.scss';
 import { useParams } from 'react-router';
 import { AccountLayout } from 'app/layouts/AccountLayout';
-import { UserInfoCard } from 'entities/User';
-import { Accordion, AccordionGroup, AccordionSummary, AccordionDetails, Stack, Typography, Box, Link } from '@mui/joy';
-import { CallReceived, CallMade, Person, Inventory2, ArrowBack } from '@mui/icons-material';
+import { useAdmin, useFetch, UserInfoCard } from 'entities/User';
+import { Accordion, AccordionGroup, AccordionSummary, AccordionDetails, Stack, Typography, Box } from '@mui/joy';
+import { CallReceived, CallMade, Person, Inventory2 } from '@mui/icons-material';
 import { WarehouseInfoCard } from 'entities/Worehouse';
 import { useTranslation } from 'react-i18next';
 import { TypoWithLabel } from 'shared/ui/TypoWithLabel/TypoWithLabel';
-import { getRouteOrders } from 'shared/const/router';
-import { useOrderInfo } from 'entities/Order';
+import { IOrder, useOrderInfo } from 'entities/Order';
+import { BackLink } from 'shared/ui/BackLink';
+import { OrderStatusSelector } from 'features/OrderStatusSelector';
+import { OrderPriceEditor } from 'features/OrderPriceEditor';
+import { OrderPaymentButton } from 'features/OrderPaymentButton';
+import { CargoList } from 'widgets/CargoList';
+import { OrderCargosApprove } from 'features/_order/OrderCargosApprove';
 
 interface OrderPageProps {
   className?: string;
@@ -21,34 +26,55 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
   const { className } = props;
   const { t } = useTranslation(['translatioins', 'orders']);
 
-  const { order } = useOrderInfo(orderId);
+  const { order, setOrder } = useOrderInfo(orderId);
+
+  const { request } = useFetch();
+
+  const onUpdatePrice = useCallback(
+    (price: string) => {
+      request<IOrder>(`/api/orders/${orderId}/cargo_accepted`, {
+        method: 'post',
+        body: {
+          price,
+        },
+      }).then((res) => setOrder(res));
+    },
+    [request, setOrder, orderId]
+  );
+
+  const isAdmin = useAdmin();
 
   return (
     <AccountLayout className={classNames(cls.OrderPage, { additional: [className] })}>
-      <Link
-        startDecorator={<ArrowBack />}
-        href={getRouteOrders()}
-      ></Link>
+      <BackLink />
       {order && (
         <Box>
           <Typography level="h1">{t('orders:OrdersPage.titles.order')}</Typography>
           <Box sx={{ p: '8px' }}>
             <TypoWithLabel label={t('orders:OrdersPage.titles.ID')}>{order.id}</TypoWithLabel>
-            <TypoWithLabel label={t('orders:OrdersPage.titles.status')}>
-              {t(`orders:OrdersPage.statuses.${order.status}`)}
-            </TypoWithLabel>
-
-            <TypoWithLabel label={t('orders:OrdersPage.titles.price')}>
-              {order.price || t('orders:order.fields.price.null')}
-            </TypoWithLabel>
+            <OrderStatusSelector order={order} />
+            <OrderPriceEditor
+              status={order.status}
+              price={order.price}
+              onUpdatePrice={onUpdatePrice}
+            />
 
             <TypoWithLabel label={t('orders:order.fields.delivery_date.title')}>
               {order.delivery_date || t('orders:order.fields.delivery_date.null')}
             </TypoWithLabel>
+
+            {isAdmin && order.status === 'wait_payment' && (
+              <>
+                <OrderPaymentButton
+                  order={order}
+                  onUpdateOrder={setOrder}
+                />
+              </>
+            )}
           </Box>
 
           <AccordionGroup>
-            <Accordion>
+            <Accordion defaultExpanded>
               <AccordionSummary>
                 <Typography
                   level="h2"
@@ -140,6 +166,11 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
               </AccordionDetails>
             </Accordion>
           </AccordionGroup>
+          <CargoList
+            orderId={order.id}
+            orderStatus={order.status}
+            summaryChildren={<OrderCargosApprove order={order} />}
+          />
         </Box>
       )}
     </AccountLayout>

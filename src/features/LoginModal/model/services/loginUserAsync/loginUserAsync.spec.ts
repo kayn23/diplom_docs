@@ -1,4 +1,4 @@
-import { IAuthData } from 'entities/User/model/types/user';
+import { IAuthData } from 'entities/User';
 import { $Fetch, createFetchError, FetchContext, ofetch } from 'ofetch';
 import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/ThestAsyncThunk';
 import { beforeEach, describe, expect, it, vi } from 'vitest';

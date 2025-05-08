@@ -1,0 +1,29 @@
+{
+  "createForm": {
+    "size": {
+      "label": "Вес",
+      "placeholder": "0.00"
+    },
+    "dimensions": {
+      "label": "Размер (м3)",
+      "placeholder": "0.00"
+    },
+    "description": {
+      "label": "Описание",
+      "placeholder": ""
+    }
+  },
+  "attachCargoModal": {
+    "addButton": "Добавить груз",
+    "title": "Добавить груз",
+    "saveButton": "Добавить"
+  },
+  "card": {
+    "size":"Габариты (м3)",
+    "dimensions":"Вес (кг)",
+    "description":"Описание",
+    "id": "",
+    "qrcode": "",
+    "deleteButton": "Удалить"
+  }
+}

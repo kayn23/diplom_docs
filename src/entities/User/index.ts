@@ -1,7 +1,10 @@
+export { useAdmin } from './lib/useAdmin.ts';
+export { UserForm } from './ui/UserForm/UserForm.tsx';
 export { UserSelector } from './ui/UserSelector/UserSelector.tsx';
 export { UserInfoCard } from './ui/UserInfoCard/UserInfoCard.tsx';
 export { useFetch } from './utils/useFetch';
-export type { IUser, UserSchema } from './model/types/user';
+export { roles, type Roles } from './types/roles';
+export type { IUser, UserSchema, IAuthData, IAuthRequest } from './types/user.ts';
 // state
 export { userActions, userReduser } from './model/slice/userSlice';
 // selectors

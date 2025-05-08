@@ -72,6 +72,12 @@
     }
   },
   "users": {
+    "roles":{
+      "client": "Клиент",
+      "admin": "Админ",
+      "courier": "Курьер",
+      "manager": "Менеджер"
+    },
     "previewCard": {
       "email": {
         "title": "Email"

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { FetchError, ofetch } from 'ofetch';
 import { BASE_URL } from 'shared/const/api';
-import { IAuthRequest } from 'entities/User/model/types/user';
+import { IAuthRequest } from 'entities/User';
 import { HttpErrorHandler } from 'shared/lib/HttpErrorHandler';
 import { userActions } from 'entities/User';
 

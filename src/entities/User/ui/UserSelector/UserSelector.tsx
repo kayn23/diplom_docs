@@ -2,7 +2,7 @@ import { SyntheticEvent, useCallback, useEffect, useMemo, useState, type FC } fr
 import { useTranslation } from 'react-i18next';
 import { useFetch } from 'entities/User/utils/useFetch';
 import { Autocomplete } from '@mui/joy';
-import { IUser } from '../../model/types/user';
+import { IUser } from '../../types/user';
 import { useDebouncedCallback } from 'shared/lib/debounceFunction/debounceFunc';
 
 interface UserSelectorProps {

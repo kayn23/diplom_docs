@@ -5,13 +5,17 @@ import { Link } from '@mui/joy';
 
 interface BackLinkProps {
   className?: string;
+  href?: string;
 }
 
-export const BackLink: FC<BackLinkProps> = memo(() => {
+export const BackLink: FC<BackLinkProps> = memo((props) => {
+  const { href } = props;
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(-1); // переход на предыдущую страницу
+    if (href) {
+      navigate(href);
+    } else navigate(-1); // переход на предыдущую страницу
   };
 
   return (

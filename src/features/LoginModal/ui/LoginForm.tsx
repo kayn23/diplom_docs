@@ -55,6 +55,7 @@ export const LoginForm: FC<LoginFormProps> = memo((props) => {
     >
       {error && <Typography color="danger">{error}</Typography>}
       <Input
+        autoFocus
         value={email}
         onChange={onChangeEmail}
         placeholder={t('features.LoginModal.form.email')}

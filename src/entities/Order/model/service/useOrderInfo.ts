@@ -25,5 +25,6 @@ export function useOrderInfo(id: number | string | undefined) {
     order,
     isLoading,
     getOrderInfo,
+    setOrder,
   };
 }

@@ -5,15 +5,19 @@ import { MainPage } from 'pages/MainPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { OrderPage } from 'pages/OrderPage';
 import { OrdersPage } from 'pages/OrdersPage';
+import { UserCreatePage } from 'pages/UserCreatePage';
+import { UserInfoPage } from 'pages/UserInfoPage';
 import {
   AppRoutes,
   getRouteAbout,
   getRouteCreateOrder,
+  getRouteCreateUser,
   getRouteMain,
   getRouteNotFound,
   getRouteOrder,
   getRouteOrders,
   getRouterEditOrder,
+  getRouteShowUser,
 } from 'shared/const/router';
 import { AppRoutesProps } from 'shared/types/router';
 
@@ -45,5 +49,13 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.EDIT_ORDER]: {
     path: getRouterEditOrder(),
     element: <EditOrderPage />,
+  },
+  [AppRoutes.CREATE_USER]: {
+    path: getRouteCreateUser(),
+    element: <UserCreatePage />,
+  },
+  [AppRoutes.SHOW_USER]: {
+    path: getRouteShowUser(),
+    element: <UserInfoPage />,
   },
 };

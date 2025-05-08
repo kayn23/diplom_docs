@@ -1,11 +1,14 @@
+import { Roles } from './roles';
+
 export interface IUser {
   id: number;
   email: string;
   firstname?: string;
   surname?: string;
   lastname?: string;
-  document_numebr?: string;
-  roles: string[];
+  document_number?: string;
+  roles: Roles[];
+  password?: string;
 }
 
 export interface IAuthData {
