@@ -7,6 +7,7 @@ export enum AppRoutes {
   CREATE_ORDER = 'create_order',
   EDIT_ORDER = 'edit_order',
 
+  USER_LIST = 'users_list',
   CREATE_USER = 'create_user',
   SHOW_USER = 'show_user',
 }
@@ -19,6 +20,7 @@ export const getRouteOrder = (id: string | number = ':orderId') => `/orders/${id
 export const getRouteCreateOrder = () => '/orders/new';
 export const getRouterEditOrder = (id: string | number = ':orderId') => `/orders/${id}/edit`;
 
+export const getRouteUserList = () => '/users';
 export const getRouteCreateUser = () => '/users/new';
 export const getRouteShowUser = (id: string | number = ':userId') => `/users/${id}`;
 

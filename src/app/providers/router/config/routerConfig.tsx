@@ -7,6 +7,7 @@ import { OrderPage } from 'pages/OrderPage';
 import { OrdersPage } from 'pages/OrdersPage';
 import { UserCreatePage } from 'pages/UserCreatePage';
 import { UserInfoPage } from 'pages/UserInfoPage';
+import { UsersPage } from 'pages/UsersPage';
 import {
   AppRoutes,
   getRouteAbout,
@@ -18,6 +19,7 @@ import {
   getRouteOrders,
   getRouterEditOrder,
   getRouteShowUser,
+  getRouteUserList,
 } from 'shared/const/router';
 import { AppRoutesProps } from 'shared/types/router';
 
@@ -49,6 +51,10 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.EDIT_ORDER]: {
     path: getRouterEditOrder(),
     element: <EditOrderPage />,
+  },
+  [AppRoutes.USER_LIST]: {
+    path: getRouteUserList(),
+    element: <UsersPage />,
   },
   [AppRoutes.CREATE_USER]: {
     path: getRouteCreateUser(),

@@ -21,7 +21,6 @@ export const UserAddRole: FC<UserAddRoleProps> = (props) => {
 
   const [selectedRole, setSelectedRole] = useState<Roles[]>([]);
   const onChange = useCallback((_e: SyntheticEvent, value: string[]) => {
-    console.log(value);
     if (value) {
       setSelectedRole([...(value as Roles[])]);
     }

@@ -44,5 +44,18 @@
     "admin": "Админ",
     "courier": "Курьер",
     "manager": "Менеджер"
+  },
+  "UsersPage": {
+    "title": "Список пользователей"
+  },
+  "filters": {
+    "roles": {
+      "title": "Фильтровать по роли",
+      "placeholder": "Выберите роли"
+    },
+    "email_or_full_name": {
+      "title": "Поиск по email или фио",
+      "placeholder": "введите email или ФИО"
+    }
   }
 }

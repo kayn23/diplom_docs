@@ -1,3 +1,4 @@
+export { useGetUserList, type UserFilterType } from './lib/useGetUserList.ts';
 export { useAdmin } from './lib/useAdmin.ts';
 export { UserForm } from './ui/UserForm/UserForm.tsx';
 export { UserSelector } from './ui/UserSelector/UserSelector.tsx';

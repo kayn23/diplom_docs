@@ -19,6 +19,7 @@ export const UserSelector: FC<UserSelectorProps> = (props) => {
 
   const [users, setUsers] = useState<IUser[]>([]);
 
+  // TODO переделать на использование useGetUserList
   const getUsers = useCallback(
     (searchString = '') => {
       const search = searchString !== '' ? `&q[email_or_full_name_cont]=${searchString}` : '';
