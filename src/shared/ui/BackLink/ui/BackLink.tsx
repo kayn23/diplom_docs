@@ -1,7 +1,7 @@
 import { memo, type FC } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowBack } from '@mui/icons-material';
-import { Link } from '@mui/joy';
+import { Link } from 'shared/ui/Link/Link';
 
 interface BackLinkProps {
   className?: string;

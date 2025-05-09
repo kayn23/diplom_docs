@@ -20,11 +20,9 @@ export const useGetUserList = () => {
     (orders: IUser[]) => {
       if (orders.length < 30) {
         setCanLoad(false);
-      } else {
-        setPage(page + 1);
       }
     },
-    [setCanLoad, setPage, page]
+    [setCanLoad]
   );
 
   const makeFilterString = useCallback((filters: UserFilterType) => {
@@ -56,9 +54,17 @@ export const useGetUserList = () => {
         ...prev,
         [key]: value,
       }));
+      setPage(1);
+      setCanLoad(true);
     },
     300
   );
+
+  const loadMore = useCallback(() => {
+    if (canLoad && !isLoading) {
+      setPage((prev) => prev + 1);
+    }
+  }, [setPage, canLoad, isLoading]);
 
   useEffect(() => {
     fetchUsers(page, userFilters);
@@ -69,6 +75,7 @@ export const useGetUserList = () => {
     isLoading,
     canLoad,
     fetchUsers,
+    loadMore,
     setUserFilter,
     userFilters,
   };

@@ -64,6 +64,7 @@ export const UserSelector: FC<UserSelectorProps> = (props) => {
       disabled={disabled}
       onChange={onChange}
       onInputChange={onInputChange}
+      selectOnFocus
     />
   );
 };

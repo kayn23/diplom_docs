@@ -9,6 +9,7 @@ import { UserCreatePage } from 'pages/UserCreatePage';
 import { UserInfoPage } from 'pages/UserInfoPage';
 import { UsersPage } from 'pages/UsersPage';
 import { WarehousePage } from 'pages/WarehousePage';
+import { WarehousesPage } from 'pages/WarehousesPage';
 import {
   AppRoutes,
   getRouteAbout,
@@ -22,6 +23,7 @@ import {
   getRouteShowUser,
   getRouteUserList,
   getRouteWarehouseInfo,
+  getRouteWarehouseList,
 } from 'shared/const/router';
 import { AppRoutesProps } from 'shared/types/router';
 
@@ -65,6 +67,10 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.SHOW_USER]: {
     path: getRouteShowUser(),
     element: <UserInfoPage />,
+  },
+  [AppRoutes.WAREHOUSE_LIST]: {
+    path: getRouteWarehouseList(),
+    element: <WarehousesPage />,
   },
   [AppRoutes.WAREHOUSE_INFO]: {
     path: getRouteWarehouseInfo(),

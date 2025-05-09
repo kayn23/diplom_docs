@@ -13,6 +13,11 @@
       "not_found": "Маршрут со склад отсутствует, обратитесь к администратору!"
     }
   },
+  "WarehousesPage": {
+    "title": "Склады",
+    "filter_placeholder": "Введиет для поиска",
+    "not_found": "Ничего не найдено"
+  },
   "RouteAssigneUser": {
     "button": "Назначить ответственного",
     "modal": {
