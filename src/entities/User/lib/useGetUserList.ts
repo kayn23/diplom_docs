@@ -1,5 +1,6 @@
 import { IUser, Roles, useFetch } from 'entities/User';
 import { useCallback, useEffect, useState } from 'react';
+import { useDebouncedCallback } from 'shared/lib/debounceFunction/debounceFunc';
 
 export type UserFilterType = Partial<{
   roles: Roles[];
@@ -49,12 +50,15 @@ export const useGetUserList = () => {
     [request, checkCanLoad, makeFilterString]
   );
 
-  const setUserFilter = useCallback((key: keyof UserFilterType, value: UserFilterType[keyof UserFilterType]) => {
-    setUserFilters((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  }, []);
+  const setUserFilter = useDebouncedCallback(
+    (key: keyof UserFilterType, value: UserFilterType[keyof UserFilterType]) => {
+      setUserFilters((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+    },
+    300
+  );
 
   useEffect(() => {
     fetchUsers(page, userFilters);

@@ -10,6 +10,8 @@ export enum AppRoutes {
   USER_LIST = 'users_list',
   CREATE_USER = 'create_user',
   SHOW_USER = 'show_user',
+
+  WAREHOUSE_INFO = 'warehouse_info',
 }
 
 export const getRouteMain = () => '/';
@@ -23,5 +25,7 @@ export const getRouterEditOrder = (id: string | number = ':orderId') => `/orders
 export const getRouteUserList = () => '/users';
 export const getRouteCreateUser = () => '/users/new';
 export const getRouteShowUser = (id: string | number = ':userId') => `/users/${id}`;
+
+export const getRouteWarehouseInfo = (id: string | number = ':warehouseId') => `/warehouses/${id}`;
 
 export const getRouteNotFound = () => '*';

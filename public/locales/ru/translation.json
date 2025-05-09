@@ -110,5 +110,20 @@
     "selectAutocomplete": {
       "placeholder": "Выберите склад"
     }
+  },
+  "weekdays": {
+    "mon": "Понедельник",
+    "tue": "Вторник",
+    "wed": "Среда",
+    "the": "Четверг",
+    "fri": "Пятница",
+    "sat": "Суббота",
+    "sun": "Воскресенье"
+  },
+  "routeInfoCard": {
+    "deliveryDay": {
+      "title": "Дни доставки"
+    },
+    "showUserInfo": "Посмотреть информацию по ответственному"
   }
 }

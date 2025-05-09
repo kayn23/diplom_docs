@@ -8,6 +8,7 @@ import { OrdersPage } from 'pages/OrdersPage';
 import { UserCreatePage } from 'pages/UserCreatePage';
 import { UserInfoPage } from 'pages/UserInfoPage';
 import { UsersPage } from 'pages/UsersPage';
+import { WarehousePage } from 'pages/WarehousePage';
 import {
   AppRoutes,
   getRouteAbout,
@@ -20,6 +21,7 @@ import {
   getRouterEditOrder,
   getRouteShowUser,
   getRouteUserList,
+  getRouteWarehouseInfo,
 } from 'shared/const/router';
 import { AppRoutesProps } from 'shared/types/router';
 
@@ -63,5 +65,9 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.SHOW_USER]: {
     path: getRouteShowUser(),
     element: <UserInfoPage />,
+  },
+  [AppRoutes.WAREHOUSE_INFO]: {
+    path: getRouteWarehouseInfo(),
+    element: <WarehousePage />,
   },
 };
