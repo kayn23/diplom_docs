@@ -2,12 +2,13 @@ import { useCallback, useEffect, useState, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './UserInfoPage.module.scss';
-import { Box, Typography } from '@mui/joy';
+import { Stack, Typography } from '@mui/joy';
 import { AccountLayout } from 'app/layouts/AccountLayout';
 import { useParams } from 'react-router';
 import { IUser, useAdmin, useFetch, UserInfoCard } from 'entities/User';
 import { BackLink } from 'shared/ui/BackLink';
 import { UserAddRole } from 'features/UserAddRole';
+import { UserEditModal } from 'features/UserEditModal';
 
 interface UserInfoPageProps {
   className?: string;
@@ -33,11 +34,14 @@ export const UserInfoPage: FC<UserInfoPageProps> = (props) => {
     [setUser, request]
   );
 
+  const onReload = useCallback(() => {
+    if (!userId) return;
+    getUserInfo(userId);
+  }, [userId, getUserInfo]);
+
   useEffect(() => {
-    if (userId) {
-      getUserInfo(userId);
-    }
-  }, [getUserInfo, userId]);
+    onReload();
+  }, [onReload]);
 
   const isAdmin = useAdmin();
 
@@ -56,12 +60,20 @@ export const UserInfoPage: FC<UserInfoPageProps> = (props) => {
         isLoading={isLoading}
       />
       {userId && isAdmin && user && (
-        <Box sx={{ marginTop: '8px' }}>
+        <Stack
+          sx={{ marginTop: '8px' }}
+          gap="8px"
+          direction="row"
+        >
           <UserAddRole
             user={user}
             onSaved={onRoleChanged}
           />
-        </Box>
+          <UserEditModal
+            user={user}
+            onUpdated={onReload}
+          />
+        </Stack>
       )}
     </AccountLayout>
   );

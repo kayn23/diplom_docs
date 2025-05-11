@@ -6,13 +6,18 @@ import { useGetWarehouseList } from '../../lib/useGetWarehouseList';
 
 interface WarehouseSelectAutocompletuProps {
   onSelect?: (value: IWarehouse | null) => void;
+  hideNoAssignedRoutes?: boolean;
 }
 
 export const WarehouseSelectAutocompletu: FC<WarehouseSelectAutocompletuProps> = memo((props) => {
-  const { onSelect } = props;
+  const { onSelect, hideNoAssignedRoutes = false } = props;
   const { t } = useTranslation();
 
-  const { warehouses, setWarehouseFilter, isLoading } = useGetWarehouseList();
+  const additionalFilters = {
+    ...(hideNoAssignedRoutes && { with_assigned_routes: true }),
+  };
+
+  const { warehouses, setWarehouseFilter, isLoading } = useGetWarehouseList(additionalFilters);
 
   const onChange = useCallback(
     (_e: SyntheticEvent, value: IWarehouse | null) => {

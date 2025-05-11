@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useEffect, useState, type FC } from 'react';
+import { SyntheticEvent, useCallback, useEffect, useRef, useState, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './UserAddRole.module.scss';
@@ -43,6 +43,15 @@ export const UserAddRole: FC<UserAddRoleProps> = (props) => {
     });
   }, [setModalOpen, selectedRole, request, user, onSaved]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (modalOpen) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
+  }, [modalOpen, inputRef]);
+
   return (
     <div className={classNames(cls.UserAddRole, { additional: [className] })}>
       <Button onClick={() => setModalOpen(true)}>{t('UserAddRole.button')}</Button>
@@ -55,6 +64,11 @@ export const UserAddRole: FC<UserAddRoleProps> = (props) => {
           <ModalDialog>
             <DialogTitle>{t('UserAddRole.modal.title')}</DialogTitle>
             <Autocomplete
+              slotProps={{
+                input: {
+                  ref: inputRef,
+                },
+              }}
               multiple
               value={selectedRole}
               options={roles}

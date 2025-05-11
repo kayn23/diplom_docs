@@ -1,4 +1,4 @@
-import { useCallback, useState, type FC } from 'react';
+import { useCallback, useEffect, useRef, useState, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, DialogTitle, Modal, ModalDialog, Stack } from '@mui/joy';
@@ -34,6 +34,15 @@ export const RouteAssigneUser: FC<RouteAssigneUserProps> = (props) => {
     });
   }, [selectedUser, request, routeId, onSavedCallback]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (modalOpen) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
+  }, [modalOpen]);
+
   return (
     <div className={classNames('a', { additional: [className] })}>
       <Button
@@ -58,6 +67,7 @@ export const RouteAssigneUser: FC<RouteAssigneUserProps> = (props) => {
                 additionalFilter={{ roles: ['courier'] }}
                 disabled={isLoading}
                 onSelect={(v) => setSelectedUser(v)}
+                inputRef={inputRef}
               />
               <Button
                 disabled={isLoading || !selectedUser}

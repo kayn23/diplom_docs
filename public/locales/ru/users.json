@@ -57,5 +57,26 @@
       "title": "Поиск по email или фио",
       "placeholder": "введите email или ФИО"
     }
+  },
+  "UserEditModal": {
+    "openBtn": "Изменить данные",
+    "title": "Изменить информацаю о пользователе",
+    "saveBtn": "Сохранить"
+  },
+  "previewCard": {
+    "email": {
+      "title": "Email"
+    },
+    "FIO": {
+      "title": "ФИО"
+    }, 
+    "roles": {
+      "title": "Роли"
+    },
+    "documentNumber": {
+      "title": "Номер документа"
+    },
+    "showMore": "Подробнее"
+
   }
 }

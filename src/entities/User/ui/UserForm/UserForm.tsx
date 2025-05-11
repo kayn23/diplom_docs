@@ -1,4 +1,4 @@
-import { memo, ReactNode, useCallback, type FC } from 'react';
+import { memo, ReactNode, Ref, useCallback, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { IUser } from '../../types/user';
@@ -10,12 +10,14 @@ interface UserFormProps {
   userParams: Partial<IUser>;
   onUpdate?: (param: Partial<IUser>) => void;
   children?: ReactNode;
+  inputRef?: Ref<HTMLInputElement>;
+  hidePassword?: boolean;
 }
 
 export const UserForm: FC<UserFormProps> = memo((props) => {
   const { t } = useTranslation('users');
 
-  const { className, userParams, onUpdate, children } = props;
+  const { className, userParams, onUpdate, children, inputRef, hidePassword = false } = props;
 
   const onChange = useCallback(
     (field: keyof IUser, value: IUser[keyof IUser]) => {
@@ -38,19 +40,26 @@ export const UserForm: FC<UserFormProps> = memo((props) => {
             onChange={(e) => {
               onChange('email', e.target.value);
             }}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel>{t('user_form.password.label')}</FormLabel>
-          <Input
-            placeholder={t('user_form.password.placeholder')}
-            value={userParams?.password || ''}
-            type="password"
-            onChange={(e) => {
-              onChange('password', e.target.value);
+            slotProps={{
+              input: {
+                ref: inputRef,
+              },
             }}
           />
         </FormControl>
+        {!hidePassword && (
+          <FormControl>
+            <FormLabel>{t('user_form.password.label')}</FormLabel>
+            <Input
+              placeholder={t('user_form.password.placeholder')}
+              value={userParams?.password || ''}
+              type="password"
+              onChange={(e) => {
+                onChange('password', e.target.value);
+              }}
+            />
+          </FormControl>
+        )}
         <FormControl>
           <FormLabel>{t('user_form.firstname.label')}</FormLabel>
           <Input

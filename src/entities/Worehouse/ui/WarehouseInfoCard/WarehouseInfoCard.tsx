@@ -2,10 +2,9 @@ import type { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './WarehouseInfoCard.module.scss';
-import { Card, Typography } from '@mui/joy';
+import { Card, Link, Typography } from '@mui/joy';
 import { IWarehouse } from '../../model/types/warehouse';
 import { getRouteWarehouseInfo } from 'shared/const/router';
-import { Link } from 'shared/ui/Link/Link';
 
 interface WarehouseInfoCardProps {
   className?: string;
@@ -35,7 +34,7 @@ export const WarehouseInfoCard: FC<WarehouseInfoCardProps> = (props) => {
         <Typography>{t('warehouses.previewCard.city.title')}: </Typography>
         <Typography level="title-md">{city}</Typography>
       </Typography>
-      {showMoreButton && <Link to={getRouteWarehouseInfo(warehouse.id)}>{t('buttons.showMore')}</Link>}
+      {showMoreButton && <Link href={getRouteWarehouseInfo(warehouse.id)}>{t('buttons.showMore')}</Link>}
     </Card>
   );
 };

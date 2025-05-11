@@ -36,11 +36,17 @@ export const OrderForm: FC<OrderFormProps> = memo((props) => {
         {' '}
         <FormControl id="start_warehouse">
           <FormLabel>{t('order.form.startWarehouse.title')}</FormLabel>
-          <WarehouseSelectAutocompletu onSelect={(value) => value && onChange('start_warehouse_id', value.id)} />
+          <WarehouseSelectAutocompletu
+            hideNoAssignedRoutes={true}
+            onSelect={(value) => value && onChange('start_warehouse_id', value.id)}
+          />
         </FormControl>
         <FormControl id="end_warehouse">
           <FormLabel>{t('order.form.endWarehouse.title')}</FormLabel>
-          <WarehouseSelectAutocompletu onSelect={(value) => value && onChange('end_warehouse_id', value.id)} />
+          <WarehouseSelectAutocompletu
+            hideNoAssignedRoutes={true}
+            onSelect={(value) => value && onChange('end_warehouse_id', value.id)}
+          />
         </FormControl>
         <FormControl id="sender">
           <FormLabel>{t('order.form.sender.title')}</FormLabel>

@@ -1,5 +1,6 @@
 import { AboutPage } from 'pages/AboutPage';
 import { CreateOrderPage } from 'pages/CreateOrderPage';
+import { CreateWarehousePage } from 'pages/CreateWarehousePage';
 import { EditOrderPage } from 'pages/EditOrderPage';
 import { MainPage } from 'pages/MainPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
@@ -15,6 +16,7 @@ import {
   getRouteAbout,
   getRouteCreateOrder,
   getRouteCreateUser,
+  getRouteCreateWarehouse,
   getRouteMain,
   getRouteNotFound,
   getRouteOrder,
@@ -75,5 +77,9 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.WAREHOUSE_INFO]: {
     path: getRouteWarehouseInfo(),
     element: <WarehousePage />,
+  },
+  [AppRoutes.WAREHOUSE_CREATE]: {
+    path: getRouteCreateWarehouse(),
+    element: <CreateWarehousePage />,
   },
 };

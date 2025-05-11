@@ -1,4 +1,4 @@
-import { memo, useCallback, useState, type FC } from 'react';
+import { memo, useCallback, useEffect, useRef, useState, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AccountLayout } from 'app/layouts/AccountLayout';
 import { Button, Typography } from '@mui/joy';
@@ -37,12 +37,20 @@ export const UserCreatePage: FC<UserCreatePageProps> = memo(() => {
     });
   }, [userParams, request, navigation]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+  }, [inputRef]);
+
   return (
     <AccountLayout>
       <Typography level="h1">{t('create_users.title')}</Typography>
       <UserForm
         userParams={userParams}
         onUpdate={onUpdateForm}
+        inputRef={inputRef}
       >
         <Button
           onClick={onSave}

@@ -14,7 +14,8 @@
   },
   "buttons": {
     "reload": "Перезагрузить",
-    "showMore": "Подробнее"
+    "showMore": "Подробнее",
+    "saveBtn": "Сохранить"
   },
   "entities": {
     "counter": {
@@ -78,17 +79,6 @@
       "courier": "Курьер",
       "manager": "Менеджер"
     },
-    "previewCard": {
-      "email": {
-        "title": "Email"
-      },
-      "FIO": {
-        "title": "ФИО"
-      }, 
-      "roles": {
-        "title": "Роли"
-      }
-    },
     "selectAutocomplete": {
       "placeholder": "Выберите пользователя",
       "sender": "Выберите отправителя",
@@ -115,16 +105,21 @@
     "mon": "Понедельник",
     "tue": "Вторник",
     "wed": "Среда",
-    "the": "Четверг",
+    "thu": "Четверг",
     "fri": "Пятница",
     "sat": "Суббота",
     "sun": "Воскресенье"
   },
   "routeInfoCard": {
     "deliveryDay": {
-      "title": "Дни доставки"
+      "title": "Дни доставки",
+      "noDeliveryDay": "Не назначены дни доставки",
+      "assigneeDeliveryDay": "Изменить"
     },
-    "showUserInfo": "Посмотреть информацию по ответственному"
+    "showUserInfo": "Посмотреть информацию по ответственному",
+    "SetWeekdayModal": {
+      "title": "Выберите дни доставки"
+    }
   },
   "citySelector": {
     "placeholder": "Выберите город"

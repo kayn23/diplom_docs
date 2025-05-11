@@ -1,17 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import { IWarehouse } from '../model/types/warehouse';
-import { useAdmin, useFetch } from 'entities/User';
+import { useFetch } from 'entities/User';
 import { useDebouncedCallback } from 'shared/lib/debounceFunction/debounceFunc';
 
 export type WarehouseFilterType = Partial<{
   search: string;
   city_id_eq: { id: number; name: string };
   name_or_address_or_city_name_cont: string;
+  with_assigned_routes: boolean;
+  with_unassigned_or_no_routes: boolean;
 }>;
 
-export const useGetWarehouseList = () => {
+export const useGetWarehouseList = (initFilters: WarehouseFilterType = {}) => {
   const [warehouses, setWarehouses] = useState<IWarehouse[]>([]);
-  const [warehouseFilters, setWarehouseFilters] = useState<WarehouseFilterType>({});
+  const [warehouseFilters, setWarehouseFilters] = useState<WarehouseFilterType>(initFilters);
 
   const [page, setPage] = useState(1);
   const [canLoad, setCanLoad] = useState(true);
@@ -27,6 +29,7 @@ export const useGetWarehouseList = () => {
 
   const setWarehouseFilter = useDebouncedCallback(
     (key: keyof WarehouseFilterType, value: WarehouseFilterType[keyof WarehouseFilterType]) => {
+      console.log(key, value);
       setWarehouseFilters((prev) => ({
         ...prev,
         [key]: value,
@@ -44,6 +47,13 @@ export const useGetWarehouseList = () => {
     }
     if (filters.name_or_address_or_city_name_cont) {
       res += `&q[name_or_address_or_city_name_cont]=${filters.name_or_address_or_city_name_cont}`;
+    }
+    if (filters.with_assigned_routes) {
+      res += '&q[with_assigned_routes]=true';
+    }
+
+    if (filters.with_unassigned_or_no_routes) {
+      res += '&q[with_unassigned_or_no_routes]=true';
     }
     return res;
   }, []);
@@ -70,9 +80,7 @@ export const useGetWarehouseList = () => {
     fetchWarehouses(page, warehouseFilters);
   }, [fetchWarehouses, page, warehouseFilters]);
 
-  // TODO намереное пересечение
-  const isAdmin = useAdmin();
-  const filteredWarehouse = warehouses.filter((warehouses) => isAdmin || warehouses.name !== 'РЦ');
+  const filteredWarehouse = warehouses.filter((warehouses) => warehouses.name !== 'РЦ');
 
   return {
     isLoading,

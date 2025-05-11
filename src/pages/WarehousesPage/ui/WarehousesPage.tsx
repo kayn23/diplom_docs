@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './WarehousesPage.module.scss';
-import { Divider, Input, Stack, Typography } from '@mui/joy';
+import { Checkbox, Divider, FormControl, Input, Stack, Typography } from '@mui/joy';
 import { AccountLayout } from 'app/layouts/AccountLayout';
 import { useGetWarehouseList, WarehouseInfoCard } from 'entities/Worehouse';
 import { useAdmin } from 'entities/User';
@@ -31,6 +31,12 @@ export const WarehousesPage: FC<WarehousesPageProps> = (props) => {
           onChange={(e) => setWarehouseFilter('name_or_address_or_city_name_cont', e.target.value)}
           placeholder={t('WarehousesPage.filter_placeholder')}
         />
+        <FormControl>
+          <Checkbox
+            label={t('WarehousesPage.filter.problem_warehouse')}
+            onChange={(e) => setWarehouseFilter('with_unassigned_or_no_routes', e.target.checked)}
+          />
+        </FormControl>
         <Divider />
         {!isLoading && (
           <>

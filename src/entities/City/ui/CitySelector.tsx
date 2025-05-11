@@ -44,6 +44,7 @@ export const CitySelector: FC<CitySelectorProps> = memo((props) => {
     <Autocomplete
       value={value}
       options={displayedOptions}
+      autoComplete={false}
       onInputChange={onInputChange}
       disabled={disabled}
       loading={isLoading}

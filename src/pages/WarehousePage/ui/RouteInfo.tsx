@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { IRoute, RouteInfoCard } from 'entities/Route';
 import { Error, Warning } from '@mui/icons-material';
@@ -8,14 +8,14 @@ import { RouteAssigneUser } from 'features/RouteAssigneUser';
 interface RouteInfoProps {
   className?: string;
   route: IRoute | null | undefined;
-  onChangeRouteAssigne: () => void;
   notFoundErrorText: string;
   warningText: string;
   title: string;
+  onUpdated?: () => void;
 }
 
 export const RouteInfo: FC<RouteInfoProps> = (props) => {
-  const { className, route, onChangeRouteAssigne, notFoundErrorText, warningText, title } = props;
+  const { className, route, onUpdated, notFoundErrorText, warningText, title } = props;
   // t('WarehousePage.to_route_not_assigne.not_found')
 
   return (
@@ -32,6 +32,7 @@ export const RouteInfo: FC<RouteInfoProps> = (props) => {
           <RouteInfoCard
             route={route}
             title={title}
+            onUpdated={onUpdated}
           >
             {!route.user_id && (
               <>
@@ -44,7 +45,7 @@ export const RouteInfo: FC<RouteInfoProps> = (props) => {
                 </Typography>
                 <RouteAssigneUser
                   routeId={route?.id}
-                  onSavedCallback={onChangeRouteAssigne}
+                  onSavedCallback={onUpdated}
                 />
               </>
             )}

@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useEffect, useMemo, type FC } from 'react';
+import { Ref, SyntheticEvent, useCallback, useEffect, useMemo, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Autocomplete } from '@mui/joy';
 import { IUser } from '../../types/user';
@@ -10,6 +10,7 @@ interface UserSelectorProps {
   additionalFilter?: UserFilterType;
   placeholder?: string;
   disabled?: boolean;
+  inputRef?: Ref<HTMLInputElement>;
 }
 
 export const UserSelector: FC<UserSelectorProps> = (props) => {
@@ -20,6 +21,7 @@ export const UserSelector: FC<UserSelectorProps> = (props) => {
     placeholder = t('users.selectAutocomplete.placeholder'),
     additionalFilter,
     disabled,
+    inputRef,
   } = props;
 
   const { setUserFilter, users, isLoading } = useGetUserList();
@@ -65,6 +67,11 @@ export const UserSelector: FC<UserSelectorProps> = (props) => {
       onChange={onChange}
       onInputChange={onInputChange}
       selectOnFocus
+      slotProps={{
+        input: {
+          ref: inputRef,
+        },
+      }}
     />
   );
 };

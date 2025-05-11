@@ -37,14 +37,14 @@ export const WarehousePage: FC<WarehousePageProps> = (props) => {
           </Divider>
           <RouteInfo
             route={warehouse.to_route}
-            onChangeRouteAssigne={onChangeRouteAssigne}
+            onUpdated={onChangeRouteAssigne}
             notFoundErrorText={t('WarehousePage.to_route.not_found')}
             warningText={t('WarehousePage.to_route.warning')}
             title={t('WarehousePage.to_route.title')}
           />
           <RouteInfo
             route={warehouse.from_route}
-            onChangeRouteAssigne={onChangeRouteAssigne}
+            onUpdated={onChangeRouteAssigne}
             notFoundErrorText={t('WarehousePage.from_route.not_found')}
             warningText={t('WarehousePage.from_route.warning')}
             title={t('WarehousePage.from_route.title')}
