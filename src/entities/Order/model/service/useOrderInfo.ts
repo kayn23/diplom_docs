@@ -16,15 +16,20 @@ export function useOrderInfo(id: number | string | undefined) {
     [request]
   );
 
-  useEffect(() => {
+  const onReloadOrderInfo = useCallback(() => {
     if (!id) return;
     getOrderInfo(id);
   }, [id, getOrderInfo]);
+
+  useEffect(() => {
+    onReloadOrderInfo();
+  }, [onReloadOrderInfo]);
 
   return {
     order,
     isLoading,
     getOrderInfo,
     setOrder,
+    onReloadOrderInfo,
   };
 }

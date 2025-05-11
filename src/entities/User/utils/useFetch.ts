@@ -44,7 +44,7 @@ export const useFetch = <E = string>() => {
             }
           }
           setError(err);
-          return undefined;
+          throw err;
         })
         .finally(() => {
           setIsLoading(false);

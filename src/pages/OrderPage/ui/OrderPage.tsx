@@ -16,6 +16,7 @@ import { OrderPriceEditor } from 'features/OrderPriceEditor';
 import { OrderPaymentButton } from 'features/OrderPaymentButton';
 import { CargoList } from 'widgets/CargoList';
 import { OrderCargosApprove } from 'features/_order/OrderCargosApprove';
+import { OrderDeleteButton } from 'features/OrderDeleteButton';
 
 interface OrderPageProps {
   className?: string;
@@ -26,21 +27,7 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
   const { className } = props;
   const { t } = useTranslation(['translatioins', 'orders']);
 
-  const { order, setOrder } = useOrderInfo(orderId);
-
-  const { request } = useFetch();
-
-  const onUpdatePrice = useCallback(
-    (price: string) => {
-      request<IOrder>(`/api/orders/${orderId}/cargo_accepted`, {
-        method: 'post',
-        body: {
-          price,
-        },
-      }).then((res) => setOrder(res));
-    },
-    [request, setOrder, orderId]
-  );
+  const { order, setOrder, onReloadOrderInfo } = useOrderInfo(orderId);
 
   const isAdmin = useAdmin();
 
@@ -54,22 +41,30 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
             <TypoWithLabel label={t('orders:OrdersPage.titles.ID')}>{order.id}</TypoWithLabel>
             <OrderStatusSelector order={order} />
             <OrderPriceEditor
+              hideEditor
               status={order.status}
               price={order.price}
-              onUpdatePrice={onUpdatePrice}
             />
 
             <TypoWithLabel label={t('orders:order.fields.delivery_date.title')}>
               {order.delivery_date || t('orders:order.fields.delivery_date.null')}
             </TypoWithLabel>
 
-            {isAdmin && order.status === 'wait_payment' && (
-              <>
-                <OrderPaymentButton
-                  order={order}
-                  onUpdateOrder={setOrder}
-                />
-              </>
+            {isAdmin && (
+              <Stack
+                direction="row"
+                gap="8px"
+              >
+                {order.status === 'wait_payment' && (
+                  <>
+                    <OrderPaymentButton
+                      order={order}
+                      onUpdateOrder={setOrder}
+                    />
+                  </>
+                )}
+                {<OrderDeleteButton order={order} />}
+              </Stack>
             )}
           </Box>
 
@@ -121,7 +116,7 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
                 </Stack>
               </AccordionDetails>
             </Accordion>
-            <Accordion>
+            <Accordion defaultExpanded>
               <AccordionSummary>
                 <Typography
                   level="h2"
@@ -169,7 +164,12 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
           <CargoList
             orderId={order.id}
             orderStatus={order.status}
-            summaryChildren={<OrderCargosApprove order={order} />}
+            summaryChildren={
+              <OrderCargosApprove
+                order={order}
+                onUpdatedCallback={onReloadOrderInfo}
+              />
+            }
           />
         </Box>
       )}

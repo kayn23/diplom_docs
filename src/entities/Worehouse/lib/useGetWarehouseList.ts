@@ -29,7 +29,6 @@ export const useGetWarehouseList = (initFilters: WarehouseFilterType = {}) => {
 
   const setWarehouseFilter = useDebouncedCallback(
     (key: keyof WarehouseFilterType, value: WarehouseFilterType[keyof WarehouseFilterType]) => {
-      console.log(key, value);
       setWarehouseFilters((prev) => ({
         ...prev,
         [key]: value,

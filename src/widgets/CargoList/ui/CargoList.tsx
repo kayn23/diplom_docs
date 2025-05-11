@@ -68,6 +68,7 @@ export const CargoList: FC<CargoListProps> = (props) => {
       )),
     [cargos, canChange, orderId, onDelete]
   );
+
   const [isCargoAccordionOpen, setIsCargoAccordionOpen] = useState(false);
 
   return (
@@ -75,7 +76,7 @@ export const CargoList: FC<CargoListProps> = (props) => {
       <AccordionGroup>
         <Accordion
           expanded={isCargoAccordionOpen}
-          onChange={(_, expanded) => setIsCargoAccordionOpen(expanded)}
+          onChange={(_, expanded) => setIsCargoAccordionOpen?.(expanded)}
         >
           <AccordionSummary>
             <div className={cls.cargosSummary}>
@@ -85,17 +86,23 @@ export const CargoList: FC<CargoListProps> = (props) => {
               >
                 {t('orders:OrdersPage.titles.cargos')}
               </Typography>
-              {canChange && (
-                <>
-                  <CargoAttachModal
-                    orderId={orderId}
-                    onCreated={onCreatedCallback}
-                  />
-                  {cargos.length > 0 && summaryChildren}
-                </>
-              )}
             </div>
           </AccordionSummary>
+          {canChange && (
+            <>
+              <Stack
+                direction="row"
+                gap="8px"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <CargoAttachModal
+                  orderId={orderId}
+                  onCreated={onCreatedCallback}
+                />
+                {cargos.length > 0 && summaryChildren}
+              </Stack>
+            </>
+          )}
           <AccordionDetails>
             {isCargoAccordionOpen && (
               <Stack spacing={2}>

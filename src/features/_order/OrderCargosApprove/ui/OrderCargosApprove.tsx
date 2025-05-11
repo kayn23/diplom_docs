@@ -12,11 +12,12 @@ import { useAdmin, useFetch } from 'entities/User';
 interface OrderCargosApproveProps {
   className?: string;
   order: IOrder;
+  onUpdatedCallback?: () => void;
 }
 
 export const OrderCargosApprove: FC<OrderCargosApproveProps> = (props) => {
   const { t } = useTranslation('orders');
-  const { className, order } = props;
+  const { className, order, onUpdatedCallback } = props;
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -46,7 +47,19 @@ export const OrderCargosApprove: FC<OrderCargosApproveProps> = (props) => {
     getCargoList(order.id);
   }, [getCargoList, order]);
 
-  const onApprove = useCallback(() => {}, []);
+  const { request: approveRequest } = useFetch();
+  const onApprove = useCallback(() => {
+    approveRequest(`/api/orders/${order.id}/cargo_accepted`, {
+      method: 'post',
+      body: {
+        price: priceInput,
+      },
+    }).then((res) => {
+      if (!res) return;
+      setOpenModal(false);
+      onUpdatedCallback?.();
+    });
+  }, [order, approveRequest, priceInput, onUpdatedCallback]);
 
   return (
     <div className={classNames(cls.OrderCargoAprove, { additional: [className] })}>
@@ -55,8 +68,7 @@ export const OrderCargosApprove: FC<OrderCargosApproveProps> = (props) => {
           variant="outlined"
           color="neutral"
           startDecorator={<Done />}
-          onClick={(e) => {
-            e.stopPropagation();
+          onClick={() => {
             setOpenModal(true);
           }}
         >

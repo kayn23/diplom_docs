@@ -56,8 +56,7 @@ export const CargoAttachModal: FC<CargoAttachModalProps> = (props) => {
         variant="outlined"
         color="neutral"
         startDecorator={<Add />}
-        onClick={(e) => {
-          e.stopPropagation();
+        onClick={() => {
           setOpen(true);
         }}
       >

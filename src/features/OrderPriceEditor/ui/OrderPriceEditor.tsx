@@ -13,12 +13,13 @@ interface OrderPriceEditorProps {
   status: status;
   price: string | null;
   onUpdatePrice?: (price: string) => void;
+  hideEditor?: boolean;
 }
 
 export const OrderPriceEditor: FC<OrderPriceEditorProps> = (props) => {
   const { t } = useTranslation();
 
-  const { className, price, onUpdatePrice, status } = props;
+  const { className, price, onUpdatePrice, status, hideEditor = false } = props;
   const isAdmin = useAdmin();
 
   const [isEdit, setIsEdit] = useState(false);
@@ -50,7 +51,7 @@ export const OrderPriceEditor: FC<OrderPriceEditorProps> = (props) => {
         {!isEdit && (
           <>
             <Typography level="title-md">{price || t('orders:order.fields.price.null')}</Typography>
-            {isAdmin && canChange && (
+            {!hideEditor && isAdmin && canChange && (
               <IconButton onClick={() => setIsEdit(true)}>
                 <Edit />
               </IconButton>
