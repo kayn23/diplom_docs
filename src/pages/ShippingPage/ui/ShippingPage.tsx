@@ -7,6 +7,7 @@ import { ShippingCard, useShippingRequest } from 'entities/Shipping';
 import { Stack, Typography } from '@mui/joy';
 import { BackLink } from 'shared/ui/BackLink';
 import { UserInfoCard } from 'entities/User';
+import { QRScannerModal } from 'shared/ui/QrCodeScanner/CodeScanner';
 
 interface ShippingPageProps {
   className?: string;

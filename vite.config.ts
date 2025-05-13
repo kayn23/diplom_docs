@@ -3,6 +3,7 @@ import svgr from 'vite-plugin-svgr';
 import stylelint from 'vite-plugin-stylelint';
 import { defineConfig } from 'vitest/config';
 import path from 'path';
+import fs from 'fs';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -30,5 +31,12 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: [path.resolve(__dirname, 'src/setupTests.ts')],
+  },
+  server: {
+    https: {
+      key: fs.readFileSync('private.key'),
+      cert: fs.readFileSync('certificate.crt'),
+    },
+    host: 'localhost', // по умолчанию
   },
 });
