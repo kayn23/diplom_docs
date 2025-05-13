@@ -1,3 +1,3 @@
 export { RouteInfoCard } from './ui/RouteInfoCard';
 
-export type { IRoute } from './types/route';
+export type { IRoute, IRouteDetails } from './types/route';

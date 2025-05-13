@@ -1,0 +1,24 @@
+{
+  "shippingsPage": {
+    "title": "Список доставок"
+  },
+  "shippingPage": {
+    "title": "Доставка {{id}}",
+    "assignee": "Ответственный доставщик"
+  },
+  "shippingCard": {
+    "id": "ID",
+    "date": "Дата доставки",
+    "status": "Статус",
+    "moreLink": "Подробнее",
+    "from": "Откуда",
+    "to": "Куда",
+    "amount_cargos": "Количество грузов"
+  },
+  "status": {
+    "created": "Новая",
+    "loading": "Загружается",
+    "delivering": "Достравляется",
+    "completed": "Завершена"
+  }
+}

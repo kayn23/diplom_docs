@@ -6,6 +6,8 @@ import { MainPage } from 'pages/MainPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { OrderPage } from 'pages/OrderPage';
 import { OrdersPage } from 'pages/OrdersPage';
+import { ShippingPage } from 'pages/ShippingPage';
+import { ShippingsPage } from 'pages/ShippingsPage';
 import { UserCreatePage } from 'pages/UserCreatePage';
 import { UserInfoPage } from 'pages/UserInfoPage';
 import { UsersPage } from 'pages/UsersPage';
@@ -22,6 +24,8 @@ import {
   getRouteOrder,
   getRouteOrders,
   getRouterEditOrder,
+  getRouteShipping,
+  getRouteShippings,
   getRouteShowUser,
   getRouteUserList,
   getRouteWarehouseInfo,
@@ -81,5 +85,13 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.WAREHOUSE_CREATE]: {
     path: getRouteCreateWarehouse(),
     element: <CreateWarehousePage />,
+  },
+  [AppRoutes.SHIPPINGS_LIST]: {
+    path: getRouteShippings(),
+    element: <ShippingsPage />,
+  },
+  [AppRoutes.SHIPPING_INFO]: {
+    path: getRouteShipping(),
+    element: <ShippingPage />,
   },
 };

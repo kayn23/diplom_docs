@@ -14,6 +14,9 @@ export enum AppRoutes {
   WAREHOUSE_LIST = 'warehouses_list',
   WAREHOUSE_INFO = 'warehouse_info',
   WAREHOUSE_CREATE = 'warehouse_create',
+
+  SHIPPINGS_LIST = 'shippings_list',
+  SHIPPING_INFO = 'shipping_info',
 }
 
 export const getRouteMain = () => '/';
@@ -31,5 +34,8 @@ export const getRouteShowUser = (id: string | number = ':userId') => `/users/${i
 export const getRouteWarehouseList = () => '/warehouses';
 export const getRouteCreateWarehouse = () => '/warehouses/new';
 export const getRouteWarehouseInfo = (id: string | number = ':warehouseId') => `/warehouses/${id}`;
+
+export const getRouteShippings = () => '/shippings';
+export const getRouteShipping = (id: string | number = ':shippingId') => `/shippings/${id}`;
 
 export const getRouteNotFound = () => '*';
