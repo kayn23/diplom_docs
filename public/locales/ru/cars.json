@@ -1,0 +1,38 @@
+{
+  "card": {
+    "name": "Название",
+    "size": "Объем",
+    "size_value": "м3",
+    "capacity": "Грузоподъемность",
+    "capacity_value": "кг",
+    "active": "Активная машина"
+  },
+  "form": {
+    "name": {
+      "label": "Название",
+      "placeholder": "Введите название"
+    },
+    "size": {
+      "label": "Объем (m3)",
+      "placeholder": "Введите объем"
+    },
+    "capacity": {
+      "label": "Грузоподъемность (кг)",
+      "placeholder": "Введите грузоподъемность"
+    },
+    "active": {
+      "label": "Активный"
+    }
+  },
+  "carsWidget": {
+    "no_found_cars": "Автомобили не найдены",
+    "addCarBtn": "Добавить автомобиль",
+    "modal": {
+      "title": "Добавить автомобиль",
+      "saveBtn": "Сохранить"
+    },
+    "editModal": {
+      "btn": "Изменить"
+    }
+  }
+}

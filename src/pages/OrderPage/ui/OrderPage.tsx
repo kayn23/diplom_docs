@@ -1,15 +1,15 @@
-import { useCallback, type FC } from 'react';
+import { type FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './OrderPage.module.scss';
 import { useParams } from 'react-router';
 import { AccountLayout } from 'app/layouts/AccountLayout';
-import { useAdmin, useFetch, UserInfoCard } from 'entities/User';
+import { useAdmin, UserInfoCard } from 'entities/User';
 import { Accordion, AccordionGroup, AccordionSummary, AccordionDetails, Stack, Typography, Box } from '@mui/joy';
 import { CallReceived, CallMade, Person, Inventory2 } from '@mui/icons-material';
 import { WarehouseInfoCard } from 'entities/Worehouse';
 import { useTranslation } from 'react-i18next';
 import { TypoWithLabel } from 'shared/ui/TypoWithLabel/TypoWithLabel';
-import { IOrder, useOrderInfo } from 'entities/Order';
+import { useOrderInfo } from 'entities/Order';
 import { BackLink } from 'shared/ui/BackLink';
 import { OrderStatusSelector } from 'features/OrderStatusSelector';
 import { OrderPriceEditor } from 'features/OrderPriceEditor';

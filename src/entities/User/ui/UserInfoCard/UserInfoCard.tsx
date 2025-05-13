@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { getRouteShowUser } from 'shared/const/router';
 import { IUser } from '../../types/user';
 import { useHightRole } from '../../lib/useHightRole';
+import { CarListWidget } from 'widgets/CarListWidget';
 
 interface UserInfoCardProps {
   className?: string;

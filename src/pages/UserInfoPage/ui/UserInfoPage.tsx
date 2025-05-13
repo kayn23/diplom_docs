@@ -9,6 +9,7 @@ import { IUser, useAdmin, useFetch, UserInfoCard } from 'entities/User';
 import { BackLink } from 'shared/ui/BackLink';
 import { UserAddRole } from 'features/UserAddRole';
 import { UserEditModal } from 'features/UserEditModal';
+import { CarListWidget } from 'widgets/CarListWidget';
 
 interface UserInfoPageProps {
   className?: string;
@@ -54,27 +55,30 @@ export const UserInfoPage: FC<UserInfoPageProps> = (props) => {
       <BackLink />
       <Typography level="h1">{t('showPage.title', { userId })}</Typography>
 
-      <UserInfoCard
-        showRole
-        user={user}
-        isLoading={isLoading}
-      />
-      {userId && isAdmin && user && (
-        <Stack
-          sx={{ marginTop: '8px' }}
-          gap="8px"
-          direction="row"
-        >
-          <UserAddRole
-            user={user}
-            onSaved={onRoleChanged}
-          />
-          <UserEditModal
-            user={user}
-            onUpdated={onReload}
-          />
-        </Stack>
-      )}
+      <Stack gap="8px">
+        <UserInfoCard
+          showRole
+          user={user}
+          isLoading={isLoading}
+        />
+        {userId && isAdmin && user && (
+          <Stack
+            sx={{ marginTop: '8px' }}
+            gap="8px"
+            direction="row"
+          >
+            <UserAddRole
+              user={user}
+              onSaved={onRoleChanged}
+            />
+            <UserEditModal
+              user={user}
+              onUpdated={onReload}
+            />
+          </Stack>
+        )}
+        {user && <CarListWidget userId={user.id} />}
+      </Stack>
     </AccountLayout>
   );
 };
