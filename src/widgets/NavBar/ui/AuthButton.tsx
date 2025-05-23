@@ -4,7 +4,8 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Button } from 'shared/ui/Button/ui/Button';
 import { LoginModal } from 'features/LoginModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsAuth, userActions } from 'entities/User';
+import { getIsAuth, getUserEmail, userActions } from 'entities/User';
+import { Typography } from '@mui/joy';
 
 interface AuthButtonProps {
   className?: string;
@@ -33,6 +34,8 @@ export const AuthButton: FC<AuthButtonProps> = memo((props) => {
 
   const isAuth = useSelector(getIsAuth);
 
+  const userEmail = useSelector(getUserEmail);
+
   return (
     <>
       {!isAuth && (
@@ -44,19 +47,24 @@ export const AuthButton: FC<AuthButtonProps> = memo((props) => {
           >
             {t('features.AuthButton.button')}
           </Button>
-          <LoginModal isOpen={isOpen}
-onClose={onCloseLoginModal} />
+          <LoginModal
+            isOpen={isOpen}
+            onClose={onCloseLoginModal}
+          />
         </>
       )}
 
       {isAuth && (
-        <Button
-          className={classNames('AuthButton', { additional: [className] })}
-          theme="clear"
-          onClick={onClickExitButton}
-        >
-          {t('features.AuthButton.exit-button')}
-        </Button>
+        <>
+          <Typography>{userEmail}</Typography>
+          <Button
+            className={classNames('AuthButton', { additional: [className] })}
+            theme="clear"
+            onClick={onClickExitButton}
+          >
+            {t('features.AuthButton.exit-button')}
+          </Button>
+        </>
       )}
     </>
   );

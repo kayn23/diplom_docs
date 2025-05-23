@@ -51,30 +51,37 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.ORDERS]: {
     path: getRouteOrders(),
     element: <OrdersPage />,
+    authOnly: true,
   },
   [AppRoutes.ORDER]: {
     path: getRouteOrder(),
     element: <OrderPage />,
+    authOnly: true,
   },
   [AppRoutes.CREATE_ORDER]: {
     path: getRouteCreateOrder(),
     element: <CreateOrderPage />,
+    roles: ['manager', 'admin'],
   },
   [AppRoutes.EDIT_ORDER]: {
     path: getRouterEditOrder(),
     element: <EditOrderPage />,
+    roles: ['manager', 'admin'],
   },
   [AppRoutes.USER_LIST]: {
     path: getRouteUserList(),
     element: <UsersPage />,
+    roles: ['manager', 'admin'],
   },
   [AppRoutes.CREATE_USER]: {
     path: getRouteCreateUser(),
     element: <UserCreatePage />,
+    roles: ['manager', 'admin'],
   },
   [AppRoutes.SHOW_USER]: {
     path: getRouteShowUser(),
     element: <UserInfoPage />,
+    roles: ['manager', 'admin'],
   },
   [AppRoutes.WAREHOUSE_LIST]: {
     path: getRouteWarehouseList(),
@@ -83,21 +90,26 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.WAREHOUSE_INFO]: {
     path: getRouteWarehouseInfo(),
     element: <WarehousePage />,
+    roles: ['admin'],
   },
   [AppRoutes.WAREHOUSE_CREATE]: {
     path: getRouteCreateWarehouse(),
     element: <CreateWarehousePage />,
+    roles: ['admin'],
   },
   [AppRoutes.SHIPPINGS_LIST]: {
     path: getRouteShippings(),
     element: <ShippingsPage />,
+    roles: ['admin', 'courier'],
   },
   [AppRoutes.SHIPPING_INFO]: {
     path: getRouteShipping(),
     element: <ShippingPage />,
+    roles: ['admin', 'courier'],
   },
   [AppRoutes.UPLOAD_CARGO_TO_WAREHOUSE]: {
     path: getRouteUploadCargo(),
     element: <UploadCargoToWarehousePage />,
+    roles: ['admin', 'manager'],
   },
 };

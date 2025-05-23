@@ -7,10 +7,11 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { loginUserAsync } from '../model/services/loginUserAsync/loginUserAsync';
 import { getLoginError } from '../model/selectors/getLoginError';
 import { Button, Input, Typography } from '@mui/joy';
+import { IAuthRequest } from 'entities/User';
 
 interface LoginFormProps {
   className?: string;
-  onSuccess?: () => void;
+  onSuccess?: (value: IAuthRequest) => void;
 }
 
 export const LoginForm: FC<LoginFormProps> = memo((props) => {
@@ -29,7 +30,7 @@ export const LoginForm: FC<LoginFormProps> = memo((props) => {
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const res = await dispatch(loginUserAsync({ email, password }));
-      if (loginUserAsync.fulfilled.match(res)) onSuccess?.();
+      if (loginUserAsync.fulfilled.match(res)) onSuccess?.(res.payload);
     },
     [dispatch, email, password, onSuccess]
   );

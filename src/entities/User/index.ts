@@ -1,3 +1,6 @@
+export { getUserEmail } from './model/selectors/getUserEmail.ts';
+export { getUserRoles } from './model/selectors/getUserRoles.ts';
+export { useGeneralLink } from './lib/useGeneralLink.ts';
 export { useHightRole } from './lib/useHightRole.ts';
 export { useGetUserList, type UserFilterType } from './lib/useGetUserList.ts';
 export { useAdmin } from './lib/useAdmin.ts';
