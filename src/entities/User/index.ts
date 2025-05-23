@@ -1,3 +1,4 @@
+export { useHightRole } from './lib/useHightRole.ts';
 export { useGetUserList, type UserFilterType } from './lib/useGetUserList.ts';
 export { useAdmin } from './lib/useAdmin.ts';
 export { UserForm } from './ui/UserForm/UserForm.tsx';

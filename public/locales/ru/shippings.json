@@ -1,6 +1,7 @@
 {
   "shippingsPage": {
-    "title": "Список доставок"
+    "title": "Список доставок",
+    "not_found": "Нет активных доставок"
   },
   "shippingPage": {
     "title": "Доставка {{id}}",

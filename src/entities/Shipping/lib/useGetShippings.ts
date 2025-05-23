@@ -6,6 +6,7 @@ import { usePaginationHelpers } from 'shared/lib/requests/usePaginationHelpers';
 
 export type IShippingFilter = Partial<{
   assignee_id_eq: number;
+  not_finished: boolean;
 }>;
 
 export const useGetShippings = (initialFilters: IShippingFilter = {}) => {
@@ -17,7 +18,10 @@ export const useGetShippings = (initialFilters: IShippingFilter = {}) => {
   const makeFilterString = useCallback((filters: IShippingFilter) => {
     let res = '';
     if (filters.assignee_id_eq) {
-      res += `q[assignee_id_eq]=${filters.assignee_id_eq}`;
+      res += `&q[assignee_id_eq]=${filters.assignee_id_eq}`;
+    }
+    if (filters.not_finished) {
+      res += `&q[status_not_eq]=completed`;
     }
     return res;
   }, []);

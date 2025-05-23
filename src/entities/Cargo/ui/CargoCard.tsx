@@ -37,6 +37,16 @@ export const CargoCard: FC<CargoCargProps> = (props) => {
               variant="text"
               width="80%"
             >
+              <Typography>{t('card.id')}: </Typography>
+              <Typography level="title-md">{cargo?.id}</Typography>
+            </Skeleton>
+          </Typography>
+          <Typography>
+            <Skeleton
+              loading={isLoading}
+              variant="text"
+              width="80%"
+            >
               <Typography>{t('card.size')}: </Typography>
               <Typography level="title-md">{cargo?.size}</Typography>
             </Skeleton>
@@ -63,6 +73,16 @@ export const CargoCard: FC<CargoCargProps> = (props) => {
                   <Typography level="title-md">{cargo?.description}</Typography>
                 </>
               )}
+            </Skeleton>
+          </Typography>
+          <Typography>
+            <Skeleton
+              loading={isLoading}
+              variant="text"
+              width="80%"
+            >
+              <Typography>{t('card.status')}: </Typography>
+              <Typography level="title-md">{t(`status.${cargo?.status}`)}</Typography>
             </Skeleton>
           </Typography>
         </div>

@@ -37,14 +37,16 @@ export const OrderDeleteButton: FC<OrderDeleteButtonProps> = memo((props) => {
 
   return (
     <div className={classNames('OrderDeleteButton', { additional: [className] })}>
-      <Button
-        onClick={onDeleteClick}
-        startDecorator={<Warning />}
-        endDecorator={<Warning />}
-        color="danger"
-      >
-        {t('deleteButton.btn')}
-      </Button>
+      {!['completed', 'canceled'].includes(order.status) && (
+        <Button
+          onClick={onDeleteClick}
+          startDecorator={<Warning />}
+          endDecorator={<Warning />}
+          color="danger"
+        >
+          {t('deleteButton.btn')}
+        </Button>
+      )}
       <Modal
         open={deleteModal}
         onClose={() => setDeleteModal(false)}

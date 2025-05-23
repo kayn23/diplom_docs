@@ -22,8 +22,20 @@
     "size":"Габариты (м3)",
     "dimensions":"Вес (кг)",
     "description":"Описание",
-    "id": "",
+    "id": "Id",
     "qrcode": "",
-    "deleteButton": "Удалить"
+    "deleteButton": "Удалить",
+    "status": "Статус"
+  },
+  "status": {
+    "accepted": "Принят",
+    "issued": "Выдан"
+  },
+  "IssuedCargoButton": {
+    "issuedBtn": "Выдать груз",
+    "modal": {
+      "title": "Выдача груза {{id}}",
+      "okBtn": "Выдать"
+    }
   }
 }

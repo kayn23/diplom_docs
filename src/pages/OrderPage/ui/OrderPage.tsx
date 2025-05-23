@@ -170,6 +170,7 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
                 onUpdatedCallback={onReloadOrderInfo}
               />
             }
+            onUpdated={onReloadOrderInfo}
           />
         </Box>
       )}

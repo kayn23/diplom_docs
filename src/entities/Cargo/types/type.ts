@@ -1,3 +1,6 @@
+export const CargoStatus = ['accepted', 'issued'] as const;
+export type CargoStatusType = (typeof CargoStatus)[number];
+
 export interface ICargo {
   id: number;
   size: string;
@@ -5,4 +8,5 @@ export interface ICargo {
   description: string;
   qrcode?: string;
   order_id: number;
+  status: CargoStatusType;
 }

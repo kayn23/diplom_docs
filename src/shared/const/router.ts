@@ -24,6 +24,8 @@ export enum AppRoutes {
 export const getRouteMain = () => '/';
 export const getRouteAbout = () => '/about';
 
+export const getRouteCourierMain = () => '/courier_accaunt';
+
 export const getRouteOrders = () => '/orders';
 export const getRouteOrder = (id: string | number = ':orderId') => `/orders/${id}`;
 export const getRouteCreateOrder = () => '/orders/new';

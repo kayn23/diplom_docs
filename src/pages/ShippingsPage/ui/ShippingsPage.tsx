@@ -14,11 +14,12 @@ export const ShippingsPage: FC<ShippingsPageProps> = (props) => {
 
   const { className } = props;
 
-  const { shippings } = useGetShippings();
+  const { shippings } = useGetShippings({ not_finished: true });
 
   return (
     <AccountLayout className={classNames('ShippingsPage', { additional: [className] })}>
       <Typography level="h1">{t('shippingsPage.title')}</Typography>
+      {shippings.length === 0 && <Typography level="title-lg">{t('shippingsPage.not_found')}</Typography>}
       <Stack gap="8px">
         {shippings.map((s) => (
           <ShippingCard

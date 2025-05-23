@@ -1,7 +1,7 @@
-import { ReactNode, useCallback, useEffect, useMemo, useState, type FC } from 'react';
+import { memo, ReactNode, useCallback, useEffect, useMemo, useState, type FC } from 'react';
 import { Accordion, AccordionDetails, AccordionGroup, AccordionSummary, Stack, Typography } from '@mui/joy';
 import { useFetch } from 'entities/User';
-import { CargoCard, ICargo } from 'entities/Cargo';
+import { CargoCard, useGetCargos } from 'entities/Cargo';
 // TODO убрать пересечение
 import { CargoAttachModal } from 'features/CargoAttachModal';
 import { status } from 'entities/Order';
@@ -9,30 +9,25 @@ import { Loader } from 'shared/ui/Loader/Loader';
 import { Inventory2 } from '@mui/icons-material';
 import cls from './CargoList.module.scss';
 import { useTranslation } from 'react-i18next';
+import { IssuedCargoButton } from 'features/IssuedCargoButton';
 
 interface CargoListProps {
   className?: string;
   orderId: number;
   orderStatus: status;
   summaryChildren?: ReactNode;
+  onUpdated?: () => void;
 }
 
-export const CargoList: FC<CargoListProps> = (props) => {
+export const CargoList: FC<CargoListProps> = memo((props) => {
   const { t } = useTranslation();
-  const { orderId, orderStatus, summaryChildren } = props;
+  const { orderId, orderStatus, summaryChildren, onUpdated } = props;
 
-  // TODO добавить пагинацию
-  const { request, isLoading } = useFetch();
-  const [cargos, setCargos] = useState<ICargo[]>([]);
+  const { data: cargos, isLoading, onReload } = useGetCargos(orderId);
 
-  const getCargoList = useCallback(
-    (orderId: string | number, page: number = 1) => {
-      request<ICargo[]>(`/api/orders/${orderId}/cargos?page=${page}`).then((res) => {
-        if (res) setCargos(res);
-      });
-    },
-    [request]
-  );
+  useEffect(() => {
+    if (cargos.every((i) => i.status === 'issued')) onUpdated?.();
+  }, [cargos, onUpdated]);
 
   const { request: deleteRequest } = useFetch();
   const onDelete = useCallback(
@@ -40,19 +35,11 @@ export const CargoList: FC<CargoListProps> = (props) => {
       deleteRequest(`/api/orders/${orderId}/cargos/${id}`, {
         method: 'delete',
       }).then(() => {
-        getCargoList(orderId);
+        onReload();
       });
     },
-    [deleteRequest, getCargoList]
+    [deleteRequest, onReload]
   );
-
-  const onCreatedCallback = useCallback(() => {
-    getCargoList(orderId);
-  }, [getCargoList, orderId]);
-
-  useEffect(() => {
-    getCargoList(orderId);
-  }, [getCargoList, orderId]);
 
   const canChange = useMemo(() => orderStatus === 'created', [orderStatus]);
 
@@ -88,21 +75,28 @@ export const CargoList: FC<CargoListProps> = (props) => {
               </Typography>
             </div>
           </AccordionSummary>
-          {canChange && (
-            <>
-              <Stack
-                direction="row"
-                gap="8px"
-                onClick={(e) => e.stopPropagation()}
-              >
+          <Stack
+            direction="row"
+            gap="8px"
+            sx={{ padding: '8px 0' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {canChange && (
+              <>
                 <CargoAttachModal
                   orderId={orderId}
-                  onCreated={onCreatedCallback}
+                  onCreated={onReload}
                 />
                 {cargos.length > 0 && summaryChildren}
-              </Stack>
-            </>
-          )}
+              </>
+            )}
+            {orderStatus === 'awaiting_pickup' && (
+              <IssuedCargoButton
+                orderId={orderId}
+                onUpdated={onReload}
+              />
+            )}
+          </Stack>
           <AccordionDetails>
             {isCargoAccordionOpen && (
               <Stack spacing={2}>
@@ -115,4 +109,4 @@ export const CargoList: FC<CargoListProps> = (props) => {
       </AccordionGroup>
     </>
   );
-};
+});
