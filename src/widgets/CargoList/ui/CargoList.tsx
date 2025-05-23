@@ -42,6 +42,7 @@ export const CargoList: FC<CargoListProps> = memo((props) => {
   );
 
   const canChange = useMemo(() => orderStatus === 'created', [orderStatus]);
+  const canDelete = useMemo(() => ['created', 'wait_payment'].includes(orderStatus), [orderStatus]);
 
   const cargoList = useMemo(
     () =>
@@ -49,11 +50,11 @@ export const CargoList: FC<CargoListProps> = memo((props) => {
         <CargoCard
           key={cargo.id}
           cargo={cargo}
-          canDelete={canChange}
+          canDelete={canDelete}
           onDelete={(id) => onDelete(orderId, id)}
         />
       )),
-    [cargos, canChange, orderId, onDelete]
+    [cargos, canDelete, onDelete, orderId]
   );
 
   const [isCargoAccordionOpen, setIsCargoAccordionOpen] = useState(false);
