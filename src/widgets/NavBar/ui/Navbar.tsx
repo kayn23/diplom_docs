@@ -1,4 +1,4 @@
-import { memo, type FC } from 'react';
+import { memo, useMemo, type FC } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './Navbar.module.scss';
 import { BaseLink } from 'shared/ui/BaseLink/BaseLink';
@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { AuthButton } from './AuthButton';
 import { GeneralPageLink } from '../GeneralPageLink';
 import { getRouteWarehouseList } from 'shared/const/router';
+import { Stack } from '@mui/joy';
+import { useMobile } from 'shared/lib/useMobile/useMobile';
 
 interface NavbarProps {
   className?: string;
@@ -15,11 +17,14 @@ interface NavbarProps {
 
 export const Navbar: FC<NavbarProps> = memo(({ className }) => {
   const { t } = useTranslation();
-  return (
-    <div className={classNames(cls.Navbar, { additional: [className] })}>
-      <nav className={classNames(cls.navigation)}>
-        <LangSelector />
-        <ThemeSelector />
+  const isMobile = useMobile();
+
+  const link = useMemo(
+    () => (
+      <Stack
+        direction="row"
+        alignItems="center"
+      >
         <GeneralPageLink />
         <BaseLink
           className={cls.link}
@@ -33,8 +38,22 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
         >
           {t('navbar.warehouses')}
         </BaseLink>
+      </Stack>
+    ),
+    [t]
+  );
+
+  return (
+    <Stack
+      direction={{ xs: 'row' }}
+      className={classNames(cls.Navbar, { additional: [className] })}
+    >
+      <nav className={classNames(cls.navigation)}>
+        <LangSelector />
+        <ThemeSelector />
+        {!isMobile && link}
         <AuthButton />
       </nav>
-    </div>
+    </Stack>
   );
 });

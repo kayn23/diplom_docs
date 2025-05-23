@@ -4,7 +4,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './OrderStatusSelector.module.scss';
 import { IOrder } from 'entities/Order';
 import { Typography } from '@mui/joy';
-import { useAdmin } from 'entities/User';
+// import { useAdmin } from 'entities/User';
 
 interface OrderStatusSelectorProps {
   className?: string;
@@ -29,24 +29,23 @@ export const OrderStatusSelector: FC<OrderStatusSelectorProps> = (props) => {
   //   [t]
   // );
 
-  const isAdmin = useAdmin();
+  // const isAdmin = useAdmin();
 
   const [isEdit /* , setIsEdit */] = useState(false);
 
   return (
     <div className={classNames(cls.OrderStatusSelector, { additional: [className] })}>
-      {isAdmin ? (
-        <div className={cls.statusEditor}>
-          <Typography>{t('orders:OrdersPage.titles.status')}</Typography>
-          {!isEdit && (
-            <>
-              <Typography level="title-md">{t(`OrdersPage.statuses.${order.status}`)}</Typography>
-              {/*<IconButton onClick={() => setIsEdit(true)}>
+      <div className={cls.statusEditor}>
+        <Typography>{t('orders:OrdersPage.titles.status')}</Typography>
+        {!isEdit && (
+          <>
+            <Typography level="title-md">{t(`OrdersPage.statuses.${order.status}`)}</Typography>
+            {/*<IconButton onClick={() => setIsEdit(true)}>
                 <Edit />
               </IconButton>*/}
-            </>
-          )}
-          {/*isEdit && (
+          </>
+        )}
+        {/*isEdit && (
             <>
               <Select
                 defaultValue={order.status}
@@ -72,10 +71,7 @@ export const OrderStatusSelector: FC<OrderStatusSelectorProps> = (props) => {
               </ButtonGroup>
             </>
           )*/}
-        </div>
-      ) : (
-        <></>
-      )}
+      </div>
     </div>
   );
 };

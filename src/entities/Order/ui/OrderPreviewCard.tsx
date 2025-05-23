@@ -18,15 +18,22 @@ export const OrderPreviewCard: FC<OrderPreviewCardProps> = (props) => {
   return (
     <Card className={classNames(cls.OrderPreviewCard, { additional: [className] })}>
       <Stack
-        direction="row"
-        gap={8}
+        direction={{ sm: 'row' }}
+        gap={{ sm: '8px', xs: '2px' }}
       >
-        <Stack sx={{ flexGrow: 1 }}>
-          <Typography>ID</Typography>
+        <Stack
+          sx={{ flexGrow: 1 }}
+          direction={{ xs: 'row' }}
+        >
+          {/* eslint-disable-next-line i18next/no-literal-string*/}
+          <Typography>ID: </Typography>
           <Typography>{order.id}</Typography>
         </Stack>
-        <Stack sx={{ flexGrow: 1 }}>
-          <Typography color="neutral">{t('orders.previewCard.status.title')}</Typography>
+        <Stack
+          sx={{ flexGrow: 1 }}
+          direction={{ xs: 'row' }}
+        >
+          <Typography color="neutral">{t('orders.previewCard.status.title')}: </Typography>
           <Typography level="title-md">{t(`orders.statuses.${order.status}`)}</Typography>
         </Stack>
         <Stack sx={{ flexGrow: 1 }}>
@@ -37,7 +44,7 @@ export const OrderPreviewCard: FC<OrderPreviewCardProps> = (props) => {
           </Typography>
         </Stack>
         <Stack sx={{ flexGrow: 1 }}>
-          <Typography>{t('orders.previewCard.receiver.title')}</Typography>
+          <Typography>{t('orders.previewCard.receiver.title')}: </Typography>
           {!order.receiver ? (
             <Typography>{t('orders.previewCard.receiver.not_present')}</Typography>
           ) : (

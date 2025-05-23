@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { userActions } from 'entities/User/index.ts';
 
 import 'react18-json-view/src/style.css';
+import { Stack } from '@mui/joy';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,12 +21,12 @@ function App() {
   return (
     <>
       <Suspense fallback="">
-        <div className={classNames('app')}>
+        <Stack className={classNames('app')}>
           <Navbar />
           <div className="content">
             <AppRouter />
           </div>
-        </div>
+        </Stack>
       </Suspense>
     </>
   );

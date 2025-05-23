@@ -17,6 +17,7 @@ import { OrderPaymentButton } from 'features/OrderPaymentButton';
 import { CargoList } from 'widgets/CargoList';
 import { OrderCargosApprove } from 'features/_order/OrderCargosApprove';
 import { OrderDeleteButton } from 'features/OrderDeleteButton';
+import { useMobile } from 'shared/lib/useMobile/useMobile';
 
 interface OrderPageProps {
   className?: string;
@@ -29,6 +30,7 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
 
   const { order, setOrder, onReloadOrderInfo } = useOrderInfo(orderId);
 
+  const isMobile = useMobile();
   const isAdmin = useAdmin();
 
   return (
@@ -46,9 +48,11 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
               price={order.price}
             />
 
+            {/*
             <TypoWithLabel label={t('orders:order.fields.delivery_date.title')}>
               {order.delivery_date || t('orders:order.fields.delivery_date.null')}
             </TypoWithLabel>
+            */}
 
             {isAdmin && (
               <Stack
@@ -69,7 +73,7 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
           </Box>
 
           <AccordionGroup>
-            <Accordion defaultExpanded>
+            <Accordion defaultExpanded={!isMobile}>
               <AccordionSummary>
                 <Typography
                   level="h2"
@@ -116,7 +120,7 @@ export const OrderPage: FC<OrderPageProps> = (props) => {
                 </Stack>
               </AccordionDetails>
             </Accordion>
-            <Accordion defaultExpanded>
+            <Accordion defaultExpanded={!isMobile}>
               <AccordionSummary>
                 <Typography
                   level="h2"
