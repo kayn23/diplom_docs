@@ -25,10 +25,15 @@ export const useFetch = <E = string>() => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState<E>();
 
+  const onClearError = useCallback(() => {
+    setError(undefined);
+  }, []);
+
   const request = useCallback(
     async <T = never, R extends ResponseType = 'json'>(request: string, options?: FetchOptions<R>) => {
       if (!token) throw new Error('User authentication data not found');
 
+      onClearError();
       setIsLoading(true);
       return ofetch<T, R>(`${BASE_URL}${request}`, {
         headers: {
@@ -42,20 +47,23 @@ export const useFetch = <E = string>() => {
             if (err.statusCode === 401) {
               dispatch(userActions.logout());
             }
+            setError(err.data.errors);
+          } else {
+            setError(err);
           }
-          setError(err);
           throw err;
         })
         .finally(() => {
           setIsLoading(false);
         });
     },
-    [token, dispatch]
+    [token, onClearError, dispatch]
   );
 
   return {
     request,
     isLoading,
     error,
+    onClearError,
   };
 };

@@ -17,6 +17,8 @@ export enum AppRoutes {
 
   SHIPPINGS_LIST = 'shippings_list',
   SHIPPING_INFO = 'shipping_info',
+
+  UPLOAD_CARGO_TO_WAREHOUSE = 'upload_cargo_to_warehouse',
 }
 
 export const getRouteMain = () => '/';
@@ -37,5 +39,7 @@ export const getRouteWarehouseInfo = (id: string | number = ':warehouseId') => `
 
 export const getRouteShippings = () => '/shippings';
 export const getRouteShipping = (id: string | number = ':shippingId') => `/shippings/${id}`;
+
+export const getRouteUploadCargo = () => '/upload_cargo';
 
 export const getRouteNotFound = () => '*';

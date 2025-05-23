@@ -13,12 +13,40 @@
     "moreLink": "Подробнее",
     "from": "Откуда",
     "to": "Куда",
-    "amount_cargos": "Количество грузов"
+    "amount_cargos": "Количество незагруженных грузов"
   },
   "status": {
     "created": "Новая",
     "loading": "Загружается",
     "delivering": "Достравляется",
     "completed": "Завершена"
+  },
+  "ShipingStartLoadButton": {
+    "btn": "Начать загрузку"
+  },
+  "ShippingStartDeliveryButton": {
+    "btn": "Начать доставку",
+    "not all cargo is loaded": "Не все грузы загружены",
+    "undefined_error": "Неизвестная ошибка"
+  },
+  "LoadCargo": {
+    "loadBtn": "Принять груз"
+  },
+  "approveCargoBtn": {
+    "approveBtn": "Принять груз",
+    "confirmTitle": "Груз загружен",
+    "okBtn": "Ок"
+  },
+  "uploadCargo": {
+    "btn": "Принять груз",
+    "confirmTitle": "Груз принят на склад",
+    "okBtn": "Ок"
+  },
+  "UploadCargoToWarehousePage": {
+    "WarehouseSelector": {
+      "okBtn": "Ок",
+      "label": "Активный склад приема гурзов",
+      "changeBtn": "Изменить"
+    }
   }
 }

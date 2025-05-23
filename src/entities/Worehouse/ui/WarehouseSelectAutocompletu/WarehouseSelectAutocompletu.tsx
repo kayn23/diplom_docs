@@ -1,4 +1,4 @@
-import { memo, useCallback, type FC, type SyntheticEvent } from 'react';
+import { memo, Ref, useCallback, type FC, type SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IWarehouse } from '../../model/types/warehouse';
 import { Autocomplete } from '@mui/joy';
@@ -6,18 +6,24 @@ import { useGetWarehouseList } from '../../lib/useGetWarehouseList';
 
 interface WarehouseSelectAutocompletuProps {
   onSelect?: (value: IWarehouse | null) => void;
+  value?: IWarehouse | null;
+  showAllWarehouses?: boolean;
   hideNoAssignedRoutes?: boolean;
+  inputRef?: Ref<HTMLInputElement>;
+  className?: string;
 }
 
 export const WarehouseSelectAutocompletu: FC<WarehouseSelectAutocompletuProps> = memo((props) => {
-  const { onSelect, hideNoAssignedRoutes = false } = props;
+  const { onSelect, hideNoAssignedRoutes = false, showAllWarehouses = false, value, inputRef, className } = props;
   const { t } = useTranslation();
 
   const additionalFilters = {
     ...(hideNoAssignedRoutes && { with_assigned_routes: true }),
   };
 
-  const { warehouses, setWarehouseFilter, isLoading } = useGetWarehouseList(additionalFilters);
+  const { warehouses, setWarehouseFilter, isLoading } = useGetWarehouseList(additionalFilters, {
+    showAllWarehouses,
+  });
 
   const onChange = useCallback(
     (_e: SyntheticEvent, value: IWarehouse | null) => {
@@ -35,6 +41,7 @@ export const WarehouseSelectAutocompletu: FC<WarehouseSelectAutocompletuProps> =
 
   return (
     <Autocomplete
+      value={value}
       options={warehouses}
       placeholder={t('warehouses.selectAutocomplete.placeholder')}
       getOptionLabel={(option) => `${option.name} ${option.city} ${option.address}`}
@@ -42,6 +49,12 @@ export const WarehouseSelectAutocompletu: FC<WarehouseSelectAutocompletuProps> =
       onChange={onChange}
       onInputChange={onInputChange}
       loading={isLoading}
+      slotProps={{
+        input: {
+          ref: inputRef,
+        },
+      }}
+      className={className}
     />
   );
 });

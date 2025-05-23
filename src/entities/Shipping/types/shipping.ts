@@ -12,6 +12,7 @@ export interface IShipping {
   assignee: IUser;
   route: IRouteDetails;
   amount_cargos: number;
+  unload_cargos: number;
 }
 
 export type IShippingDetails = IShipping;

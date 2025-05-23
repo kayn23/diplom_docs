@@ -7,7 +7,9 @@ import { ShippingCard, useShippingRequest } from 'entities/Shipping';
 import { Stack, Typography } from '@mui/joy';
 import { BackLink } from 'shared/ui/BackLink';
 import { UserInfoCard } from 'entities/User';
-import { QRScannerModal } from 'shared/ui/QrCodeScanner/CodeScanner';
+import { ShipingStartLoadButton } from 'features/ShippingStartLoadButton';
+import { ShippingStartDeliveryButton } from 'features/ShippingStartDeliveryButton';
+import { LoadCargo } from 'features/LoadCargo';
 
 interface ShippingPageProps {
   className?: string;
@@ -19,7 +21,7 @@ export const ShippingPage: FC<ShippingPageProps> = (props) => {
   const { className } = props;
   const { shippingId } = useParams();
 
-  const { shipping } = useShippingRequest(shippingId!);
+  const { shipping, onReload } = useShippingRequest(shippingId!);
 
   return (
     <AccountLayout className={classNames('ShippingPage', { additional: [className] })}>
@@ -34,6 +36,24 @@ export const ShippingPage: FC<ShippingPageProps> = (props) => {
               user={shipping.assignee}
               showMoreButton
             />
+            {shipping?.status === 'created' && (
+              <ShipingStartLoadButton
+                shipping={shipping}
+                onUpdated={onReload}
+              />
+            )}
+            {shipping?.status === 'loading' && (
+              <>
+                <LoadCargo
+                  shipping={shipping}
+                  onUpdated={onReload}
+                />
+                <ShippingStartDeliveryButton
+                  shipping={shipping}
+                  onUpdated={onReload}
+                />
+              </>
+            )}
           </Stack>
         </Stack>
       )}

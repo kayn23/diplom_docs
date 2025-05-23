@@ -8,6 +8,7 @@ import { OrderPage } from 'pages/OrderPage';
 import { OrdersPage } from 'pages/OrdersPage';
 import { ShippingPage } from 'pages/ShippingPage';
 import { ShippingsPage } from 'pages/ShippingsPage';
+import { UploadCargoToWarehousePage } from 'pages/UploadCargoToWarehousePage';
 import { UserCreatePage } from 'pages/UserCreatePage';
 import { UserInfoPage } from 'pages/UserInfoPage';
 import { UsersPage } from 'pages/UsersPage';
@@ -27,6 +28,7 @@ import {
   getRouteShipping,
   getRouteShippings,
   getRouteShowUser,
+  getRouteUploadCargo,
   getRouteUserList,
   getRouteWarehouseInfo,
   getRouteWarehouseList,
@@ -93,5 +95,9 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.SHIPPING_INFO]: {
     path: getRouteShipping(),
     element: <ShippingPage />,
+  },
+  [AppRoutes.UPLOAD_CARGO_TO_WAREHOUSE]: {
+    path: getRouteUploadCargo(),
+    element: <UploadCargoToWarehousePage />,
   },
 };

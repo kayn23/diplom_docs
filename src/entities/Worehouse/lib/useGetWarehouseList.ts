@@ -11,7 +11,11 @@ export type WarehouseFilterType = Partial<{
   with_unassigned_or_no_routes: boolean;
 }>;
 
-export const useGetWarehouseList = (initFilters: WarehouseFilterType = {}) => {
+export type useGetWarehouseListParams = Partial<{
+  showAllWarehouses: boolean;
+}>;
+
+export const useGetWarehouseList = (initFilters: WarehouseFilterType = {}, options: useGetWarehouseListParams = {}) => {
   const [warehouses, setWarehouses] = useState<IWarehouse[]>([]);
   const [warehouseFilters, setWarehouseFilters] = useState<WarehouseFilterType>(initFilters);
 
@@ -79,7 +83,9 @@ export const useGetWarehouseList = (initFilters: WarehouseFilterType = {}) => {
     fetchWarehouses(page, warehouseFilters);
   }, [fetchWarehouses, page, warehouseFilters]);
 
-  const filteredWarehouse = warehouses.filter((warehouses) => warehouses.name !== 'РЦ');
+  const filteredWarehouse = options.showAllWarehouses
+    ? warehouses
+    : warehouses.filter((warehouses) => warehouses.name !== 'РЦ');
 
   return {
     isLoading,

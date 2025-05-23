@@ -123,5 +123,9 @@
   },
   "citySelector": {
     "placeholder": "Выберите город"
+  },
+  "scanQrCode": "Сканируйте QR код",
+  "UploadCargoToWarehousePage": {
+    "title": "Прием грузов на склад"
   }
 }

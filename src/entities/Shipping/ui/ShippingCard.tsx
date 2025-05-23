@@ -55,10 +55,14 @@ export const ShippingCard: FC<ShippingCardProps> = (props) => {
         <Typography level="body-lg">{to}</Typography>
       </Typography>
 
-      <Typography>
-        <Typography level="title-lg">{t('shippingCard.amount_cargos')} </Typography>
-        <Typography level="body-lg">{shipping.amount_cargos}</Typography>
-      </Typography>
+      {shipping.status === 'loading' && (
+        <Typography>
+          <Typography level="title-lg">{t('shippingCard.amount_cargos')} </Typography>
+          <Typography level="body-lg">
+            {shipping.unload_cargos}/{shipping.amount_cargos}
+          </Typography>
+        </Typography>
+      )}
 
       {showMoreLink && <Link href={getRouteShipping(shipping.id)}>{t('shippingCard.moreLink')}</Link>}
     </Card>

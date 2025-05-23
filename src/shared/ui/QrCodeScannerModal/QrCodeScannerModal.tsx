@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useRef, FC, useCallback } from 'react';
+import { useState, useLayoutEffect, useRef, FC, useCallback, cloneElement, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { IconButton } from '@mui/joy';
@@ -8,10 +8,11 @@ import { Html5Qrcode } from 'html5-qrcode';
 
 interface QrCodeScannerProps {
   className?: string;
+  childrenBtn?: ReactElement;
   onScanned?: (value: string) => void;
 }
 
-export const QrCodeScanner: FC<QrCodeScannerProps> = ({ className, onScanned }) => {
+export const QrCodeScannerModal: FC<QrCodeScannerProps> = ({ className, onScanned, childrenBtn }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [scannerStarted, setScannerStarted] = useState(false);
@@ -76,9 +77,13 @@ export const QrCodeScanner: FC<QrCodeScannerProps> = ({ className, onScanned }) 
 
   return (
     <div className={classNames('QrCodeScanner', { additional: [className] })}>
-      <IconButton onClick={startScan}>
-        <QrCode />
-      </IconButton>
+      {childrenBtn ? (
+        cloneElement(childrenBtn, { onClick: startScan })
+      ) : (
+        <IconButton onClick={startScan}>
+          <QrCode />
+        </IconButton>
+      )}
 
       {/* Модальное окно с QR-сканером */}
       <Modal
@@ -91,7 +96,7 @@ export const QrCodeScanner: FC<QrCodeScannerProps> = ({ className, onScanned }) 
             level="h4"
             mb={1}
           >
-            {t('Сканируйте QR-код')}
+            {t('scanQrCode')}
           </Typography>
           <div
             id="qr-reader"
