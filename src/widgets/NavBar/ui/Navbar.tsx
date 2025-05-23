@@ -7,6 +7,7 @@ import { LangSelector } from 'widgets/LangSelector';
 import { useTranslation } from 'react-i18next';
 import { AuthButton } from './AuthButton';
 import { GeneralPageLink } from '../GeneralPageLink';
+import { getRouteWarehouseList } from 'shared/const/router';
 
 interface NavbarProps {
   className?: string;
@@ -25,6 +26,12 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
           to="/about"
         >
           {t('navbar.about')}
+        </BaseLink>
+        <BaseLink
+          to={getRouteWarehouseList()}
+          className={cls.Link}
+        >
+          {t('navbar.warehouses')}
         </BaseLink>
         <AuthButton />
       </nav>

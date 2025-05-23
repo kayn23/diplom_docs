@@ -8,6 +8,7 @@ import { useGetWarehouse, WarehouseInfoCard } from 'entities/Worehouse';
 import { BackLink } from 'shared/ui/BackLink';
 import { Chip, Divider, Stack, Typography } from '@mui/joy';
 import { RouteInfo } from './RouteInfo';
+import { ErrorMessage } from 'shared/ui/ErrorMessage/ErrorMessage';
 
 interface WarehousePageProps {
   className?: string;
@@ -19,7 +20,7 @@ export const WarehousePage: FC<WarehousePageProps> = (props) => {
   const { className } = props;
   const { warehouseId } = useParams();
 
-  const { warehouse, getWarehouseInfo } = useGetWarehouse(warehouseId!);
+  const { warehouse, getWarehouseInfo, error } = useGetWarehouse(warehouseId!);
 
   const onChangeRouteAssigne = useCallback(() => {
     getWarehouseInfo();
@@ -51,6 +52,7 @@ export const WarehousePage: FC<WarehousePageProps> = (props) => {
           />
         </Stack>
       )}
+      {error && <ErrorMessage error={error} />}
     </AccountLayout>
   );
 };

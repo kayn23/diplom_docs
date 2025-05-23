@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { IWarehouseDetails } from '../model/types/warehouse';
 
 export const useGetWarehouse = (id: string | number) => {
-  const { request, isLoading } = useFetch();
+  const { request, isLoading, error } = useFetch();
 
   const [warehouse, setWarehouse] = useState<IWarehouseDetails | undefined>(undefined);
 
@@ -21,6 +21,7 @@ export const useGetWarehouse = (id: string | number) => {
   return {
     warehouse,
     isLoading,
+    error,
     getWarehouseInfo,
   };
 };

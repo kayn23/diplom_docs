@@ -6,7 +6,6 @@ import cls from './OrdersPage.module.scss';
 import { useTranslation } from 'react-i18next';
 import { OrderPreviewCard } from 'entities/Order';
 import { ListSkeleton } from './ListSkeleton';
-import { OrdersSidebar } from './OrdersSidebar';
 
 interface OrdersPageProps {
   className?: string;
@@ -17,7 +16,7 @@ export const OrdersPage: FC<OrdersPageProps> = () => {
   const { t } = useTranslation();
 
   return (
-    <AccountLayout sidebar={<OrdersSidebar />}>
+    <AccountLayout>
       <Typography level="h1">{t('pages.orders')}</Typography>
       {isLoading && <ListSkeleton />}
 

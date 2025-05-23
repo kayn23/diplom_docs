@@ -28,6 +28,9 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.authData = undefined;
+      state.user = undefined;
+      state.loginError = undefined;
+      state.isLoginProcess = false;
       localStorage.removeItem(USER_AUTH_DATA);
     },
   },

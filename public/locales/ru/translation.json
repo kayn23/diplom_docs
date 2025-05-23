@@ -7,10 +7,13 @@
   },
   "navbar": {
     "home": "Главная",
-    "about": "О нас"
+    "about": "О нас",
+    "warehouses": "Склады"
   },
   "errors": {
-    "fallbackTitle": "Возникла непредвиденная ошибка"
+    "fallbackTitle": "Возникла непредвиденная ошибка",
+    "Record not found": "Запись не найдена",
+    "forbidden": "Доступ запрещен"
   },
   "buttons": {
     "reload": "Перезагрузить",
@@ -127,5 +130,49 @@
   "scanQrCode": "Сканируйте QR код",
   "UploadCargoToWarehousePage": {
     "title": "Прием грузов на склад"
+  },
+  "menu": {
+    "orders": {
+      "label": "Заказы",
+      "list": "Список заказов",
+      "create": "Создать заказ"
+    },
+    "users": {
+      "label": "Пользователи",
+      "list": "Список пользователей",
+      "create": "Создать пользователя"
+    },
+    "warehouses": {
+      "label": "Склады",
+      "list": "Список складов",
+      "create": "Создать склад"
+    },
+    "shippings": {
+      "label": "Доставки",
+      "list": "Список доставок"
+    },
+    "cargos": {
+      "label": "Управсление грузами",
+      "upload": "Принять товар на склад"
+    }
+  },
+  "SidebarMenu": {
+    "sidebar": {
+      "filters":{
+        "title": "Фильтры"
+      },
+      "actions": {
+        "title": "Действия",
+        "create_order": {
+          "title": "Создать заказ"
+        },
+        "create_user": {
+          "title": "Создать пользователя"
+        }
+      },
+      "search": {
+        "title": "Поиск"
+      }
+    }
   }
 }

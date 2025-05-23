@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { IWarehouse } from '../model/types/warehouse';
-import { useFetch } from 'entities/User';
 import { useDebouncedCallback } from 'shared/lib/debounceFunction/debounceFunc';
+import { ofetch } from 'ofetch';
+import { BASE_URL } from 'shared/const/api';
 
 export type WarehouseFilterType = Partial<{
   search: string;
@@ -61,16 +62,21 @@ export const useGetWarehouseList = (initFilters: WarehouseFilterType = {}, optio
     return res;
   }, []);
 
-  const { isLoading, request } = useFetch();
+  const [isLoading, setIsLoading] = useState(false);
   const fetchWarehouses = useCallback(
     (page: number, filters: WarehouseFilterType) => {
-      request<IWarehouse[]>(`/api/warehouses?page=${page}${makeFilterString(filters)}`).then((res) => {
-        if (!res) return;
-        setWarehouses(res);
-        checkCanLoad(res);
-      });
+      setIsLoading(true);
+      ofetch<IWarehouse[]>(`${BASE_URL}/api/warehouses?page=${page}${makeFilterString(filters)}`)
+        .then((res) => {
+          if (!res) return;
+          setWarehouses(res);
+          checkCanLoad(res);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     },
-    [request, checkCanLoad, makeFilterString]
+    [checkCanLoad, makeFilterString]
   );
 
   const loadMore = useCallback(() => {

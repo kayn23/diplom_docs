@@ -48,6 +48,7 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteNotFound(),
     element: <NotFoundPage />,
   },
+
   [AppRoutes.ORDERS]: {
     path: getRouteOrders(),
     element: <OrdersPage />,
@@ -68,6 +69,7 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     element: <EditOrderPage />,
     roles: ['manager', 'admin'],
   },
+
   [AppRoutes.USER_LIST]: {
     path: getRouteUserList(),
     element: <UsersPage />,
@@ -83,6 +85,7 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     element: <UserInfoPage />,
     roles: ['manager', 'admin'],
   },
+
   [AppRoutes.WAREHOUSE_LIST]: {
     path: getRouteWarehouseList(),
     element: <WarehousesPage />,
@@ -97,6 +100,7 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     element: <CreateWarehousePage />,
     roles: ['admin'],
   },
+
   [AppRoutes.SHIPPINGS_LIST]: {
     path: getRouteShippings(),
     element: <ShippingsPage />,
@@ -107,6 +111,7 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     element: <ShippingPage />,
     roles: ['admin', 'courier'],
   },
+
   [AppRoutes.UPLOAD_CARGO_TO_WAREHOUSE]: {
     path: getRouteUploadCargo(),
     element: <UploadCargoToWarehousePage />,

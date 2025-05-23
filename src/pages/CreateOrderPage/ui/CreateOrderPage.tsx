@@ -2,7 +2,6 @@ import { useCallback, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography } from '@mui/joy';
 import { AccountLayout } from 'app/layouts/AccountLayout';
-import { CreateOrderSidebar } from './CreateOrderSidebar';
 import { IOrder } from 'entities/Order';
 import { useFetch } from 'entities/User';
 import { useNavigate } from 'react-router';
@@ -30,7 +29,7 @@ export const CreateOrderPage: FC<CreateOrderPageProps> = () => {
   }, [request, orderParams, navigation]);
 
   return (
-    <AccountLayout sidebar={<CreateOrderSidebar />}>
+    <AccountLayout>
       <Typography level="h1">{t('CreateOrderPage.title')}</Typography>
       <OrderForm
         formParams={orderParams}

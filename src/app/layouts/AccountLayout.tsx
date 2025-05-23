@@ -3,6 +3,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './AccountLayout.module.scss';
 import { IconButton, Stack } from '@mui/joy';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { SidebarMenu } from 'widgets/SidebarMenu';
 
 interface AccountLayoutProps {
   className?: string;
@@ -11,7 +12,7 @@ interface AccountLayoutProps {
 }
 
 export const AccountLayout: FC<AccountLayoutProps> = (props) => {
-  const { className, children, sidebar } = props;
+  const { className, children, sidebar = <SidebarMenu /> } = props;
   const [isShowSidebar, setIsShowSidebar] = useState(true);
   const showSidebar = () => {
     setIsShowSidebar(true);

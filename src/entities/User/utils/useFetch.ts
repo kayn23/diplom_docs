@@ -44,10 +44,17 @@ export const useFetch = <E = string>() => {
         .then((res) => res)
         .catch((err) => {
           if (err instanceof FetchError) {
-            if (err.statusCode === 401) {
-              dispatch(userActions.logout());
+            switch (err.statusCode) {
+              case 401:
+                dispatch(userActions.logout());
+                setError(err.data.errors);
+                break;
+              case 403:
+                setError('forbidden' as E);
+                break;
+              default:
+                setError(err.data.errors);
             }
-            setError(err.data.errors);
           } else {
             setError(err);
           }

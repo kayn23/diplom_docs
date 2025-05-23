@@ -2,6 +2,7 @@ export enum AppRoutes {
   MAIN = 'main',
   ABOUT = 'about',
   NOT_FOUND = 'not_found',
+
   ORDERS = 'orders',
   ORDER = 'order',
   CREATE_ORDER = 'create_order',
