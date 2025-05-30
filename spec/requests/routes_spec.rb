@@ -18,9 +18,10 @@ RSpec.describe 'Routes', type: :request do
                 schema: {
                   type: :object,
                   properties: {
-                    user_id: { type: :number }
+                    user_id: { type: :number },
+                    delivery_days: { type: :array, items: { type: :integer } }
                   },
-                  required: %w[user_id]
+                  required: %w[]
                 }
 
       context 'assignee courier' do
@@ -45,6 +46,24 @@ RSpec.describe 'Routes', type: :request do
                  required: %w[id start_warehouse_id end_warehouse_id user_id]
 
           run_test!
+        end
+      end
+
+      context 'add delivery days' do
+        response 200, 'ok' do
+          let(:route) { create(:route, :start_rc) }
+          let(:Authorization) { "Bearer #{admin_user.auth_token}" }
+          let(:update_route_params) do
+            {
+              delivery_days: [1, 3]
+            }
+          end
+          let(:id) { route.id }
+
+          run_test! do
+            route.reload
+            expect(route.delivery_days).to eq([1, 3])
+          end
         end
       end
 

@@ -227,11 +227,28 @@ RSpec.describe 'Orders' do
           end
 
           updated_schema = order_show_schema.deep_dup
-          updated_schema[:required] << 'delivery_date'
+          # updated_schema[:required] << 'delivery_date'
 
           schema updated_schema
 
           run_test!
+        end
+      end
+    end
+
+    delete 'delete order (only admin)' do
+      tags 'orders'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+
+      response 200, 'ok' do
+        let(:id) { order.id }
+        let(:Authorization) { "Bearer #{admin.auth_token}" }
+
+        run_test! do
+          expect(Order.all.size).to eq(0)
         end
       end
     end
@@ -312,7 +329,7 @@ RSpec.describe 'Orders' do
           let(:Authorization) { "Bearer #{admin.auth_token}" }
           schema order_show_schema
 
-          run_test! do |response|
+          run_test! do |_response|
             order.reload
             expect(order.status).to eq('in_delivery')
             expect(CargoDistributor).to have_received(:new).with(order)

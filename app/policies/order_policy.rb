@@ -44,6 +44,6 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def destroy?
-    show?
+    user.admin?
   end
 end

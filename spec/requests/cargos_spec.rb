@@ -62,8 +62,46 @@ RSpec.describe 'Cargos', type: :request do
 
         run_test! do |response|
           data = JSON.parse(response.body)
-          expect(data.keys.sort).to eq(%w[description dimensions id order_id qrcode size])
+          expect(data.keys.sort).to eq(%w[description dimensions id order_id qrcode size status])
           expect(data['qrcode']).to include('data:image/png;base64,')
+        end
+      end
+    end
+  end
+
+  path '/api/orders/{order_id}/cargos/{id}' do
+    delete 'delete cargo' do
+      tags 'cargos'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :order_id, in: :path, type: :string
+      parameter name: :id, in: :path
+
+      let(:Authorization) { "Bearer #{manager.auth_token}" }
+      let(:order) { create(:order, status: 'wait_payment') }
+      let(:order_id) { order.id }
+      let(:cargo) { create(:cargo, order:) }
+      let(:id) { cargo.id }
+
+      response 204, 'ok' do
+        run_test! do
+          order.reload
+          expect(order.cargos.size).to eq(0)
+          expect(order.status).to eq('created')
+          expect(order.price).to be_nil
+        end
+      end
+
+      context "can't delete cargo" do
+        let(:order) { create(:order, status: 'paid') }
+        let(:order_id) { order.id }
+
+        response 422, 'unprocessable_entity' do
+          schema Swagger::Schemas::Errors::ERROR_SCHEMA
+          run_test! do |response|
+            expect(response.body).to include("Can't delete cargo")
+          end
         end
       end
     end

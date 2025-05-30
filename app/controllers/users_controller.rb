@@ -43,6 +43,12 @@ class UsersController < ApplicationController
     render 'show'
   end
 
+  def update_roles
+    authorize @user
+    @user.update_roles(role_params[:roles])
+    render 'show'
+  end
+
   private
 
   def find_user

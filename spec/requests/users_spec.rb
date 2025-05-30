@@ -13,7 +13,7 @@ RSpec.describe 'Users' do
       parameter name: :q, in: :query, type: :object, schema: {
         type: :object,
         properties: {
-          'q[roles_name_eq]': { type: :string, description: 'Пример роль' }
+          'q[roles_name_in][]': { type: :array, items: { type: :string }, description: 'Пример роль' }
         }
       }, description: 'Параметры поиска с использованием Ransack'
 
@@ -28,7 +28,8 @@ RSpec.describe 'Users' do
       end
 
       response 200, 'correct filered response' do
-        let(:q) { { 'q[roles_name_eq]': 'admin' } }
+        let!(:courier) { create(:user, :courier) }
+        let(:q) { { 'q[roles_name_in][]' => 'courier' } }
         let!(:user) { create(:user) }
         let(:Authorization) { admin_token }
         schema type: :array, items: { type: Swagger::Schemas::Models::USER_SCHEMA }
@@ -181,6 +182,39 @@ RSpec.describe 'Users' do
         run_test! do
           user.reload
           expect(user.courier?).to be_falsy
+        end
+      end
+    end
+  end
+
+  path '/api/users/{id}/update_roles' do
+    post 'remove roles' do
+      tags 'users'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+      parameter name: :role_params, in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    roles: { type: :array, items: { type: :string } }
+                  },
+                  required: %w[roles]
+                }
+
+      let!(:user) { create(:user, :manager) }
+      let!(:admin) { create(:user, :admin) }
+
+      response 200, 'ok' do
+        let(:id) { user.id }
+        let(:Authorization) { "Bearer #{admin.auth_token}" }
+        let(:role_params) { { roles: ['courier'] } }
+
+        run_test! do
+          user.reload
+          expect(user.courier?).to be_truthy
+          expect(user.manager?).to be_falsy
         end
       end
     end

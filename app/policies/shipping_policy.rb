@@ -11,6 +11,10 @@ class ShippingPolicy < ApplicationPolicy
     user.courier? || user.high_rule?
   end
 
+  def show?
+    index?
+  end
+
   def start_load?
     user.courier? || user.admin?
   end

@@ -9,8 +9,7 @@ class CarsController < ApplicationController
 
   # GET /cars/1
   # GET /cars/1.json
-  def show
-  end
+  def show; end
 
   # POST /api/users/{id}/cars
   def create

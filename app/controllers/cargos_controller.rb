@@ -26,7 +26,12 @@ class CargosController < ApplicationController
 
   def destroy
     authorize @cargo
+    unless %w[created wait_payment].include?(@cargo.order.status)
+      return render json: { errors: "Can't delete cargo" }, status: :unprocessable_entity
+    end
+
     @cargo.destroy
+    @cargo.order.update(status: 'created', price: nil)
   end
 
   def hand_over

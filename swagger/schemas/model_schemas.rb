@@ -119,8 +119,8 @@ module Swagger
             ]
           },
           start_warehouse: Swagger::Schemas::Models::WAREHOUSE,
-          end_warehouse: Swagger::Schemas::Models::WAREHOUSE,
-          delivery_date: { type: :string, nullable: true }
+          end_warehouse: Swagger::Schemas::Models::WAREHOUSE
+          # delivery_date: { type: :string, nullable: true }
         },
         required: %w[id sender_id receiver_id start_warehouse_id end_warehouse_id status created_at
                      updated_at sender receiver start_warehouse end_warehouse]

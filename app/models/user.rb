@@ -23,6 +23,15 @@ class User < ApplicationRecord
     self.roles.delete(roles)
   end
 
+  def update_roles(role_names)
+    role_names << 'client' unless roles.include?('client')
+
+    target_roles = Role.where(name: role_names)
+
+    # Только если нашлись валидные роли
+    self.roles = target_roles
+  end
+
   def admin?
     roles.exists?(name: %w[admin])
   end

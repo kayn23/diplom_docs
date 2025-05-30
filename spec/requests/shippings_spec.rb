@@ -82,6 +82,27 @@ RSpec.describe 'Shippings', type: :request do
     end
   end
 
+  path '/api/shippings/{id}' do
+    get 'show information' do
+      tags 'shippings'
+      produces 'application/json'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :id, in: :path
+
+      response 200, 'ok' do
+        let!(:user) { create(:user, :courier) }
+        let(:shipping) { create(:shipping, assignee: user) }
+        let(:id) { shipping.id }
+        let(:Authorization) { "Bearer #{user.auth_token}" }
+
+        schema Swagger::Schemas::Models::SHIPPING
+
+        run_test!
+      end
+    end
+  end
+
   path '/api/shippings/{id}/start_load' do
     post 'start load' do
       tags 'shippings'
@@ -150,7 +171,7 @@ RSpec.describe 'Shippings', type: :request do
           end
           schema Swagger::Schemas::Models::SHIPPING
 
-          run_test! do |response|
+          run_test! do |_response|
             shipping.reload
             expect(shipping.status).to eq('delivering')
             expect(shipping.cargo_in_shippings.where(status: 'delivering').count)

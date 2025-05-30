@@ -28,25 +28,43 @@ services:
       - redis_rails_data:/data # Сохраняйте данные Redis на хосте
     command: redis-server /usr/local/etc/redis/redis.conf # Укажите путь к конфигурационному файлу
 
-  # nestjs:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: NestJS_dev
-  #   working_dir: /usr/src/app
+  # rails_app:
+  #   build: .
+  #   command: bash -c "bundle exec rails server -b 0.0.0.0 -p 3000"
   #   volumes:
-  #     - .:/usr/src/app
-  #     - node_modules:/usr/src/app/node_modules # Комментарий удален, чтобы избежать проблем с кэшированием node_modules
+  #     - .:/app
+  #     - bundle_cache:/usr/local/bundle
   #   ports:
-  #     - '3000:3000'
+  #     - "3000:3000"
   #   environment:
-  #     NODE_ENV: development
-  #     DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@small_delivery_postgresql:5432/${DB_NAME}
-  #
+  #     RAILS_ENV: development
+  #     DB_HOST: small_delivery_postgresql_rails
+  #     DB_USERNAME: ${DB_USER}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #     DB_NAME: ${DB_NAME}
+  #     REDIS_URL: redis://redis:6379/0
   #   depends_on:
-  #     - small_delivery_postgresql
-  #   command: yarn start:dev # Запуск приложения в режиме разработки
+  #     - small_delivery_postgresql_rails
+  #     - redis_rails
+  #
+  # sidekiq:
+  #   build: .
+  #   command: bundle exec sidekiq
+  #   volumes:
+  #     - .:/app
+  #     - bundle_cache:/usr/local/bundle
+  #   environment:
+  #     RAILS_ENV: development
+  #     DB_HOST: small_delivery_postgresql_rails
+  #     DB_USERNAME: ${DB_USER}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #     DB_NAME: ${DB_NAME}
+  #     REDIS_URL: redis://redis:6379/0
+  #   depends_on:
+  #     - small_delivery_postgresql_rails
+  #     - redis_rails
 
 volumes:
   small_delivery_pgsql_rails:
   redis_rails_data:
+  bundle_cache:

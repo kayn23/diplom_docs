@@ -14,7 +14,7 @@ class CarModifier
                       'Невозможно сделать машину неактивной, так как должна быть одна активная машина')
     end
 
-    active_car.update(active: false) if active_car
+    active_car&.update(active: false)
     @car.save
   end
 end

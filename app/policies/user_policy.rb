@@ -21,6 +21,10 @@ class UserPolicy < ApplicationPolicy
     user.roles.exists?(name: %w[admin])
   end
 
+  def update_roles?
+    add_roles?
+  end
+
   def remove_roles?
     user.roles.exists?(name: %w[admin])
   end

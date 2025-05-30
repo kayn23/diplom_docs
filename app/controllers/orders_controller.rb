@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   before_action :set_order, except: %i[index create]
 
@@ -76,7 +78,23 @@ class OrdersController < ApplicationController
   def hand_over
     authorize @order
 
-    render 'show'
+    # TODO: нужна реализация выдачи заказа
+    return render json: { errors: "order can't completed" }, status: :unprocessable_entity unless @order.may_completed?
+
+    if @order.complete!
+      render 'show'
+    else
+      render json: { errors: @order.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    authorize @order
+    if @order.destroy
+      render json: {}, status: :ok
+    else
+      render json: { errors: order.errors }, status: :unprocessable_entity
+    end
   end
 
   private

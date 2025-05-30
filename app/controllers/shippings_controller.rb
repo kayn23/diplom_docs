@@ -9,6 +9,12 @@ class ShippingsController < ApplicationController
                  .page(params[:page])
   end
 
+  def show
+    authorize @shipping
+
+    render 'show', status: :ok
+  end
+
   def start_load
     authorize @shipping
 
@@ -37,9 +43,7 @@ class ShippingsController < ApplicationController
     end
 
     ActiveRecord::Base.transaction do
-      @shipping.start_delivery
-
-      if @shipping.save
+      if @shipping.start_delivery!
         render 'show'
       else
         render json: { errors: @shipping.errors }, status: :unprocessable_entity
@@ -54,6 +58,6 @@ class ShippingsController < ApplicationController
   private
 
   def set_shipping
-    @shipping = Shipping.find(params[:id])
+    @shipping = Shipping.eager_load(:route, :assignee, :cargo_in_shippings).find(params[:id])
   end
 end
