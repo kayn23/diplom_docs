@@ -125,6 +125,20 @@ module Swagger
         required: %w[id sender_id receiver_id start_warehouse_id end_warehouse_id status created_at
                      updated_at sender receiver start_warehouse end_warehouse]
       }.freeze
+
+      CARGO = {
+        type: :object,
+        properties: {
+          id: { type: :number },
+          size: { type: :number, description: 'Размер (м3)' },
+          dimensions: { type: :number, description: 'Вес (кг)' },
+          description: { type: :string },
+          qrcode: { type: :string },
+          order_id: { type: :number },
+          status: { type: :string }
+        },
+        required: %w[id size dimensions qrcode order_id status]
+      }.freeze
     end
   end
 end

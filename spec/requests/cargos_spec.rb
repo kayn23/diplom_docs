@@ -49,21 +49,59 @@ RSpec.describe 'Cargos', type: :request do
                           },
                           required: %w[size dimensions] }
 
-      response 201, 'created' do
-        let(:Authorization) { "Bearer #{manager.auth_token}" }
-        let(:order_id) { order.id }
-        let(:create_cargo_params) do
-          {
-            size: 20,
-            dimensions: 0.4,
-            description: 'хрупкий груз'
-          }
+      let!(:courier) { create(:user, :courier) }
+
+      let(:warehouse_from) { create(:warehouse) }
+      let(:warehouse_to) { create(:warehouse) }
+      let!(:to_route) { create(:route, :end_rc, start_warehouse: warehouse_from) }
+      let!(:from_route) { create(:route, :start_rc, end_warehouse: warehouse_to) }
+      let(:sender) { create(:user) }
+      let(:receiver) { create(:user) }
+      let(:order) { create(:order, start_warehouse: warehouse_from, end_warehouse: warehouse_to, sender:, receiver:) }
+
+      let(:Authorization) { "Bearer #{manager.auth_token}" }
+      let(:order_id) { order.id }
+      let(:create_cargo_params) do
+        {
+          size: 5,
+          dimensions: 0.4,
+          description: 'хрупкий груз'
+        }
+      end
+
+      context 'no car' do
+        response 422, 'unprocessable_entity' do
+          run_test! do |res|
+            expect(res.body).to include('there is no active vehicle for the route')
+          end
+        end
+      end
+
+      context 'car present' do
+        before :each do
+          to_route.update(user: courier)
+          from_route.update(user: courier)
         end
 
-        run_test! do |response|
-          data = JSON.parse(response.body)
-          expect(data.keys.sort).to eq(%w[description dimensions id order_id qrcode size status])
-          expect(data['qrcode']).to include('data:image/png;base64,')
+        context 'the load does not fit' do
+          let(:create_cargo_params) do
+            {
+              size: 20,
+              dimensions: 0.4,
+              description: 'хрупкий груз'
+            }
+          end
+
+          response 422, 'unprocessable_entity' do
+            run_test! do |res|
+              expect(res.body).to include('active transport vehicle cannot accommodate cargo')
+            end
+          end
+        end
+
+        response 201, 'created' do
+          schema Swagger::Schemas::Models::CARGO
+          run_test!
         end
       end
     end

@@ -11,6 +11,17 @@ class CargosController < ApplicationController
     @cargo = @order.cargos.new create_cargo_params
     authorize @cargo
 
+    from_car = @order.start_warehouse.from_route&.user&.cars&.find_by(active: true)
+    to_car = @order.end_warehouse.to_route&.user&.cars&.find_by(active: true)
+
+    unless from_car || to_car
+      return render json: { errors: 'there is no active vehicle for the route' }, status: :unprocessable_entity
+    end
+
+    if from_car.capacity < create_cargo_params[:size] || to_car.capacity < create_cargo_params[:size]
+      return render json: { errors: 'active transport vehicle cannot accommodate cargo' }, status: :unprocessable_entity
+    end
+
     if @cargo.save
       @cargo.update(qrcode: QrcodeGeneratorService.generate_base64({
         type: 'cargo',
