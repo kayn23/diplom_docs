@@ -39,7 +39,7 @@ export const OrderStatusSelector: FC<OrderStatusSelectorProps> = (props) => {
         <Typography>{t('orders:OrdersPage.titles.status')}</Typography>
         {!isEdit && (
           <>
-            <Typography level="title-md">{t(`OrdersPage.statuses.${order.status}`)}</Typography>
+            <Typography level="title-md">{t(`statuses.${order.status}`)}</Typography>
             {/*<IconButton onClick={() => setIsEdit(true)}>
                 <Edit />
               </IconButton>*/}

@@ -12,10 +12,15 @@ type UsePaginatedApiParams<F> = {
   debounceDelay?: number;
 };
 
-function defaultMakeFilterString<F extends Record<string, unknown>>(filters: F): string {
+export function defaultMakeFilterString<F extends Record<string, unknown>>(filters: F): string {
   return Object.entries(filters)
     .filter(([, v]) => v != null)
-    .map(([key, val]) => `q[${key}_eq]=${val}`)
+    .map(([key, val]) => {
+      if (Array.isArray(val)) {
+        return val.map((item) => `q[${key}_in][]=${item}`).join('&');
+      }
+      return `q[${key}_eq]=${val}`;
+    })
     .join('&');
 }
 
@@ -32,7 +37,7 @@ export const usePaginatedApi = <T, F extends Record<string, unknown>>({
 
   const [filters, setFilters] = useState<F>(initialFilters);
 
-  const setFilter = useDebouncedCallback((key: keyof T, value: T[keyof T]) => {
+  const setFilter = useDebouncedCallback((key: keyof F, value: F[keyof F]) => {
     setFilters((prev) => ({
       ...prev,
       [key]: value,

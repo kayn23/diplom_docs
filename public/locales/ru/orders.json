@@ -39,6 +39,8 @@
     }
   },
   "OrdersPage": {
+    "title": "Список заказов",
+     
     "sidebar": {
       "filters":{
         "title": "Фильтры"
@@ -69,15 +71,15 @@
       "price":"Цена",
       "cargos": "Грузы"
 
-    },
-    "statuses": {
-      "created": "Новый",
-      "wait_payment": "Ожидает оплаты",
-      "paid": "Оплачен",
-      "in_delivery": "Доставляется",
-      "awaiting_pickup": "Ожидает выдачи",
-      "completed": "Завершен"
     }
+  },
+  "statuses": {
+    "created": "Новый",
+    "wait_payment": "Ожидает оплаты",
+    "paid": "Оплачен",
+    "in_delivery": "Доставляется",
+    "awaiting_pickup": "Ожидает выдачи",
+    "completed": "Завершен"
   },
   "CreateOrderPage": {
     "title": "Создать заказ"
@@ -103,5 +105,20 @@
   },
   "OrderFinishButton": {
     "btnText": "Выдать заказ"
+  },
+  "OrderFilters": {
+    "status": {
+      "placeholder": "Статус заказа"
+    },
+    "sender": {
+      "placeholder": "Вы отправитель"
+    },
+    "receiver": {
+      "placeholder": "Вы получатель"
+    },
+    "id": {
+      "placeholder": "Введите заказа",
+      "label": "Номер заказа"
+    }
   }
 }

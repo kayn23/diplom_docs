@@ -1,3 +1,4 @@
+export { getUserId } from './model/selectors/getUserId.ts';
 export { useHightRole } from './lib/useHightRole.ts';
 export { useCourier } from './lib/useCourier.ts';
 export { useManager } from './lib/useManager.ts';
