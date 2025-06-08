@@ -2,10 +2,10 @@ import { Stack, Typography } from '@mui/joy';
 import { useCallback, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { IMenuGroup } from '../model/menu';
 import { BaseLink } from 'shared/ui/BaseLink/BaseLink';
 import { useSelector } from 'react-redux';
 import { getUserRoles, Roles } from 'entities/User';
+import { IMenuGroup } from 'shared/types/IMenuGroup';
 
 interface MenuGroupProps {
   className?: string;
