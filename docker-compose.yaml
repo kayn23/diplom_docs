@@ -14,6 +14,13 @@ services:
     volumes:
       - redis_data:/data
 
+  adminer_prod:
+    image: adminer
+    container_name: prod_adminer
+    restart: always
+    ports:
+      - 6080:8080
+
   rails:
     build:
       context: ./backend
@@ -25,6 +32,7 @@ services:
       RAILS_ENV: production
       DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
       REDIS_URL: redis://redis:6379/1
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     command: bundle exec puma -C config/puma.rb
     expose:
       - "3000"
@@ -41,6 +49,7 @@ services:
       RAILS_ENV: production
       DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
       REDIS_URL: redis://redis:6379/1
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
 
   frontend:
     build:
