@@ -1,4 +1,4 @@
-import { IAuthData } from 'entities/User';
+import { IAuthRequest } from 'entities/User';
 import { $Fetch, createFetchError, FetchContext, ofetch } from 'ofetch';
 import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/ThestAsyncThunk';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -21,12 +21,13 @@ describe('loginUserAsync', () => {
   });
 
   it('success login', async () => {
-    const authValue: IAuthData = {
-      id: 1,
-      email: 'test@email',
+    const authValue: IAuthRequest = {
+      user: {
+        id: 1,
+        email: 'test@email',
+        roles: ['client'],
+      },
       token: 'test_token',
-      role: 'client',
-      roleId: 1,
     };
 
     mockedFetch.mockResolvedValue(authValue);
