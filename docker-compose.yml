@@ -1,8 +1,10 @@
 version: '3.8'
 
 services:
-  nginx:
-    image: nginx:latest
+  nginx_test:
+    # image: nginx:latest
+    build:
+      context: .
     container_name: react-spa-nginx
     ports:
       - "80:80"
@@ -11,7 +13,7 @@ services:
       - ./dist:/usr/share/nginx/html
     restart: always
 
-  frontend:
-    build:
-      context: .
-    container_name: frontend_app
+  # frontend:
+  #   build:
+  #     context: .
+  #   container_name: frontend_app
