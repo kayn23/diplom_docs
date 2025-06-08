@@ -1,0 +1,70 @@
+version: "3.8"
+services:
+  small_delivery_postgresql_rails:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME} # Замените на имя вашей базы данных
+    ports:
+      - "5433:5432" # Открываем порт для доступа извне
+    volumes:
+      - small_delivery_pgsql_rails:/var/lib/postgresql/data
+
+  adminer_rails:
+    image: adminer
+    container_name: Adminer_main
+    restart: always
+    ports:
+      - 6080:8080
+
+  redis_rails:
+    image: redis:7.0 # Используйте актуальную версию Redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf # Подключите конфигурационный файл
+      - redis_rails_data:/data # Сохраняйте данные Redis на хосте
+    command: redis-server /usr/local/etc/redis/redis.conf # Укажите путь к конфигурационному файлу
+
+  # rails_app:
+  #   build: .
+  #   command: bash -c "bundle exec rails server -b 0.0.0.0 -p 3000"
+  #   volumes:
+  #     - .:/app
+  #     - bundle_cache:/usr/local/bundle
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     RAILS_ENV: development
+  #     DB_HOST: small_delivery_postgresql_rails
+  #     DB_USERNAME: ${DB_USER}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #     DB_NAME: ${DB_NAME}
+  #     REDIS_URL: redis://redis:6379/0
+  #   depends_on:
+  #     - small_delivery_postgresql_rails
+  #     - redis_rails
+  #
+  # sidekiq:
+  #   build: .
+  #   command: bundle exec sidekiq
+  #   volumes:
+  #     - .:/app
+  #     - bundle_cache:/usr/local/bundle
+  #   environment:
+  #     RAILS_ENV: development
+  #     DB_HOST: small_delivery_postgresql_rails
+  #     DB_USERNAME: ${DB_USER}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #     DB_NAME: ${DB_NAME}
+  #     REDIS_URL: redis://redis:6379/0
+  #   depends_on:
+  #     - small_delivery_postgresql_rails
+  #     - redis_rails
+
+volumes:
+  small_delivery_pgsql_rails:
+  redis_rails_data:
+  bundle_cache:
