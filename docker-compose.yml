@@ -11,3 +11,7 @@ services:
       - ./dist:/usr/share/nginx/html
     restart: always
 
+  frontend:
+    build:
+      context: .
+    container_name: frontend_app
