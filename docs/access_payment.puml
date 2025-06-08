@@ -1,0 +1,318 @@
+@startuml
+actor client
+participant client_app
+participant server
+database DB
+== Запрос списка заказов ==
+client -> client_app: "Запрос списка заказов"
+activate client_app
+client_app -> server: "Запрос списка заказов"
+activate server
+server -> DB: "Запрос списка заказов"
+activate DB
+DB --> server: "Список заказов"
+deactivate DB
+server --> client_app: "Список заказов"
+deactivate server
+client_app --> client: "Список заказов"
+deactivate client_app
+== Запрос информации о заказе ==
+client -> client_app: "Запрос информации о заказе"
+activate client_app
+client_app -> server: "Запрос информации о заказе"
+activate server
+server -> DB: "Запрос информации о заказе"
+activate DB
+DB --> server: "Информация о заказе"
+deactivate DB
+server --> client_app: "Информация о заказе"
+deactivate server
+client_app --> client: "Информация о заказе"
+deactivate client_app
+
+@enduml
+
+@startuml
+actor manager
+participant client_app
+participant server
+database DB
+== Добавление груза в заказ ==
+manager -> client_app: "Запрос на прием груза"
+activate client_app
+client_app -> server: "Запрос на прием груза"
+activate server
+server -> server: "Генерация уникального QR-кода для груза"
+activate DB
+server -> DB: "Запрос на создание записи о грузе"
+DB --> server: "Данные по грузу"
+deactivate DB
+server --> client_app: "Данные по грузу"
+deactivate server
+deactivate client_app
+
+== Проведение платежа ==
+manager -> client_app: "Запрос подтверждения платежа"
+activate client_app
+client_app -> server: "Запрос на подтверждение платежа"
+activate server
+server -> DB: "Изменение статуса платежа"
+activate DB
+DB --> server: "Данные по заказу"
+server --> client_app: "Результат подтверждения"
+server -> DB: "Запрос информации о маршрутах, доставщиках, автомобилях"
+DB --> server: "Данные о маршрутах, доставщиках, автомобилях"
+server -> server: "Распределение грузов по доставкам"
+server -> DB: "Сохранение информации по доставкам"
+deactivate DB
+server --> client_app: "Результат подтверждения"
+deactivate server
+client_app --> manager: "Результат подтверждения"
+deactivate client_app
+
+@enduml
+
+@startuml
+actor courier
+participant client_app
+participant server
+database DB
+
+== Запрос списка автомобилей ==
+courier -> client_app: "Запрос списка автомобилей"
+activate client_app
+client_app -> server: "Запрос списка автомобилей"
+activate server
+server -> DB: "Запрос списка автомобилей"
+activate DB
+DB --> server: "Список автомобилей"
+deactivate DB
+server --> client_app: "Список автомобилей"
+deactivate server
+client_app --> courier: "Список автомобилей"
+deactivate client_app
+
+== Добавление информации об автомобиле ==
+courier -> client_app: "Информация об автомобиле"
+activate client_app
+client_app -> server: "Запрос на добавление информации об автомобиле"
+activate server
+server -> DB: "Запрос автомобилей пользователя"
+activate DB
+DB --> server: "Данные по автомобилям"
+server -> DB: "Запрос на изменение статуса всех автомобилей на неактивные"
+server -> DB: "Запрос на создание записи о новом автомобиле"
+DB --> server: "Данные по автомобилю"
+deactivate DB
+server -> client_app: "Данные по автомобилю"
+deactivate server
+client_app --> courier: "Данные по автомобилю"
+deactivate client_app
+
+== Запрос данных по доставкам ==
+courier -> client_app: "Запрос списка доставок"
+activate client_app
+client_app -> server: "Запрос списка доставок"
+activate server
+server -> DB: "Запрос списка доставок"
+activate DB
+DB --> server: "Список доставок"
+deactivate DB
+server --> client_app: "Список доставок"
+deactivate server
+client_app --> courier: "Список доставок"
+courier -> client_app: "Запрос информации о доставке"
+client_app -> server: "Запрос информации о доставке"
+activate server
+server -> DB: "Запрос информации о доставке"
+activate DB
+DB --> server: "Информация о доставке"
+deactivate DB
+server --> client_app: "Информация о доставке"
+deactivate server
+client_app --> courier: "Информация о доставке"
+deactivate client_app
+
+== Начало загрузки грузов ==
+courier -> client_app: "Запрос начала загрузки"
+activate client_app
+client_app -> server: "Запрос начала загрузки"
+activate server
+server -> DB: "Запрос изменения статуса доставки"
+activate DB
+DB --> server: "Данные по доставке"
+deactivate DB
+server --> courier: "Данные по доставке"
+deactivate server
+deactivate client_app
+
+== Загрузка грузов ==
+courier -> client_app: "Добавление груза в доставку"
+activate client_app
+client_app --> courier: "Диалог сканирования кодов"
+courier -> client_app: "Информация о грузе"
+client_app -> server: "Запрос добавления груза в доставку"
+activate server
+server -> DB: "Запрос изменения статуса груза"
+activate DB
+DB --> server: "Данные по грузу"
+deactivate DB
+server --> client_app: "Данные по грузу"
+deactivate server
+client_app --> courier: "Данные по грузу"
+deactivate client_app
+
+== Завершение загрузки товаров ==
+courier -> client_app: "Запрос завершения загрузки"
+activate client_app
+client_app -> server: "Запрос завершения загрузки"
+activate server
+server -> DB: "Запрос изменения статуса доставки"
+activate DB
+DB --> server: "Данные по доставке"
+deactivate DB
+server --> client_app: "Данные по доставке"
+deactivate server
+client_app --> courier: "Данные по доставке"
+deactivate client_app
+@enduml
+
+@startuml
+actor manager
+participant client_app
+participant server
+database DB
+manager -> client_app: "Запрос на прием груза на склад"
+activate client_app
+client_app -> server: "Запрос на прием груза на склад"
+activate server
+server -> DB: "Запрос на изменение статуса груза"
+activate DB
+DB --> server: "Данные по грузу"
+server -> DB: "Запрос данных по доставке и грузам в доставке"
+DB --> server: "Данные по доставке и грузам в доставке"
+deactivate DB
+server -> server: "Проверка статуса доставки всех грузов"
+alt "Все грузы в доставке"
+    server -> DB: "Запрос на изменение статуса доставки"
+    activate DB
+    DB --> server: "Данные по доставке"
+    deactivate DB
+else "Не все грузы в доставке"
+    server -> DB: "Запрос на изменение статуса груза"
+    activate DB
+    DB --> server: "Данные по грузу"
+    deactivate DB
+end
+
+server -> DB: "Запрос данных по заказу и грузам в заказе"
+activate DB
+DB --> server: "Данные по заказу"
+deactivate DB
+server -> server: "Проверка статуса грузов в заказе"
+alt "Все грузы в заказе"
+    server -> DB: "Запрос на изменение статуса заказа"
+    activate DB
+    DB --> server: "Данные по заказу"
+    deactivate DB
+else "Не все грузы в заказе"
+    server -> DB: "Запрос на изменение статуса груза"
+    activate DB
+    DB --> server: "Данные по грузу"
+    deactivate DB
+end
+
+server --> client_app: "Данные по грузу"
+deactivate server
+client_app --> manager: "Данные по грузу"
+deactivate client_app
+@enduml
+
+@startuml
+actor admin
+participant client_app
+participant server
+database DB
+== Запрос списка пользователей ==
+admin -> client_app: "Запрос списка пользователей"
+activate client_app
+client_app -> server: "Запрос списка пользователей"
+activate server
+server -> DB: "Запрос списка пользователей"
+activate DB
+DB --> server: "Список пользователей"
+deactivate DB
+server --> client_app: "Список пользователей"
+deactivate server
+client_app --> admin: "Список пользователей"
+deactivate client_app
+
+== Создание нового пользователя ==
+admin -> client_app: "Запрос создания нового пользователя"
+activate client_app
+client_app -> server: "Запрос создания нового пользователя"
+activate server
+server -> DB: "Запрос на создание нового пользователя"
+activate DB
+DB --> server: "Данные по новому пользователю"
+deactivate DB
+server --> client_app: "Данные по новому пользователю"
+deactivate server
+client_app --> admin: "Данные по новому пользователю"
+deactivate client_app
+
+== Изменение ролей пользователя ==
+admin -> client_app: "Изменение ролей пользователя"
+activate client_app
+client_app -> server: "Запрос изменения ролей пользователя"
+activate server
+server -> DB: "Запрос на изменение ролей пользователя"
+activate DB
+DB --> server: "Данные по пользователю"
+deactivate DB
+server --> client_app: "Данные по пользователю"
+deactivate server
+client_app --> admin: "Данные по пользователю"
+deactivate client_app
+
+== Создание склада ==
+admin -> client_app: "Запрос создания склада"
+activate client_app
+client_app -> server: "Запрос создания склада"
+activate server
+server -> DB: "Запрос на создание записи о складе"
+activate DB
+DB --> server: "Данные по складу"
+deactivate DB
+server -> DB: "Запрос на создание записей о маршрутах"
+DB --> server: "Данные по маршрутам"
+server --> client_app: "Данные по складу, маршрутам"
+deactivate server
+client_app --> admin: "Данные по складу, маршрутам"
+
+admin -> client_app: "Информация по ответственным за маршруты, данные о днях перевозки"
+client_app -> server: "Запрос на обновление данных по маршрутам"
+activate server
+server -> DB: "Запрос на обновление данных по маршрутам"
+activate DB
+DB --> server: "Данные по маршрутам"
+deactivate DB
+server --> client_app: "Данные по маршрутам"
+deactivate server
+client_app --> admin: "Данные по маршрутам"
+deactivate client_app
+
+== Изменение склада ==
+admin -> client_app: "Запрос изменения склада"
+activate client_app
+client_app -> server: "Запрос изменения склада"
+activate server
+server -> DB: "Запрос на изменение данных склада"
+activate DB
+DB --> server: "Обновленные данные по складу"
+deactivate DB
+server --> client_app: "Обновленные данные по складу"
+deactivate server
+client_app --> admin: "Обновленные данные по складу"
+deactivate client_app
+@enduml

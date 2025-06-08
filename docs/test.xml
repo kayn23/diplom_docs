@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <table name="roles">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="name" type="text" unique="true" />
+        <column name="created_at" type="timestamp(3)" />
+        <column name="updated_at" type="timestamp(3)" />
+    </table>
+
+    <table name="users">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="email" type="text" unique="true" />
+        <column name="password" type="text" />
+        <column name="first_name" type="text" />
+        <column name="second_name" type="text" />
+        <column name="last_name" type="text" />
+        <column name="document_number" type="text" />
+        <column name="created_at" type="timestamp(3)" />
+        <column name="updated_at" type="timestamp(3)" />
+    </table>
+
+    <table name="user_roles">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="user_id" type="integer" />
+        <column name="role_id" type="integer" />
+        <column name="created_at" type="timestamp(3)" />
+        <column name="updated_at" type="timestamp(3)" />
+        <foreignKey column="user_id" references="users(id)" onDelete="RESTRICT"/>
+        <foreignKey column="role_id" references="roles(id)" onDelete="RESTRICT"/>
+        <unique columns="user_id, role_id"/>
+    </table>
+
+    <table name="cities">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="name" type="text" unique="true" />
+        <column name="created_at" type="timestamp(3)" />
+        <column name="updated_at" type="timestamp(3)" />
+    </table>
+
+    <table name="stocks">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="name" type="text" />
+        <column name="address" type="text" />
+        <column name="city_id" type="integer" />
+        <column name="created_at" type="timestamp(3)" />
+        <column name="updated_at" type="timestamp(3)" />
+        <foreignKey column="city_id" references="cities(id)" onDelete="RESTRICT"/>
+    </table>
+
+    <table name="invoice_statuses">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="name" type="text" unique="true" />
+        <column name="created_at" type="timestamp(3)" />
+        <column name="updated_at" type="timestamp(3)" />
+    </table>
+
+    <table name="invoices">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="sender_id" type="integer" />
+        <column name="recipient_id" type="integer" />
+        <column name="end_point_id" type="integer" />
+        <column name="status_id" type="integer" />
+        <column name="price" type="numeric(10, 2)" />
+        <column name="created_at" type="timestamp(3)" />
+        <column name="updated_at" type="timestamp(3)" />
+        <foreignKey column="sender_id" references="users(id)" onDelete="RESTRICT"/>
+        <foreignKey column="recipient_id" references="users(id)" onDelete="RESTRICT"/>
+        <foreignKey column="end_point_id" references="stocks(id)" onDelete="RESTRICT"/>
+        <foreignKey column="status_id" references="invoice_statuses(id)" onDelete="RESTRICT"/>
+    </table>
+
+    <table name="cargos">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="invoice_id" type="integer" />
+        <column name="description" type="text" />
+        <column name="qr_code" type="text" />
+        <column name="weight" type="numeric(10, 2)" />
+        <column name="volume" type="numeric(10, 2)" />
+        <column name="created_at" type="timestamp(3)" />
+        <column name="updated_at" type="timestamp(3)" />
+        <foreignKey column="invoice_id" references="invoices(id)" onDelete="RESTRICT"/>
+    </table>
+
+    <table name="delivery_routes">
+        <column name="id" type="serial" primaryKey="true" />
+        <column name="start_point_id" type="integer"/>
+        <column name="end_point_id" type="integer"/>
+        <column name="assigne_id" type="integer"/>
+        <column name="created_at" type="timestamp(3)"/>
+        <column name="updated_at" type="timestamp(3)"/>
+        <foreignKey column='assigne_id' references='users(id)' onDelete='RESTRICT'/>
+    </table>
+</database>
