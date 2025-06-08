@@ -2,7 +2,7 @@ FROM ruby:3.1
 
 WORKDIR /app
 
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN apt-get update -qq && apt-get install -y postgresql-client
 
 COPY Gemfile Gemfile.lock ./
 
