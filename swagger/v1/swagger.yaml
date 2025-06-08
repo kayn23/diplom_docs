@@ -112,86 +112,6 @@ paths:
                     - type: string
                 required:
                 - errors
-  "/api/shippings/{shipping_id}/cargo_in_shippings/{id}/upload":
-    post:
-      summary: upload
-      tags:
-      - cargo_in_shipping
-      security:
-      - Bearer: {}
-      parameters:
-      - name: shipping_id
-        in: path
-        required: true
-      - name: id
-        in: path
-        required: true
-      responses:
-        '403':
-          description: forbidden
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    oneOf:
-                    - type: object
-                      additionalProperties:
-                        oneOf:
-                        - type: string
-                        - type: array
-                          items:
-                            type: string
-                    - type: string
-                required:
-                - errors
-        '200':
-          description: ok
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: number
-                  cargo_id:
-                    type: number
-                  shipping_id:
-                    type: number
-                required:
-                - id
-                - cargo_id
-                - shipping_id
-        '422':
-          description: not correct params
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    oneOf:
-                    - type: object
-                      additionalProperties:
-                        oneOf:
-                        - type: string
-                        - type: array
-                          items:
-                            type: string
-                    - type: string
-                required:
-                - errors
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                warehouse_id:
-                  type: number
-              required:
-              - warehouse_id
   "/api/orders/{order_id}/cargos":
     get:
       summary: get cargos
@@ -225,8 +145,38 @@ paths:
         schema:
           type: string
       responses:
+        '422':
+          description: unprocessable_entity
         '201':
           description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  size:
+                    type: number
+                    description: Размер (м3)
+                  dimensions:
+                    type: number
+                    description: Вес (кг)
+                  description:
+                    type: string
+                  qrcode:
+                    type: string
+                  order_id:
+                    type: number
+                  status:
+                    type: string
+                required:
+                - id
+                - size
+                - dimensions
+                - qrcode
+                - order_id
+                - status
       requestBody:
         content:
           application/json:
@@ -242,6 +192,44 @@ paths:
               required:
               - size
               - dimensions
+  "/api/orders/{order_id}/cargos/{id}":
+    delete:
+      summary: delete cargo
+      tags:
+      - cargos
+      security:
+      - Bearer: {}
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+      responses:
+        '204':
+          description: ok
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    oneOf:
+                    - type: object
+                      additionalProperties:
+                        oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                    - type: string
+                required:
+                - errors
   "/api/orders/{order_id}/cargos/{id}/hand_over":
     post:
       summary: update status to issued
@@ -564,9 +552,6 @@ paths:
                     - address
                     - city_id
                     - active
-                  delivery_date:
-                    type: string
-                    nullable: true
                 required:
                 - id
                 - sender_id
@@ -733,7 +718,6 @@ paths:
                 - receiver
                 - start_warehouse
                 - end_warehouse
-                - delivery_date
     delete:
       summary: delete order (only admin)
       tags:
