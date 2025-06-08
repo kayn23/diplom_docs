@@ -7,7 +7,7 @@ import { useDebouncedCallback } from 'shared/lib/debounceFunction/debounceFunc';
 
 interface UserFullNameFinderProps {
   className?: string;
-  emailOrFullName: string | undefined;
+  emailOrFullName?: string | undefined;
   onChange: (value: string) => void;
 }
 

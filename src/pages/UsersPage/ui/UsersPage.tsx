@@ -32,10 +32,7 @@ export const UsersPage: FC<UsersPageProps> = (props) => {
             selectedRole={userFilters.roles}
             setSelectedRole={(val) => setUserFilter('roles', val)}
           />
-          <UserFullNameFinder
-            emailOrFullName={userFilters.email_or_full_name_cont}
-            onChange={(val) => setUserFilter('email_or_full_name_cont', val)}
-          />
+          <UserFullNameFinder onChange={(val) => setUserFilter('email_or_full_name_cont', val)} />
         </Stack>
         <Divider />
         <Stack

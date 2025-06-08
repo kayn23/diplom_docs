@@ -52,6 +52,9 @@ export const useFetch = <E = string>() => {
               case 403:
                 setError('forbidden' as E);
                 break;
+              case 422:
+                setError(err.data.errors);
+                break;
               default:
                 setError(err.data.errors);
             }

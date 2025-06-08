@@ -77,7 +77,7 @@ export const UserInfoPage: FC<UserInfoPageProps> = (props) => {
             />
           </Stack>
         )}
-        {user && <CarListWidget userId={user.id} />}
+        {user && user.roles.includes('courier') && <CarListWidget userId={user.id} />}
       </Stack>
     </AccountLayout>
   );

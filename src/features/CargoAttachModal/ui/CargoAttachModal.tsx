@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, DialogTitle, Modal, ModalClose, ModalDialog } from '@mui/joy';
-import { Add } from '@mui/icons-material';
+import { Button, DialogTitle, Modal, ModalClose, ModalDialog, Typography } from '@mui/joy';
+import { Add, Warning } from '@mui/icons-material';
 import { CargoForm } from 'entities/Cargo';
 import { ICargo } from 'entities/Cargo/types/type';
 import { useFetch } from 'entities/User';
@@ -36,7 +36,7 @@ export const CargoAttachModal: FC<CargoAttachModalProps> = (props) => {
     }
   }, [open, inputRef]);
 
-  const { request, isLoading } = useFetch();
+  const { request, isLoading, error } = useFetch();
   const onSave = useCallback(() => {
     request(`/api/orders/${orderId}/cargos`, {
       method: 'post',
@@ -69,6 +69,14 @@ export const CargoAttachModal: FC<CargoAttachModalProps> = (props) => {
         <ModalDialog>
           <ModalClose />
           <DialogTitle>{t('attachCargoModal.title')}</DialogTitle>
+          {error && (
+            <Typography
+              color="danger"
+              startDecorator={<Warning />}
+            >
+              {t(`errors.${error}`)}
+            </Typography>
+          )}
           {open && (
             <CargoForm
               cargo={cargo}

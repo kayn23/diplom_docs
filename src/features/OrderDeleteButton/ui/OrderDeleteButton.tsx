@@ -37,7 +37,7 @@ export const OrderDeleteButton: FC<OrderDeleteButtonProps> = memo((props) => {
 
   return (
     <div className={classNames('OrderDeleteButton', { additional: [className] })}>
-      {!['completed', 'canceled'].includes(order.status) && (
+      {['created', 'wait_payment', 'paid'].includes(order.status) && (
         <Button
           onClick={onDeleteClick}
           startDecorator={<Warning />}

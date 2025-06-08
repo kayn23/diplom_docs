@@ -1,6 +1,6 @@
 import { Ref, useCallback, type FC, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormControl, FormLabel, Input } from '@mui/joy';
+import { FormControl, FormLabel, Input, Stack } from '@mui/joy';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ICargo } from 'entities/Cargo/types/type';
 import { NumericFormatAdapter } from 'shared/ui/NumericFormatAdapter';
@@ -29,8 +29,11 @@ export const CargoForm: FC<CargoFormProps> = (props) => {
   );
 
   return (
-    <div className={classNames('cargo_form', { additional: [className] })}>
-      <FormControl id="size">
+    <Stack
+      gap="8px"
+      className={classNames('cargo_form', { additional: [className] })}
+    >
+      <FormControl id="dimensions">
         <FormLabel>{t('createForm.size.label')}</FormLabel>
         <Input
           slotProps={{
@@ -72,6 +75,6 @@ export const CargoForm: FC<CargoFormProps> = (props) => {
         />
       </FormControl>
       {children}
-    </div>
+    </Stack>
   );
 };

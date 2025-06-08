@@ -1,10 +1,10 @@
 {
   "createForm": {
-    "size": {
-      "label": "Вес",
+    "dimensions": {
+      "label": "Вес (кг)",
       "placeholder": "0.00"
     },
-    "dimensions": {
+    "size": {
       "label": "Размер (м3)",
       "placeholder": "0.00"
     },
@@ -37,5 +37,8 @@
       "title": "Выдача груза {{id}}",
       "okBtn": "Выдать"
     }
+  },
+  "errors": {
+    "there is no active vehicle for the route": "На маршруте нет активного транспорта"
   }
 }
