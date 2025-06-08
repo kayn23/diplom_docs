@@ -1,4 +1,3 @@
-import { Roles } from 'entities/User';
 import {
   getRouteCreateOrder,
   getRouteCreateUser,
@@ -9,18 +8,7 @@ import {
   getRouteUserList,
   getRouteWarehouseList,
 } from 'shared/const/router';
-
-export interface IMenuItem {
-  label: string;
-  link: string;
-  roles?: Roles[];
-}
-
-export interface IMenuGroup {
-  label: string;
-  childrens: IMenuItem[];
-  roles?: Roles[];
-}
+import { IMenuGroup } from 'shared/types/IMenuGroup';
 
 export type MenuType = IMenuGroup[];
 
