@@ -1,0 +1,56 @@
+@use './reset';
+@use './variables/nord.css';
+@use './variables/globals';
+@use './theme/light';
+@use './theme/dark';
+@use './common';
+
+body {
+  font: var(--font-m);
+  background: var(--bg-main);
+  color: var(--color-primary);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.transition-15 {
+  transition: all 0.15s;
+}
+
+.font {
+  &-m {
+    font: var(--font-m);
+  }
+
+  &-l {
+    font: var(--font-l);
+  }
+}
+
+button,
+a {
+  outline: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: solid var(--bg-active-element);
+}
+
+.noselect {
+  user-select: none;
+}
+
+.mb-main {
+  margin-bottom: 8px;
+}

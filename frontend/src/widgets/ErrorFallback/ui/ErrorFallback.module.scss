@@ -1,0 +1,13 @@
+.ErrorFallback {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font: var(--font-l);
+  background: var(--bg-main);
+  color: var(--color-primary);
+  min-height: 100vh;
+  justify-content: start;
+}

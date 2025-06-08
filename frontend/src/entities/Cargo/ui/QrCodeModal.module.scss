@@ -1,0 +1,11 @@
+.img {
+  width: 90%;
+  height: 90%;
+  min-width: 500px;
+}
+
+@media (width < 600px) {
+  .img {
+    min-width: 250px;
+  }
+}

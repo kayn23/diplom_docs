@@ -1,0 +1,82 @@
+{
+  "create_users": {
+    "title": "Создание пользователя"
+  },
+  "user_form": {
+    "saveBtn": "Сохранить",
+    "email": {
+      "label": "Введите email*",
+      "placeholder": "Email"
+    },
+    "password": {
+      "label": "Введите пароль",
+      "placeholder": "Пароль"
+    },
+    "firstname": {
+      "label": "Введите имя",
+      "placeholder": "Имя"
+    },
+    "surname": {
+      "label": "Введите отчество",
+      "placeholder": "Отчество"
+    },
+    "lastname": {
+      "label": "Ввделите фамилию",
+      "placeholder": "Фамилия"
+    },
+    "document_number": {
+      "label": "Введите паспортные данные",
+      "placeholder": "Серия номер документа"
+    }
+  },
+  "showPage": {
+    "title": "Информация о пользователе id: {{userId}}"
+  },
+  "UserAddRole": {
+    "button": "Добавить роль",
+    "modal": {
+      "title": "Добавить пользователю роль",
+      "saveBtn": "Сохранить"
+    }
+  },
+  "roles":{
+    "client": "Клиент",
+    "admin": "Админ",
+    "courier": "Курьер",
+    "manager": "Менеджер"
+  },
+  "UsersPage": {
+    "title": "Список пользователей"
+  },
+  "filters": {
+    "roles": {
+      "title": "Фильтровать по роли",
+      "placeholder": "Выберите роли"
+    },
+    "email_or_full_name": {
+      "title": "Поиск по email или фио",
+      "placeholder": "введите email или ФИО"
+    }
+  },
+  "UserEditModal": {
+    "openBtn": "Изменить данные",
+    "title": "Изменить информацаю о пользователе",
+    "saveBtn": "Сохранить"
+  },
+  "previewCard": {
+    "email": {
+      "title": "Email"
+    },
+    "FIO": {
+      "title": "ФИО"
+    }, 
+    "roles": {
+      "title": "Роли"
+    },
+    "documentNumber": {
+      "title": "Номер документа"
+    },
+    "showMore": "Подробнее"
+
+  }
+}

@@ -1,0 +1,17 @@
+.OrderPage {
+  position: relative;
+}
+
+.userCard {
+  flex-grow: 1;
+}
+
+.warehouseCard {
+  flex-grow: 1;
+}
+
+.cargosSummary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

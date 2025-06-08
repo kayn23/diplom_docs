@@ -1,0 +1,44 @@
+{
+  "createForm": {
+    "dimensions": {
+      "label": "Вес (кг)",
+      "placeholder": "0.00"
+    },
+    "size": {
+      "label": "Размер (м3)",
+      "placeholder": "0.00"
+    },
+    "description": {
+      "label": "Описание",
+      "placeholder": ""
+    }
+  },
+  "attachCargoModal": {
+    "addButton": "Добавить груз",
+    "title": "Добавить груз",
+    "saveButton": "Добавить"
+  },
+  "card": {
+    "size":"Габариты (м3)",
+    "dimensions":"Вес (кг)",
+    "description":"Описание",
+    "id": "Id",
+    "qrcode": "",
+    "deleteButton": "Удалить",
+    "status": "Статус"
+  },
+  "status": {
+    "accepted": "Принят",
+    "issued": "Выдан"
+  },
+  "IssuedCargoButton": {
+    "issuedBtn": "Выдать груз",
+    "modal": {
+      "title": "Выдача груза {{id}}",
+      "okBtn": "Выдать"
+    }
+  },
+  "errors": {
+    "there is no active vehicle for the route": "На маршруте нет активного транспорта"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "order": {
+    "fields": {
+      "id": {
+        "title": "ID"
+      },
+      "price": {
+        "title":"Цена",
+        "null": "Не указана"
+      },
+      "status": {
+        "title": "Статус"
+      },
+      "delivery_date": {
+        "title": "Ожидаемая дата доставки",
+        "null": "Неизвестна"
+      }
+    },
+    "form": {
+      "startWarehouse": {
+        "title": "Начальный склад",
+        "placeholder": "Выберите начальный склад"
+      },
+      "endWarehouse": {
+        "title": "Конечный склад",
+        "placeholder": "Выберите конечный склад"
+      },
+      "sender": {
+        "title": "Отправитель",
+        "placeholder": "Выберите отправителя"
+      },
+      "receiver": {
+        "title": "Получатель",
+        "placeholder": "Выберите получателя"
+      },
+      "btn": {
+        "save": "Сохранить"
+      }
+    }
+  },
+  "OrdersPage": {
+    "title": "Список заказов",
+     
+    "sidebar": {
+      "filters":{
+        "title": "Фильтры"
+      },
+      "actions": {
+        "title": "Действия",
+        "create_order": {
+          "title": "Создать заказ"
+        },
+        "create_user": {
+          "title": "Создать пользователя"
+        }
+      },
+      "search": {
+        "title": "Поиск"
+      }
+    },
+    "titles": {
+      "users": "Пользователи",
+      "sender": "Отправитель",
+      "order": "Информация по заказу",
+      "receiver": "Получатель",
+      "warehouses": "Маршрут",
+      "start_warehouse": "Начальный склад",
+      "end_warehouse": "Конечный склад",
+      "ID": "ID",
+      "status": "Статус",
+      "price":"Цена",
+      "cargos": "Грузы"
+
+    }
+  },
+  "statuses": {
+    "created": "Новый",
+    "wait_payment": "Ожидает оплаты",
+    "paid": "Оплачен",
+    "in_delivery": "Доставляется",
+    "awaiting_pickup": "Ожидает выдачи",
+    "completed": "Завершен"
+  },
+  "CreateOrderPage": {
+    "title": "Создать заказ"
+  }, 
+  "EditOrderPage": {
+    "title": "Редактировать заказ {{orderId}}"
+  },
+  "paymentButton": "Провести оплату",
+  "orderCargosApprove": {
+    "approveBtn": "Поддтвердить грузы",
+    "modalTitle": "Поддтвердить грузы?",
+    "saveBtn": "Подтвердить?",
+    "priceInputLabel": "Укажите цену"
+  },
+  "deleteButton": {
+    "btn": "Удалить заказ",
+    "modal": {
+      "cancelBtn": "Отменить",
+      "applyBtn": "Точно удалить!!!",
+      "disclaimer": "Удаление заказа происходит безвозвратно. После удаления вся информация, связанная с данным заказом, будет удалена. <br/>Вы точно хотите удалить заказ?",
+      "title": "Вы точно хотите удалить заказ {{orderId}}"
+    }
+  },
+  "OrderFinishButton": {
+    "btnText": "Выдать заказ"
+  },
+  "OrderFilters": {
+    "status": {
+      "placeholder": "Статус заказа"
+    },
+    "sender": {
+      "placeholder": "Вы отправитель"
+    },
+    "receiver": {
+      "placeholder": "Вы получатель"
+    },
+    "id": {
+      "placeholder": "Введите заказа",
+      "label": "Номер заказа"
+    }
+  }
+}

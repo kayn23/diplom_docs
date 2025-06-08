@@ -1,0 +1,49 @@
+{
+  "WarehousePage": {
+    "title": "Информация по складу {{warehouseId}}",
+    "routesTitle": "Информация по маршрутам",
+    "to_route": {
+      "title": "РЦ -> Склад",
+      "warning": "Не назначен ответственный за перевозку на склад!",
+      "not_found": "Маршрут на склад отсутствует, обратитесь к администратору!"
+    },
+    "from_route": {
+      "title": "Склад -> РЦ",
+      "warning": "Не назначен ответственный за перевозку со склад!",
+      "not_found": "Маршрут со склад отсутствует, обратитесь к администратору!"
+    }
+  },
+  "WarehousesPage": {
+    "title": "Склады",
+    "filter_placeholder": "Введиет для поиска",
+    "not_found": "Ничего не найдено",
+    "filter": {
+      "problem_warehouse": "Показать склады с ошибками"
+    }
+  },
+  "RouteAssigneUser": {
+    "button": "Назначить ответственного",
+    "modal": {
+      "title": "Назначить ответственного",
+      "saveBtn": "Сохранить"
+    }
+  },
+  "CreateWarehousePage": {
+    "title": "Создать склад",
+    "saveBtn": "Сохранить"
+  },
+  "warehouseForm": {
+    "name": {
+      "label": "Название",
+      "placeholder": "Введите название"
+    },
+    "address": {
+      "label": "Адрес",
+      "placeholder": "Введите адрес"
+    },
+    "city": {
+      "label": "Город",
+      "placeholder": "Выберите город"
+    }
+  }
+}

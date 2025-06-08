@@ -1,0 +1,15 @@
+:root {
+  // background
+  --bg-main: var(--nord6);
+  --bg-secondary: var(--nord5);
+  --bg-accent: var(--nord4);
+  --bg-overlay: rgba(216 222 233 / 50%);
+  --bg-active-element: var(--nord4-5);
+
+  // color
+  --color-primary: var(--nord0);
+  --color-secondary: var(--nord1);
+  --color-shadow: var(--nord3);
+  --color-active: var(--nord4);
+  --color-underline: var(--nord4-5);
+}

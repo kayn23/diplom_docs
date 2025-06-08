@@ -1,0 +1,178 @@
+{
+  "test": "test word",
+  "pages": {
+    "mainPage": "Главная страница",
+    "notFoundPage": "Страница не найдена",
+    "orders": "Заказы"
+  },
+  "navbar": {
+    "home": "Главная",
+    "about": "О нас",
+    "warehouses": "Склады"
+  },
+  "errors": {
+    "fallbackTitle": "Возникла непредвиденная ошибка",
+    "Record not found": "Запись не найдена",
+    "forbidden": "Доступ запрещен"
+  },
+  "buttons": {
+    "reload": "Перезагрузить",
+    "showMore": "Подробнее",
+    "saveBtn": "Сохранить"
+  },
+  "entities": {
+    "counter": {
+      "increment": "Прибавить",
+      "decrement": "Убавить"
+    }
+  },
+  "features": {
+    "LoginModal": {
+      "header": "Войти",
+      "button": "Войти",
+      "errors": {
+        "400": "Неправильный логин или пароль",
+        "401": "Неправильный логин или пароль"
+      },
+      "form": {
+        "email": "Email",
+        "password": "Пароль"
+      }
+    },
+    "AuthButton": {
+      "button": "Войти",
+      "exit-button": "Выйти"
+    }
+  },
+  "httpCodeMessage": {
+    "401": "Вы не авторизированы",
+    "403": "У вас нет прав доступа",
+    "404": "Ресурс не найден",
+    "unknown": "Неизвестная ошибка"
+  },
+  "orders": {
+    "statuses": {
+      "created": "Новый",
+      "wait_payment": "Ожидает оплаты",
+      "paid": "Оплачен",
+      "in_delivery": "Доставляется",
+      "awaiting_pickup": "Ожидает выдачи",
+      "completed": "Завершен"
+    },
+    "previewCard": {
+      "sender": {
+        "title": "Отправитель",
+        "email": "Email"
+      },
+      "receiver": {
+        "title":"Получатель",
+        "not_present": "Получатель не определен",
+        "email": "Email"
+      },
+      "status": {
+        "title": "Статус"
+      },
+      "moreLink": "Подробнее"
+    }
+  },
+  "users": {
+    "roles":{
+      "client": "Клиент",
+      "admin": "Админ",
+      "courier": "Курьер",
+      "manager": "Менеджер"
+    },
+    "selectAutocomplete": {
+      "placeholder": "Выберите пользователя",
+      "sender": "Выберите отправителя",
+      "receiver": "Выберите получателя"
+    }
+  },
+  "warehouses": {
+    "previewCard": {
+      "name": {
+        "title": "Название"
+      },
+      "address": {
+        "title": "Адрес"
+      },
+      "city": {
+        "title": "Город"
+      }
+    },
+    "selectAutocomplete": {
+      "placeholder": "Выберите склад"
+    }
+  },
+  "weekdays": {
+    "mon": "Понедельник",
+    "tue": "Вторник",
+    "wed": "Среда",
+    "thu": "Четверг",
+    "fri": "Пятница",
+    "sat": "Суббота",
+    "sun": "Воскресенье"
+  },
+  "routeInfoCard": {
+    "deliveryDay": {
+      "title": "Дни доставки",
+      "noDeliveryDay": "Не назначены дни доставки",
+      "assigneeDeliveryDay": "Изменить"
+    },
+    "showUserInfo": "Посмотреть информацию по ответственному",
+    "SetWeekdayModal": {
+      "title": "Выберите дни доставки"
+    }
+  },
+  "citySelector": {
+    "placeholder": "Выберите город"
+  },
+  "scanQrCode": "Сканируйте QR код",
+  "UploadCargoToWarehousePage": {
+    "title": "Прием грузов на склад"
+  },
+  "menu": {
+    "orders": {
+      "label": "Заказы",
+      "list": "Список заказов",
+      "create": "Создать заказ"
+    },
+    "users": {
+      "label": "Пользователи",
+      "list": "Список пользователей",
+      "create": "Создать пользователя"
+    },
+    "warehouses": {
+      "label": "Склады",
+      "list": "Список складов",
+      "create": "Создать склад"
+    },
+    "shippings": {
+      "label": "Доставки",
+      "list": "Список доставок"
+    },
+    "cargos": {
+      "label": "Управсление грузами",
+      "upload": "Принять товар на склад"
+    }
+  },
+  "SidebarMenu": {
+    "sidebar": {
+      "filters":{
+        "title": "Фильтры"
+      },
+      "actions": {
+        "title": "Действия",
+        "create_order": {
+          "title": "Создать заказ"
+        },
+        "create_user": {
+          "title": "Создать пользователя"
+        }
+      },
+      "search": {
+        "title": "Поиск"
+      }
+    }
+  }
+}
