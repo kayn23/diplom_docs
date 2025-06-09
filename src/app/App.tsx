@@ -23,9 +23,9 @@ function App() {
       <Suspense fallback="">
         <Stack className={classNames('app')}>
           <Navbar />
-          <div className="content">
+          <Stack className="content">
             <AppRouter />
-          </div>
+          </Stack>
         </Stack>
       </Suspense>
     </>

@@ -28,12 +28,6 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
       >
         <GeneralPageLink />
         <BaseLink
-          className={cls.link}
-          to="/about"
-        >
-          {t('navbar.about')}
-        </BaseLink>
-        <BaseLink
           to={getRouteWarehouseList()}
           className={cls.Link}
         >
@@ -47,17 +41,35 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
   const hideLangSelector = false;
 
   return (
-    <Stack
-      direction={{ xs: 'row' }}
-      className={classNames(cls.Navbar, { additional: [className] })}
-    >
-      <Logo />
-      <nav className={classNames(cls.navigation)}>
-        {hideLangSelector && <LangSelector />}
-        <ThemeSelector />
-        {!isMobile && link}
-        <AuthButton />
-      </nav>
-    </Stack>
+    <>
+      <Stack
+        direction={{ xs: 'row' }}
+        className={classNames(cls.Navbar, { additional: [className] })}
+      >
+        <Logo
+          textSize={isMobile ? '20px' : undefined}
+          imgSize={isMobile ? '40px' : undefined}
+        />
+        <nav className={classNames(cls.navigation)}>
+          {hideLangSelector && <LangSelector />}
+          <ThemeSelector />
+          {!isMobile && link}
+          <AuthButton />
+        </nav>
+      </Stack>
+
+      {isMobile && (
+        <Stack
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="flex-end"
+          className={cls.subMenu}
+          gap="4px"
+          sx={{ padding: '5px 10px' }}
+        >
+          {link}
+        </Stack>
+      )}
+    </>
   );
 });
