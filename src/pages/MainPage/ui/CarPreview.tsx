@@ -58,7 +58,10 @@ export const CarPreview: FC<CarPreviewProps> = (props) => {
       justifyContent="space-around"
     >
       {deliveryTypeList.map((car) => (
-        <Stack alignItems="center">
+        <Stack
+          alignItems="center"
+          key={car.id}
+        >
           <img
             src={car.img}
             width="180px"

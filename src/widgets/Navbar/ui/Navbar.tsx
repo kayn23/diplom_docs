@@ -53,8 +53,12 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
         <nav className={classNames(cls.navigation)}>
           {hideLangSelector && <LangSelector />}
           <ThemeSelector />
-          {!isMobile && link}
-          <AuthButton />
+          {!isMobile && (
+            <>
+              {link}
+              <AuthButton />
+            </>
+          )}
         </nav>
       </Stack>
 
@@ -62,12 +66,13 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
         <Stack
           direction="row"
           justifyContent="flex-end"
-          alignItems="flex-end"
+          alignItems="center"
           className={cls.subMenu}
           gap="4px"
           sx={{ padding: '5px 10px' }}
         >
           {link}
+          <AuthButton />
         </Stack>
       )}
     </>
