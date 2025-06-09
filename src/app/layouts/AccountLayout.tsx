@@ -1,4 +1,4 @@
-import { useState, type FC, type ReactNode } from 'react';
+import { useMemo, useState, type FC, type ReactNode } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './AccountLayout.module.scss';
 import { IconButton, Stack } from '@mui/joy';
@@ -23,19 +23,21 @@ export const AccountLayout: FC<AccountLayoutProps> = (props) => {
     setIsShowSidebar(false);
   };
 
+  const direction = useMemo(() => (isMobile ? 'column' : 'row'), [isMobile]);
+
   return (
     <Stack
       className={classNames(cls.AccountLayout, { additional: [className] })}
-      direction={{ xs: 'column', sm: 'row' }}
+      direction={direction}
     >
       {sidebar && (
         <Stack
-          direction={{ sm: 'row' }}
+          direction={direction}
           sx={{
             borderRadius: '8px',
             position: { xs: isShowSidebar ? 'absolute' : 'relative', sm: 'relative' },
             maxWidth: { xs: '100%', sm: '20%' },
-            zIndex: 1,
+            zIndex: 10,
             left: 0,
             right: 0,
             top: 0,

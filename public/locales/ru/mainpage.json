@@ -1,0 +1,18 @@
+{
+  "appName": "SmallDelivery",
+  "firstBlock": {
+    "label": "Наша цель максимально быстрая и качественная доставка грузов!"
+  },
+  "carPreviewBlock": {
+    "label": "Обширный парк техники!"
+  },
+  "mapBlock": {
+    "label": "Большая зона покрытия"
+  },
+  "friendlyBlock": {
+    "label": "Помогать вам - наша работа!"
+  },
+  "footer": {
+    "feat": "Design by kayn23"
+  }
+}

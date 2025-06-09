@@ -10,6 +10,7 @@ import { GeneralPageLink } from '../GeneralPageLink';
 import { getRouteWarehouseList } from 'shared/const/router';
 import { Stack } from '@mui/joy';
 import { useMobile } from 'shared/lib/useMobile/useMobile';
+import { Logo } from 'features/Logo';
 
 interface NavbarProps {
   className?: string;
@@ -27,12 +28,6 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
       >
         <GeneralPageLink />
         <BaseLink
-          className={cls.link}
-          to="/about"
-        >
-          {t('navbar.about')}
-        </BaseLink>
-        <BaseLink
           to={getRouteWarehouseList()}
           className={cls.Link}
         >
@@ -43,17 +38,43 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
     [t]
   );
 
+  const hideLangSelector = false;
+
   return (
-    <Stack
-      direction={{ xs: 'row' }}
-      className={classNames(cls.Navbar, { additional: [className] })}
-    >
-      <nav className={classNames(cls.navigation)}>
-        <LangSelector />
-        <ThemeSelector />
-        {!isMobile && link}
-        <AuthButton />
-      </nav>
-    </Stack>
+    <>
+      <Stack
+        direction={{ xs: 'row' }}
+        className={classNames(cls.Navbar, { additional: [className] })}
+      >
+        <Logo
+          textSize={isMobile ? '20px' : undefined}
+          imgSize={isMobile ? '40px' : undefined}
+        />
+        <nav className={classNames(cls.navigation)}>
+          {hideLangSelector && <LangSelector />}
+          <ThemeSelector />
+          {!isMobile && (
+            <>
+              {link}
+              <AuthButton />
+            </>
+          )}
+        </nav>
+      </Stack>
+
+      {isMobile && (
+        <Stack
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="center"
+          className={cls.subMenu}
+          gap="4px"
+          sx={{ padding: '5px 10px' }}
+        >
+          {link}
+          <AuthButton />
+        </Stack>
+      )}
+    </>
   );
 });
