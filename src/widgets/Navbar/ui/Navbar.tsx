@@ -10,6 +10,7 @@ import { GeneralPageLink } from '../GeneralPageLink';
 import { getRouteWarehouseList } from 'shared/const/router';
 import { Stack } from '@mui/joy';
 import { useMobile } from 'shared/lib/useMobile/useMobile';
+import { Logo } from 'features/Logo';
 
 interface NavbarProps {
   className?: string;
@@ -43,13 +44,16 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
     [t]
   );
 
+  const hideLangSelector = false;
+
   return (
     <Stack
       direction={{ xs: 'row' }}
       className={classNames(cls.Navbar, { additional: [className] })}
     >
+      <Logo />
       <nav className={classNames(cls.navigation)}>
-        <LangSelector />
+        {hideLangSelector && <LangSelector />}
         <ThemeSelector />
         {!isMobile && link}
         <AuthButton />
