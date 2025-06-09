@@ -61,7 +61,10 @@ const MainPage: FC = () => {
         >
           {t('mapBlock.label')}
         </Typography>
-        <img src={mapImg} />
+        <img
+          src={mapImg}
+          className={cls.mapImg}
+        />
       </Stack>
       <Stack
         className={cls.friendlyBlock}
